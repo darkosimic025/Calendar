@@ -7,7 +7,7 @@ interface BadgeProps {
   children: ReactNode;
 }
 
-const StyledBadge = styled.span<BadgeProps>`
+export const StyledBadge = styled.span<BadgeProps>`
   inline-size: 100%;
   display: flex;
   margin-bottom: 3px;

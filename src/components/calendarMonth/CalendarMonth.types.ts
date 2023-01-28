@@ -1,7 +1,11 @@
 export namespace Event {
+  export type EventDatesProps = {
+    start: string;
+    end: string;
+  };
   export type EventProps = {
     name: string;
-    eventDates: string[];
+    eventDates: EventDatesProps[];
   };
   export type CalendarEventProps = {
     name: string;

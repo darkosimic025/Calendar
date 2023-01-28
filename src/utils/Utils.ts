@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Calendar } from "../components/calendar/Calendar.types";
+import { Calendar } from "../components/calendarMonth/CalendarMonth.types";
 
 // This function takes in a month object and returns an array of weeks
 export const splitIntoWeeks = (month: Calendar.MonthProps) => {
@@ -26,7 +26,7 @@ export const splitIntoWeeks = (month: Calendar.MonthProps) => {
     calendarMonth.push(calWeek);
   });
   // Return the calendar month array
-  
+
   return calendarMonth;
 };
 
@@ -57,7 +57,7 @@ export const getDates = (month: number, year: number) => {
       [iteratedDate.format("ddd").toLowerCase()]: {
         indexDay: iteratedDate.format("D"),
         isCurrentMonth: false,
-        date: iteratedDate.format('MM/DD/YYYY'),
+        date: iteratedDate.format("MM/DD/YYYY"),
         events: [],
         position: null,
       },
@@ -71,7 +71,7 @@ export const getDates = (month: number, year: number) => {
       [iteratedDate.format("ddd").toLowerCase()]: {
         indexDay: iteratedDate.format("D"),
         isCurrentMonth: true,
-        date: iteratedDate.format('MM/DD/YYYY'),
+        date: iteratedDate.format("MM/DD/YYYY"),
         events: [],
         position: null,
       },
@@ -91,7 +91,7 @@ export const getDates = (month: number, year: number) => {
       [iteratedDate.format("ddd").toLowerCase()]: {
         indexDay: iteratedDate.format("D"),
         isCurrentMonth: false,
-        date: iteratedDate.format('MM/DD/YYYY'),
+        date: iteratedDate.format("MM/DD/YYYY"),
         events: [],
         position: null,
       },
@@ -106,3 +106,24 @@ export const getDates = (month: number, year: number) => {
   ];
 };
 
+export const getWeekDays = (day: number, month: number, year: number) => {
+  const date = dayjs()
+    .date(day)
+    .month(month - 1)
+    .year(year);
+  const weekDays = [];
+  for (let i = 0; i < 7; i++) {
+    const currentDate = date.clone().subtract(date.day() - i, "day");
+    weekDays.push({
+      [currentDate.format("MM/DD/YYYY")]: {
+        indexDay: currentDate.format("D"),
+        dayOfWeek: currentDate.format("dddd"),
+        date: currentDate.format("MM/DD/YYYY"),
+        events: [],
+      },
+    });
+  }
+  return weekDays;
+};
+
+console.log(getWeekDays(1, 1, 2023));

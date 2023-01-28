@@ -1,45 +1,49 @@
 import React from "react";
-import { Calendar } from "./components/calendar/Calendar";
-import { Event } from "./components/calendar/Calendar.types";
-
+import { Event } from "./components/calendarMonth/CalendarMonth.types";
+import { Calendar } from "./components/calendarMonth/CalendarMonth";
+import { CalendarWeek } from "./components/calendarWeek/CalendarWeek";
+import { CalendarWeekTimeline } from "./components/calendarWeek/CalendarWeekTimeline";
 
 const events = [
   {
     name: "DevOps",
-    eventDates: ["01/02/2023"],
-    location: 'Belgrade'
+    //MM/DD/YYYY HH:mm:ss A
+    eventDates: [
+      { start: "01/22/2023 06:30:00 AM", end: "01/22/2023 10:59:00 AM" },
+      { start: "01/24/2023 08:00:00 AM", end: "01/24/2023 11:00:00 AM" },
+    ],
+    location: "Belgrade",
   },
   {
     name: "Java",
-    eventDates: ["12/01/2023", "17/01/2023", "18/01/2023", "19/01/2023"],
-    location: 'Belgrade'
+    //MM/DD/YYYY HH:mm:ss A
+    eventDates: [
+      { start: "01/22/2023 07:30:00 PM", end: "01/22/2023 9:59:00 PM" },
+      { start: "01/24/2023 08:00:00 AM", end: "01/24/2023 10:00:00 AM" },
+    ],
+    location: "Belgrade",
   },
   {
-    name: "Angular Conference",
-    eventDates: ["01/26/2023", "01/27/2023", "01/28/2023", "01/29/2023"],
-    location: 'Belgrade'
-  },
-  {
-    name: "Vue",
-    eventDates: ["01/26/2023", "01/27/2023", "01/28/2023", "01/29/2023"],
-    location: 'Belgrade'
-  },
-  {
-    name: "DevOps",
-    eventDates: ["01/26/2023", "01/27/2023"],
-    location: 'Belgrade'
-  },
-  {
-    name: "React",
-    eventDates: ["01/06/2023", "01/07/2023", "01/08/2023", "01/09/2023"],
-    location: 'Belgrade'
+    name: "Java",
+    //MM/DD/YYYY HH:mm:ss A
+    eventDates: [
+      { start: "01/22/2023 07:30:00 PM", end: "01/22/2023 9:59:00 PM" },
+      { start: "01/24/2023 08:00:00 AM", end: "01/24/2023 10:00:00 AM" },
+    ],
+    location: "Belgrade",
   },
 ];
 
-const onEventClick = (e : Event.EventProps) => console.log(e)
+const onEventClick = (e: Event.EventProps) => console.log(e);
 
 function App() {
-  return <Calendar onEventClick={onEventClick} events={events} />;
+  // return <Calendar onEventClick={onEventClick} events={events} />;
+  return (
+    <div style={{ display: "flex" }}>
+      <CalendarWeekTimeline />
+      <CalendarWeek events={events}/>
+    </div>
+  );
 }
 
 export default App;

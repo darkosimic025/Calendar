@@ -1,7 +1,7 @@
 import { FC, forwardRef, useRef, useState } from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
-import { Calendar } from "../calendar/Calendar.types";
+import { Calendar } from "./CalendarMonth.types";
 import Badge from "../UI/badge/Badge";
 import { EmptyButton } from "../UI/button/EmptyButon";
 import Modal from "../UI/modal/Modal";

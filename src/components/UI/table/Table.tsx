@@ -1,5 +1,6 @@
 import React, { forwardRef, Key, ReactElement, ReactNode, Ref, RefObject } from "react";
 import styled from "styled-components";
+import { CalendarWeekTimeline } from "../../calendarWeek/CalendarWeekTimeline";
 
 interface TableProps<T> {
   id: string;
@@ -49,7 +50,8 @@ const TableComponent = <T extends { [key: string]: any }>(
   { items, columns, id }: TableProps<T>,
   ref: Ref<HTMLTableElement>
 ) => {
-  return (
+  return (<>
+   
     <StyledTable ref={ref} id={id}>
       <StyledThead>
         <tr>
@@ -59,6 +61,7 @@ const TableComponent = <T extends { [key: string]: any }>(
         </tr>
       </StyledThead>
       <StyledTbody>
+        
         {items.map((item, index) => (
           <StyledTr key={index}>
             {columns.map((column, index) => (
@@ -70,6 +73,7 @@ const TableComponent = <T extends { [key: string]: any }>(
         ))}
       </StyledTbody>
     </StyledTable>
+    </>
   );
 };
 
