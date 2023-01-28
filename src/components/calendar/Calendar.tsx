@@ -16,7 +16,7 @@ import Select from "../UI/select/Select";
 
 export interface CalendarEvents {
   events: Event.EventProps[];
-  onEventClick: (e: any) => any;
+  onEventClick: (e: Event.EventProps) => void;
 }
 
 export const Calendar = ({ events, onEventClick }: CalendarEvents) => {

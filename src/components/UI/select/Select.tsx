@@ -11,20 +11,18 @@ type Option = {
 
 type SelectProps = {
   options: Option[];
-  onChange: (e: any) => void;
-  value: any;
+  onChange: (e: Option['value']) => void;
+  value: Option['value'];
   className?: string;
 };
 
 const SelectContainer = styled.div`
-  /* styles for select container */
   position: relative;
   width: 100%;
   cursor: pointer;
 `;
 
 const SelectControl = styled.div<{ isOpen: boolean }>`
-  /* styles for select control */
   display: flex;
   align-items: center;
   padding: 2px 12px;
@@ -44,7 +42,6 @@ const SelectControl = styled.div<{ isOpen: boolean }>`
 `;
 
 const SelectOption = styled.div<{ isSelected: boolean }>`
-  /* styles for select option */
   padding: 8px 12px;
   cursor: pointer;
   background-color: #fff;
@@ -59,7 +56,6 @@ const SelectOption = styled.div<{ isSelected: boolean }>`
 `;
 
 const SelectOptions = styled(motion.div)<{ isOpen: boolean }>`
-  /* styles for select options */
   position: absolute;
   top: 100%;
   left: 0;
@@ -85,7 +81,7 @@ const Select: React.FC<SelectProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(value);
 
-  const handleChange = (val: any) => {
+  const handleChange = (val: number | string) => {
     setSelected(val);
     onChange(val);
     setIsOpen(false);

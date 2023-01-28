@@ -67,7 +67,7 @@ const Modal: React.FC<Props> = forwardRef(
               borderRadius: "5px",
               boxShadow:
                 "0px 4px 4px 0px rgba(60,64,67,0.3),0px 8px 12px 6px rgba(60,64,67,0.15)",
-            
+
               width: "300px",
               position: "absolute",
               ...modalStyle,

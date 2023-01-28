@@ -1,5 +1,6 @@
 import React from "react";
 import { Calendar } from "./components/calendar/Calendar";
+import { Event } from "./components/calendar/Calendar.types";
 
 
 const events = [
@@ -35,7 +36,7 @@ const events = [
   },
 ];
 
-const onEventClick = (e: any) => console.log(e)
+const onEventClick = (e : Event.EventProps) => console.log(e)
 
 function App() {
   return <Calendar onEventClick={onEventClick} events={events} />;

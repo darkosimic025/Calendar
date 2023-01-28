@@ -61,8 +61,8 @@ const TableComponent = <T extends { [key: string]: any }>(
       <StyledTbody>
         {items.map((item, index) => (
           <StyledTr key={index}>
-            {columns.map((column) => (
-              <StyledTd key={column.field}>
+            {columns.map((column, index) => (
+              <StyledTd key={index}>
                 {column.render({ ...item[column.field] })}
               </StyledTd>
             ))}

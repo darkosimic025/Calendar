@@ -1,4 +1,9 @@
-![Alt text](Capture.PNG)
+![Alt text](Calendar.PNG)
+
+- Month view: ✔️
+- Week view: ❌
+- Day view: ❌
+
 ### `npm start`
 
 Runs the app in the development mode.\
