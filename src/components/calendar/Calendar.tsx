@@ -6,54 +6,27 @@ import {
   Calendar as CalendarProps,
   Event,
 } from "./Calendar.types";
-import Table from "../UI/grid/Grid";
-import { Button } from "../UI/button/Button";
-import { ButtonIcon } from "../UI/button/IconButton";
-import Select from "../UI/select/Select";
 import dayjs from "dayjs";
 import CalendarMonthCell from "../calendarCell/CalendarMonthCell";
 import { FlexGroup, FlexItem } from "../UI/flex/Flex";
 import { EmptyButton } from "../UI/button/EmptyButon";
+import Table from "../UI/table/Table";
+import { ButtonIcon } from "../UI/button/IconButton";
+import Select from "../UI/select/Select";
 
-export const Calendar = () => {
+export interface CalendarEvents {
+  events: Event.EventProps[];
+  onEventClick: (e: any) => any;
+}
+
+export const Calendar = ({ events, onEventClick }: CalendarEvents) => {
   const [selectedYear, setSelectedYear] = useState<number>(dayjs().year());
   const [selectedMonth, setSelectedMonth] = useState<number>(
     dayjs().month() + 1
   );
   const [disableNextMonth, setDisableNextMonth] = useState<boolean>(false);
-  const [tableDimensions, setTableDimensions] = useState({
-    width: 0,
-    height: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    top: 0,
-    x: 0,
-    y: 0,
-  });
   const tableRef = useRef<HTMLTableElement>(null);
-  const handleElementResized = () => {
-    setTableDimensions({
-      width: tableRef!.current!.getBoundingClientRect().width,
-      height: tableRef!.current!.getBoundingClientRect().height,
-      bottom: tableRef!.current!.getBoundingClientRect().bottom,
-      left: tableRef!.current!.getBoundingClientRect().left,
-      right: tableRef!.current!.getBoundingClientRect().right,
-      top: tableRef!.current!.getBoundingClientRect().top,
-      x: tableRef!.current!.getBoundingClientRect().x,
-      y: tableRef!.current!.getBoundingClientRect().y,
-    });
-  };
 
-  const resizeObserver = new ResizeObserver(handleElementResized);
-
-  useEffect(() => {
-    resizeObserver.observe(tableRef!.current!);
-
-    return function cleanup() {
-      resizeObserver.disconnect();
-    };
-  }, []);
   const generateColumns = useCallback(() => {
     // This function generates an array of columns for the calendar
     const columns = Object.entries(CalendarEnums.WeekDays).map(
@@ -72,10 +45,10 @@ export const Calendar = () => {
         render: ({ ...args }: CalendarProps.DayProps) => {
           return (
             <CalendarMonthCell
+              onEventClick={onEventClick}
               ref={tableRef}
-              // tableDimensions={tableDimensions}
-              time={args.time}
               date={args.date}
+              indexDay={args.indexDay}
               events={args.events}
               isCurrentMonth={args.isCurrentMonth}
             />
@@ -95,25 +68,14 @@ export const Calendar = () => {
         // Iterating over the events
         events.forEach((event: any) => {
           //Iterating over the dates of the event
-          event.dateEvent.forEach((date: any, index: any) => {
+          event.eventDates.forEach((date: any, index: any) => {
             //Checking if the day is same as the date
-            if (dayjs(date).isSame(dayjs(day.time))) {
+            if (dayjs(date).isSame(dayjs(day.date))) {
               // Pushing the events to the day
               day.events.push({
-                name: event.event,
-                color: event.color,
-                type: event.eventType,
-                techHorizontal: event.techHorizontale,
-                location: event.location,
-                startDate: event.dateEvent[0],
-                endDate: event.dateEvent[event.dateEvent.length - 1],
+                name: event.name,
                 indexDay: index + 1,
-                positionDay:
-                  index === 0
-                    ? Event.DayPosition.First
-                    : index === event.dateEvent.length - 1
-                    ? Event.DayPosition.Last
-                    : Event.DayPosition.Middle,
+                ...event
               });
             }
           });
@@ -182,103 +144,12 @@ export const Calendar = () => {
     .format("MMM")
     .toString()} - ${selectedYear}`;
 
-  const events: any = [
-    {
-      event: "DevOps",
-      dateEvent: ["01/02/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "DevOps",
-      dateEvent: ["01/02/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "DevOps",
-      dateEvent: ["01/02/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "Java",
-      dateEvent: ["12/01/2023", "17/01/2023", "18/01/2023", "19/01/2023"],
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "Angular Conference",
-      dateEvent: ["01/26/2023", "01/27/2023", "01/28/2023", "01/29/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "Vue",
-      dateEvent: ["01/26/2023", "01/27/2023", "01/28/2023", "01/29/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "DevOps",
-      dateEvent: ["01/26/2023", "01/27/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "React",
-      dateEvent: ["01/06/2023", "01/07/2023", "01/08/2023", "01/09/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "React",
-      dateEvent: ["01/06/2023", "01/07/2023", "01/08/2023", "01/09/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "React",
-      dateEvent: ["01/06/2023", "01/07/2023", "01/08/2023", "01/09/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-    {
-      event: "React",
-      dateEvent: ["01/06/2023", "01/07/2023", "01/08/2023", "01/09/2023"],
-
-      eventType: "Conference",
-      location: "Belgrade",
-      techHorizontale: "React",
-    },
-  ];
-
   return (
     <>
       <FlexGroup direction="row" justifyContent="flex-end" alignItems="center">
-      
-        <FlexGroup  alignItems="center">
+        <FlexGroup alignItems="center">
           <FlexItem>
-            <EmptyButton  size="small" onClick={handleToday}>
+            <EmptyButton size="small" onClick={handleToday}>
               Today
             </EmptyButton>
           </FlexItem>
@@ -299,8 +170,8 @@ export const Calendar = () => {
           <FlexItem>
             <Select
               value={selectedYear}
-              onChange={(e) => {
-                setSelectedYear(parseFloat(e.toString()));
+              onChange={(year) => {
+                setSelectedYear(parseFloat(year.toString()));
               }}
               options={generateYears()}
             />
@@ -308,8 +179,8 @@ export const Calendar = () => {
           <FlexItem>
             <Select
               value={selectedMonth}
-              onChange={(e) => {
-                setSelectedMonth(parseFloat(e.toString()));
+              onChange={(month) => {
+                setSelectedMonth(parseFloat(month.toString()));
               }}
               options={generateMonths()}
             />
@@ -326,8 +197,8 @@ export const Calendar = () => {
         <Table
           ref={tableRef}
           id="Table"
-          columns={generateColumns() as any}
-          items={generateItems()}
+          columns={generateColumns()}
+          items={generateItems() as any}
         />
       </motion.div>
     </>

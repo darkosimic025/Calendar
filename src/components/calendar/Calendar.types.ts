@@ -1,40 +1,21 @@
 export namespace Event {
-  export type WorkshopProps = {
-    name: string;
-    price: string;
-  };
-  export type TicketsProps = {
-    name: string;
-    price: string;
-  };
-  export enum DayPosition {
-    First = "First",
-    Middle = "Middle",
-    Last = "Last",
-  }
   export type EventProps = {
     name: string;
-    type: string;
-    location: string;
-    techHorizontal: string;
-    startDate: string;
-    endDate: string;
-    participationTypes?: string[];
-    workshops?: WorkshopProps[];
-    tickets?: TicketsProps[];
-    color: string;
+    eventDates: string[];
+  };
+  export type CalendarEventProps = {
+    name: string;
     indexDay: number;
-    positionDay: DayPosition;
   };
 }
 
 export namespace Calendar {
   export type DaysShort = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
   export type DayProps = {
-    date: string;
-    events: Event.EventProps[];
+    indexDay: string;
+    events: Event.CalendarEventProps[];
     isCurrentMonth: boolean;
-    time: string;
+    date: string;
   };
   export type WeekDayProps = {
     [key in DaysShort]?: DayProps;
@@ -46,11 +27,10 @@ export namespace Calendar {
 
 export namespace CalendarUI {
   export type CalendarCell = {
-    id?: any;
-    date: string;
+    indexDay: string;
     events: Event.EventProps[];
     isCurrentMonth: boolean;
-    time: string;
+    date: string;
   };
 }
 

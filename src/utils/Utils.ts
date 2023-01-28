@@ -55,9 +55,9 @@ export const getDates = (month: number, year: number) => {
     iteratedDate = iteratedDate.subtract(1, "day");
     finalsOfPrevMonth.push({
       [iteratedDate.format("ddd").toLowerCase()]: {
-        date: iteratedDate.format("D"),
+        indexDay: iteratedDate.format("D"),
         isCurrentMonth: false,
-        time: iteratedDate.format('MM/DD/YYYY'),
+        date: iteratedDate.format('MM/DD/YYYY'),
         events: [],
         position: null,
       },
@@ -69,9 +69,9 @@ export const getDates = (month: number, year: number) => {
   while (iteratedDate.month() === month - 1) {
     currentMonth.push({
       [iteratedDate.format("ddd").toLowerCase()]: {
-        date: iteratedDate.format("D"),
+        indexDay: iteratedDate.format("D"),
         isCurrentMonth: true,
-        time: iteratedDate.format('MM/DD/YYYY'),
+        date: iteratedDate.format('MM/DD/YYYY'),
         events: [],
         position: null,
       },
@@ -89,9 +89,9 @@ export const getDates = (month: number, year: number) => {
     iteratedDate = iteratedDate.add(1, "day");
     startsOfNextMonth.push({
       [iteratedDate.format("ddd").toLowerCase()]: {
-        date: iteratedDate.format("D"),
+        indexDay: iteratedDate.format("D"),
         isCurrentMonth: false,
-        time: iteratedDate.format('MM/DD/YYYY'),
+        date: iteratedDate.format('MM/DD/YYYY'),
         events: [],
         position: null,
       },

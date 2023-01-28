@@ -1,4 +1,4 @@
-import React, { forwardRef, Key, ReactElement, ReactNode, Ref } from "react";
+import React, { forwardRef, Key, ReactElement, ReactNode, Ref, RefObject } from "react";
 import styled from "styled-components";
 
 interface TableProps<T> {
@@ -9,7 +9,7 @@ interface TableProps<T> {
     name: string;
     render: (item: T) => ReactNode | ReactElement;
   }[];
-  ref: any;
+  ref: RefObject<HTMLTableElement>;
 }
 
 const StyledTable = styled.table`
