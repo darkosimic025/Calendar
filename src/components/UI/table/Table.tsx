@@ -15,7 +15,7 @@ interface TableProps<T> {
 
 const StyledTable = styled.table`
   table-layout: fixed;
-  width: 100%;
+  width: 99%;
   border-collapse: collapse;
   border-spacing: 0;
   border-left : rgb(218,220,224) 1px solid;

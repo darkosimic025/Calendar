@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { motion } from "framer-motion";
 import { getDates, splitIntoWeeks } from "../../utils/Utils";
 import {
@@ -10,6 +16,7 @@ import dayjs from "dayjs";
 import CalendarMonthCell from "../calendarMonth/CalendarMonthCell";
 import Table from "../UI/table/Table";
 import { CalendarControls } from "../calendarControls/CalendarControls";
+import { CalendarContext } from "../calendar/Calendar";
 
 export interface CalendarEvents {
   events: Event.EventProps[];
@@ -17,10 +24,7 @@ export interface CalendarEvents {
 }
 
 export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
-  const [selectedYear, setSelectedYear] = useState<number>(dayjs().year());
-  const [selectedMonth, setSelectedMonth] = useState<number>(
-    dayjs().month() + 1
-  );
+  const { selectedMonth, selectedYear } = useContext(CalendarContext);
 
   const tableRef = useRef<HTMLTableElement>(null);
 

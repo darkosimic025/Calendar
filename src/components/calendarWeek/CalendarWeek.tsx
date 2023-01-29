@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { motion } from "framer-motion";
 import { getDates, getWeekDays, splitIntoWeeks } from "../../utils/Utils";
 import {
@@ -12,6 +18,7 @@ import Table from "../UI/table/Table";
 import { CalendarControls } from "../calendarControls/CalendarControls";
 import { CalendarWeekCell } from "./CalendarWeekCell";
 import { CalendarWeekTimeline } from "./CalendarWeekTimeline";
+import { CalendarContext } from "../calendar/Calendar";
 
 export interface CalendarEvents {
   events: Event.EventProps[];
@@ -19,11 +26,8 @@ export interface CalendarEvents {
 }
 
 export const CalendarWeek = ({ events }: any) => {
-  const [selectedDay, setSelectedDay] = useState<number>(dayjs().date());
-  const [selectedYear, setSelectedYear] = useState<number>(dayjs().year());
-  const [selectedMonth, setSelectedMonth] = useState<number>(
-    dayjs().month() + 1
-  );
+  const { selectedDay, selectedMonth, selectedYear } =
+    useContext(CalendarContext);
 
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -79,7 +83,7 @@ export const CalendarWeek = ({ events }: any) => {
   const monthYearTitle = `${dayjs()
     .month(selectedMonth - 1)
     .format("MMM")
-    .toString()} - ${selectedYear}`;
+    .toString()} - ${selectedYear} - ${selectedDay}`;
 
   return (
     <motion.div

@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   CalendarEnums,
   CalendarView,
@@ -10,6 +16,7 @@ import { ButtonIcon } from "../UI/button/IconButton";
 import Select from "../UI/select/Select";
 import { ButtonGroup } from "../UI/button/ButtonGroup";
 import { Button } from "../UI/button/Button";
+import { CalendarContext } from "../calendar/Calendar";
 
 export interface CalendarControlsProps {
   selectedYear: number;
@@ -22,16 +29,17 @@ export interface CalendarControlsProps {
   selectedView: CalendarView;
 }
 
-export const CalendarControls = ({
-  selectedYear,
-  selectedMonth,
-  setSelectedYear,
-  setSelectedMonth,
-  selectedView,
-  setSelectedView,
-  selectedDay,
-  setSelectedDay,
-}: CalendarControlsProps) => {
+export const CalendarControls = () => {
+  const {
+    selectedView,
+    setSelectedView,
+    selectedDay,
+    selectedMonth,
+    selectedYear,
+    setSelectedDay,
+    setSelectedMonth,
+    setSelectedYear,
+  } = useContext(CalendarContext);
   const [disableNextMonth, setDisableNextMonth] = useState<boolean>(false);
 
   const generateYears = useCallback(() => {
@@ -51,31 +59,100 @@ export const CalendarControls = ({
       text: key,
     }));
   }, []);
-
-  const handlePreviousMonth = useCallback(() => {
-    // This function handles the event when the previous month button is clicked
-    let previousMonth = selectedMonth - 1;
-    let previousYear = selectedYear;
-    if (previousMonth === 0) {
-      previousMonth = 12;
-      previousYear = previousYear - 1;
+  const handlePrevious = useCallback(() => {
+    switch (selectedView) {
+      case CalendarView.MonthView:
+        setSelectedMonth(selectedMonth === 1 ? 12 : selectedMonth - 1);
+        setSelectedYear(selectedMonth === 1 ? selectedYear - 1 : selectedYear);
+        break;
+      case CalendarView.WeekView:
+        setSelectedDay(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .subtract(7, "day")
+            .date()
+        );
+        setSelectedMonth(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .subtract(7, "day")
+            .month() + 1
+        );
+        setSelectedYear(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .subtract(7, "day")
+            .year()
+        );
+        break;
+      case CalendarView.DayView:
+        setSelectedDay(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .subtract(1, "day")
+            .date()
+        );
+        setSelectedMonth(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .subtract(1, "day")
+            .month() + 1
+        );
+        setSelectedYear(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .subtract(1, "day")
+            .year()
+        );
+        break;
+      default:
+        break;
     }
-    setSelectedYear(previousYear);
-    setSelectedMonth(previousMonth);
-  }, [selectedMonth, selectedYear]);
-
-  const handleNextMonth = useCallback(() => {
-    // This function handles the event when the next month button is clicked
-    const nextMonth = selectedMonth === 12 ? 1 : selectedMonth + 1;
-    const nextYear = selectedMonth === 12 ? selectedYear + 1 : selectedYear;
-    setSelectedYear(nextYear);
-    setSelectedMonth(nextMonth);
-  }, [selectedMonth, selectedYear]);
+  }, [selectedDay, selectedMonth, selectedView, selectedYear]);
+  const handleNext = useCallback(() => {
+    switch (selectedView) {
+      case CalendarView.MonthView:
+        setSelectedMonth(selectedMonth === 12 ? 1 : selectedMonth + 1);
+        setSelectedYear(selectedMonth === 12 ? selectedYear + 1 : selectedYear);
+        break;
+      case CalendarView.WeekView:
+        setSelectedDay(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .add(7, "day")
+            .date()
+        );
+        setSelectedMonth(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .add(7, "day")
+            .month() + 1
+        );
+        setSelectedYear(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .add(7, "day")
+            .year()
+        );
+        break;
+      case CalendarView.DayView:
+        setSelectedDay(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .add(1, "day")
+            .date()
+        );
+        setSelectedMonth(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .add(1, "day")
+            .month() + 1
+        );
+        setSelectedYear(
+          dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
+            .add(1, "day")
+            .year()
+        );
+        break;
+      default:
+        break;
+    }
+  }, [selectedDay, selectedMonth, selectedView, selectedYear]);
 
   const handleToday = useCallback(() => {
     // This function handles the event when the today button is clicked
     setSelectedMonth(dayjs().month() + 1);
     setSelectedYear(dayjs().year());
+    setSelectedDay(dayjs().date());
   }, []);
 
   useEffect(() => {
@@ -115,17 +192,13 @@ export const CalendarControls = ({
           </FlexItem>
           <FlexItem>
             <ButtonIcon
-              onClick={handlePreviousMonth}
+              onClick={handlePrevious}
               size="small"
               icon="arrowLeft"
             />
           </FlexItem>
           <FlexItem>
-            <ButtonIcon
-              onClick={handleNextMonth}
-              size="small"
-              icon="arrowRight"
-            />
+            <ButtonIcon onClick={handleNext} size="small" icon="arrowRight" />
           </FlexItem>
           <FlexItem>
             <Select
