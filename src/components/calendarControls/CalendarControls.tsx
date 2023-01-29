@@ -1,16 +1,25 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { CalendarEnums } from "../calendarMonth/CalendarMonth.types";
+import {
+  CalendarEnums,
+  CalendarView,
+} from "../calendarMonth/CalendarMonth.types";
 import dayjs from "dayjs";
 import { FlexGroup, FlexItem } from "../UI/flex/Flex";
 import { EmptyButton } from "../UI/button/EmptyButon";
 import { ButtonIcon } from "../UI/button/IconButton";
 import Select from "../UI/select/Select";
+import { ButtonGroup } from "../UI/button/ButtonGroup";
+import { Button } from "../UI/button/Button";
 
 export interface CalendarControlsProps {
   selectedYear: number;
   selectedMonth: number;
   setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
   setSelectedMonth: React.Dispatch<React.SetStateAction<number>>;
+  selectedDay: number;
+  setSelectedDay: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedView: React.Dispatch<React.SetStateAction<CalendarView>>;
+  selectedView: CalendarView;
 }
 
 export const CalendarControls = ({
@@ -18,6 +27,10 @@ export const CalendarControls = ({
   selectedMonth,
   setSelectedYear,
   setSelectedMonth,
+  selectedView,
+  setSelectedView,
+  selectedDay,
+  setSelectedDay,
 }: CalendarControlsProps) => {
   const [disableNextMonth, setDisableNextMonth] = useState<boolean>(false);
 
@@ -74,10 +87,27 @@ export const CalendarControls = ({
     }
   }, [selectedMonth, selectedYear]);
 
+  const buttons = [
+    { label: "Day", onClick: () => setSelectedView(CalendarView.DayView) },
+    { label: "Week", onClick: () => setSelectedView(CalendarView.WeekView) },
+    { label: "Month", onClick: () => setSelectedView(CalendarView.MonthView) },
+  ];
+
+  const selectedIndex = buttons.findIndex(
+    ({ label }) => label === selectedView
+  );
+
   return (
     <>
       <FlexGroup direction="row" justifyContent="flex-end" alignItems="center">
         <FlexGroup alignItems="center">
+          <FlexItem>
+            <ButtonGroup
+              size="small"
+              selectedIndex={selectedIndex}
+              buttons={buttons}
+            />
+          </FlexItem>
           <FlexItem>
             <EmptyButton size="small" onClick={handleToday}>
               Today

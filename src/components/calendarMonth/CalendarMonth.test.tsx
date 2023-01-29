@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { Calendar } from "./CalendarMonth";
+import Calendar from "../calendar/Calendar";
 import dayjs from "dayjs";
 import userEvent from "@testing-library/user-event";
 

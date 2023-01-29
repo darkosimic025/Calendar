@@ -16,7 +16,7 @@ export interface CalendarEvents {
   onEventClick: (e: Event.EventProps) => void;
 }
 
-export const Calendar = ({ events, onEventClick }: CalendarEvents) => {
+export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
   const [selectedYear, setSelectedYear] = useState<number>(dayjs().year());
   const [selectedMonth, setSelectedMonth] = useState<number>(
     dayjs().month() + 1
@@ -68,7 +68,9 @@ export const Calendar = ({ events, onEventClick }: CalendarEvents) => {
           event.eventDates.forEach((date: any, index: any) => {
             //Checking if the day is same as the date
             if (
-              dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(dayjs(day.date))
+              dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(
+                dayjs(day.date)
+              )
             ) {
               // Pushing the events to the day
               day.events.push({
@@ -91,27 +93,19 @@ export const Calendar = ({ events, onEventClick }: CalendarEvents) => {
     .toString()} - ${selectedYear}`;
 
   return (
-    <>
-      <CalendarControls
-        selectedMonth={selectedMonth}
-        selectedYear={selectedYear}
-        setSelectedMonth={setSelectedMonth}
-        setSelectedYear={setSelectedYear}
+    <motion.div
+      initial={{ x: 10, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -15, opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      key={monthYearTitle}
+    >
+      <Table
+        ref={tableRef}
+        id="Table"
+        columns={generateColumns()}
+        items={generateItems() as any}
       />
-      <motion.div
-        initial={{ x: 10, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -15, opacity: 0 }}
-        transition={{ duration: 0.25 }}
-        key={monthYearTitle}
-      >
-        <Table
-          ref={tableRef}
-          id="Table"
-          columns={generateColumns()}
-          items={generateItems() as any}
-        />
-      </motion.div>
-    </>
+    </motion.div>
   );
 };

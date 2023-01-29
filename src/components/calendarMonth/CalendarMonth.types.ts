@@ -64,3 +64,9 @@ export namespace CalendarEnums {
     Dec = "12",
   }
 }
+
+export enum CalendarView {
+  DayView = "Day",
+  WeekView = "Week",
+  MonthView = "Month",
+}

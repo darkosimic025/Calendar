@@ -11,6 +11,7 @@ import CalendarMonthCell from "../calendarMonth/CalendarMonthCell";
 import Table from "../UI/table/Table";
 import { CalendarControls } from "../calendarControls/CalendarControls";
 import { CalendarWeekCell } from "./CalendarWeekCell";
+import { CalendarWeekTimeline } from "./CalendarWeekTimeline";
 
 export interface CalendarEvents {
   events: Event.EventProps[];
@@ -33,7 +34,7 @@ export const CalendarWeek = ({ events }: any) => {
         field: Object.values(day)[0].date,
         name: Object.values(day)[0].date,
         align: "center",
-        render: (events: any) => <CalendarWeekCell events={events}/>,
+        render: (events: any) => <CalendarWeekCell events={events} />,
       };
     });
   }, [selectedMonth, selectedYear, selectedDay]);
@@ -71,7 +72,7 @@ export const CalendarWeek = ({ events }: any) => {
       }
       return week;
     });
-    console.log(items)
+    console.log(items);
     return items;
   }, [selectedMonth, selectedYear, selectedDay]);
 
@@ -81,13 +82,21 @@ export const CalendarWeek = ({ events }: any) => {
     .toString()} - ${selectedYear}`;
 
   return (
-    <>
+    <motion.div
+      style={{ display: "flex" }}
+      initial={{ x: 10, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -15, opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      key={monthYearTitle}
+    >
+      <CalendarWeekTimeline />
       <Table
         ref={tableRef}
         id="Table"
         columns={generateColumns() as any}
         items={generateItems() as any}
       />
-    </>
+    </motion.div>
   );
 };

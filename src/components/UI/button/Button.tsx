@@ -9,7 +9,7 @@ interface Props {
   color?: "primary" | "secondary";
 }
 
-const StyledButton = styled.button<Props>`
+export const StyledButton = styled.button<Props>`
   background-color: ${(props) =>
     props.color === "secondary" ? "#ccc" : "#cce4f5"};
   color: ${(props) => (props.color === "secondary" ? "#333" : "#0061a6")};
