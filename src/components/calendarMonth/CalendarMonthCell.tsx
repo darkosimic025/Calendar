@@ -1,63 +1,22 @@
 import { FC, forwardRef, useRef, useState } from "react";
-import styled from "styled-components";
+
 import dayjs from "dayjs";
-import { Calendar } from "./CalendarMonth.types";
+import { Calendar, Event } from "../calendar/Calendar.types";
 import Badge from "../UI/badge/Badge";
-import { EmptyButton } from "../UI/button/EmptyButon";
+
 import Modal from "../UI/modal/Modal";
-import { ButtonIcon } from "../UI/button/IconButton";
 
-const StyledCellWrapper = styled.div<Pick<Calendar.DayProps, "isCurrentMonth">>`
-  position: relative;
-  display: flex;
-  height: 85px;
-  width: 100%;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  background-color: ${(props) =>
-    props.isCurrentMonth ? "white" : "#f3efef70"};
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-const StyledDayIndex = styled.span<{ isToday: boolean }>`
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  cursor: default;
-  background-color: ${(props) => (props.isToday ? "#98d4ffbb" : "transparent")};
-  border-radius: 50%;
-  padding: 3px;
-  margin: 3px;
-`;
-
-const StyledDayIndexModal = styled.span<{ isToday: boolean }>`
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  cursor: default;
-  background-color: ${(props) => (props.isToday ? "#98d4ffbb" : "transparent")};
-  border-radius: 50%;
-  padding: 10px;
-  margin-bottom: 14px;
-`;
-
-const StyledCloseIcon = styled(ButtonIcon)`
-  position: absolute;
-  top: 2px;
-  right: 3px;
-`;
-
-const StyledMoreButton = styled(EmptyButton)`
-  position: absolute;
-  bottom: 2px;
-  left: 3px;
-`;
+import {
+  StyledCellWrapper,
+  StyledCloseIcon,
+  StyledDayIndex,
+  StyledDayIndexModal,
+  StyledMoreButton,
+} from "./CalendarMonthCell.styled";
 
 const CalendarMonthCell = forwardRef<
   HTMLTableElement,
-  Calendar.DayProps & { onEventClick: (e: any) => any }
+  Calendar.DayProps & { onEventClick: (event: Event.CalendarEventProps) => void }
 >(({ date, events, isCurrentMonth, indexDay, onEventClick }, ref) => {
   const isToday = dayjs(date).isSame(dayjs(), "day");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -72,7 +31,7 @@ const CalendarMonthCell = forwardRef<
       <StyledDayIndex isToday={isToday}>{indexDay}</StyledDayIndex>
       {events.slice(0, 2).map((event, index) => (
         <>
-          <Badge onClick={() => onEventClick(event)}>
+          <Badge color="primary" onClick={() => onEventClick(event)}>
             {event.indexDay == 1
               ? event.name
               : `${event.name} - Day ${event.indexDay}`}

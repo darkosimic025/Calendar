@@ -31,7 +31,7 @@ const StyledButton = styled.button<{
   padding: ${(props) => {
     switch (props.size) {
       case "small":
-        return "8px 16px";
+        return "6px 16px";
       case "large":
         return "16px 32px";
       default:

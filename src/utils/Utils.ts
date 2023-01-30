@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Calendar } from "../components/calendarMonth/CalendarMonth.types";
+import { Calendar } from "../components/calendar/Calendar.types";
 
 // This function takes in a month object and returns an array of weeks
 export const splitIntoWeeks = (month: Calendar.MonthProps) => {
@@ -126,4 +126,13 @@ export const getWeekDays = (day: number, month: number, year: number) => {
   return weekDays;
 };
 
-console.log(getWeekDays(1, 1, 2023));
+export const generateAMPMHours = () => {
+  let hours = [];
+  for (let i = 1; i <= 12; i++) {
+    hours.push(i + " AM");
+  }
+  for (let i = 1; i <= 12; i++) {
+    hours.push(i + " PM");
+  }
+  return hours;
+};

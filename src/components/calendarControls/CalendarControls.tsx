@@ -1,22 +1,13 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import {
-  CalendarEnums,
-  CalendarView,
-} from "../calendarMonth/CalendarMonth.types";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { CalendarEnums } from "../calendar/Calendar.types";
 import dayjs from "dayjs";
 import { FlexGroup, FlexItem } from "../UI/flex/Flex";
 import { EmptyButton } from "../UI/button/EmptyButon";
 import { ButtonIcon } from "../UI/button/IconButton";
 import Select from "../UI/select/Select";
 import { ButtonGroup } from "../UI/button/ButtonGroup";
-import { Button } from "../UI/button/Button";
 import { CalendarContext } from "../calendar/Calendar";
+import { CalendarControlsWrapper } from "./CalendarControls.styled";
 
 export interface CalendarControlsProps {
   selectedYear: number;
@@ -25,8 +16,10 @@ export interface CalendarControlsProps {
   setSelectedMonth: React.Dispatch<React.SetStateAction<number>>;
   selectedDay: number;
   setSelectedDay: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedView: React.Dispatch<React.SetStateAction<CalendarView>>;
-  selectedView: CalendarView;
+  setSelectedView: React.Dispatch<
+    React.SetStateAction<CalendarEnums.CalendarView>
+  >;
+  selectedView: CalendarEnums.CalendarView;
 }
 
 export const CalendarControls = () => {
@@ -43,7 +36,6 @@ export const CalendarControls = () => {
   const [disableNextMonth, setDisableNextMonth] = useState<boolean>(false);
 
   const generateYears = useCallback(() => {
-    // This function generates an array of years from 1970 to current year + 1
     const currentYear = dayjs().year();
     let yearOptions = [];
     for (let i = 1970; i <= currentYear + 1; i++) {
@@ -53,7 +45,6 @@ export const CalendarControls = () => {
   }, []);
 
   const generateMonths = useCallback(() => {
-    // This function generates an array of months
     return Object.entries(CalendarEnums.Months).map(([key, value]) => ({
       value,
       text: key,
@@ -61,11 +52,11 @@ export const CalendarControls = () => {
   }, []);
   const handlePrevious = useCallback(() => {
     switch (selectedView) {
-      case CalendarView.MonthView:
+      case CalendarEnums.CalendarView.MonthView:
         setSelectedMonth(selectedMonth === 1 ? 12 : selectedMonth - 1);
         setSelectedYear(selectedMonth === 1 ? selectedYear - 1 : selectedYear);
         break;
-      case CalendarView.WeekView:
+      case CalendarEnums.CalendarView.WeekView:
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(7, "day")
@@ -82,7 +73,7 @@ export const CalendarControls = () => {
             .year()
         );
         break;
-      case CalendarView.DayView:
+      case CalendarEnums.CalendarView.DayView:
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(1, "day")
@@ -105,11 +96,11 @@ export const CalendarControls = () => {
   }, [selectedDay, selectedMonth, selectedView, selectedYear]);
   const handleNext = useCallback(() => {
     switch (selectedView) {
-      case CalendarView.MonthView:
+      case CalendarEnums.CalendarView.MonthView:
         setSelectedMonth(selectedMonth === 12 ? 1 : selectedMonth + 1);
         setSelectedYear(selectedMonth === 12 ? selectedYear + 1 : selectedYear);
         break;
-      case CalendarView.WeekView:
+      case CalendarEnums.CalendarView.WeekView:
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(7, "day")
@@ -126,7 +117,7 @@ export const CalendarControls = () => {
             .year()
         );
         break;
-      case CalendarView.DayView:
+      case CalendarEnums.CalendarView.DayView:
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(1, "day")
@@ -149,14 +140,12 @@ export const CalendarControls = () => {
   }, [selectedDay, selectedMonth, selectedView, selectedYear]);
 
   const handleToday = useCallback(() => {
-    // This function handles the event when the today button is clicked
     setSelectedMonth(dayjs().month() + 1);
     setSelectedYear(dayjs().year());
     setSelectedDay(dayjs().date());
   }, []);
 
   useEffect(() => {
-    // This effect updates the disableNextMonth state based on the selected month and year
     if (selectedMonth === 12 && selectedYear === dayjs().year() + 1) {
       setDisableNextMonth(true);
     } else {
@@ -165,9 +154,18 @@ export const CalendarControls = () => {
   }, [selectedMonth, selectedYear]);
 
   const buttons = [
-    { label: "Day", onClick: () => setSelectedView(CalendarView.DayView) },
-    { label: "Week", onClick: () => setSelectedView(CalendarView.WeekView) },
-    { label: "Month", onClick: () => setSelectedView(CalendarView.MonthView) },
+    {
+      label: "Day",
+      onClick: () => setSelectedView(CalendarEnums.CalendarView.DayView),
+    },
+    {
+      label: "Week",
+      onClick: () => setSelectedView(CalendarEnums.CalendarView.WeekView),
+    },
+    {
+      label: "Month",
+      onClick: () => setSelectedView(CalendarEnums.CalendarView.MonthView),
+    },
   ];
 
   const selectedIndex = buttons.findIndex(
@@ -175,51 +173,48 @@ export const CalendarControls = () => {
   );
 
   return (
-    <>
-      <FlexGroup direction="row" justifyContent="flex-end" alignItems="center">
-        <FlexGroup alignItems="center">
-          <FlexItem>
-            <ButtonGroup
-              size="small"
-              selectedIndex={selectedIndex}
-              buttons={buttons}
-            />
-          </FlexItem>
-          <FlexItem>
-            <EmptyButton size="small" onClick={handleToday}>
-              Today
-            </EmptyButton>
-          </FlexItem>
-          <FlexItem>
-            <ButtonIcon
-              onClick={handlePrevious}
-              size="small"
-              icon="arrowLeft"
-            />
-          </FlexItem>
-          <FlexItem>
-            <ButtonIcon onClick={handleNext} size="small" icon="arrowRight" />
-          </FlexItem>
-          <FlexItem>
-            <Select
-              value={selectedYear}
-              onChange={(year) => {
-                setSelectedYear(parseFloat(year.toString()));
-              }}
-              options={generateYears()}
-            />
-          </FlexItem>
-          <FlexItem>
-            <Select
-              value={selectedMonth}
-              onChange={(month) => {
-                setSelectedMonth(parseFloat(month.toString()));
-              }}
-              options={generateMonths()}
-            />
-          </FlexItem>
-        </FlexGroup>
+    <CalendarControlsWrapper direction="row" justifyContent="space-between">
+      <FlexGroup justifyContent="center" alignItems="center">
+        <FlexItem>
+          <EmptyButton size="small" onClick={handleToday}>
+            Today
+          </EmptyButton>
+        </FlexItem>
+
+        <FlexItem>
+          <ButtonIcon onClick={handlePrevious} size="small" icon="arrowLeft" />
+        </FlexItem>
+        <FlexItem>
+          <ButtonIcon onClick={handleNext} size="small" icon="arrowRight" />
+        </FlexItem>
+        <FlexItem>
+          <Select
+            value={selectedYear}
+            onChange={(year) => {
+              setSelectedYear(parseFloat(year.toString()));
+            }}
+            options={generateYears()}
+          />
+        </FlexItem>
+        <FlexItem>
+          <Select
+            value={selectedMonth}
+            onChange={(month) => {
+              setSelectedMonth(parseFloat(month.toString()));
+            }}
+            options={generateMonths()}
+          />
+        </FlexItem>
       </FlexGroup>
-    </>
+      <FlexGroup justifyContent="center" alignItems="center">
+        <FlexItem>
+          <ButtonGroup
+            size="small"
+            selectedIndex={selectedIndex}
+            buttons={buttons}
+          />
+        </FlexItem>
+      </FlexGroup>
+    </CalendarControlsWrapper>
   );
 };

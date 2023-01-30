@@ -1,7 +1,7 @@
 ![Alt text](Calendar.PNG)
 
 - Month view: ✔️
-- Week view: ❌
+- Week view: ✔️
 - Day view: ❌
 
 ### `npm start`

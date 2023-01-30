@@ -1,7 +1,9 @@
+import { Dayjs } from "dayjs";
+
 export namespace Event {
   export type EventDatesProps = {
-    start: string;
-    end: string;
+    start: Date;
+    end: Date;
   };
   export type EventProps = {
     name: string;
@@ -10,6 +12,8 @@ export namespace Event {
   export type CalendarEventProps = {
     name: string;
     indexDay: number;
+    start: Dayjs;
+    end: Dayjs;
   };
 }
 
@@ -63,10 +67,10 @@ export namespace CalendarEnums {
     Nov = "11",
     Dec = "12",
   }
-}
 
-export enum CalendarView {
-  DayView = "Day",
-  WeekView = "Week",
-  MonthView = "Month",
+  export enum CalendarView {
+    DayView = "Day",
+    WeekView = "Week",
+    MonthView = "Month",
+  }
 }

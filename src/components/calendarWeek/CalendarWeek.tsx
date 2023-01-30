@@ -1,31 +1,20 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { motion } from "framer-motion";
-import { getDates, getWeekDays, splitIntoWeeks } from "../../utils/Utils";
-import {
-  CalendarEnums,
-  Calendar as CalendarProps,
-  Event,
-} from "../../../src/components/calendarMonth/CalendarMonth.types";
+import { getWeekDays, splitIntoWeeks } from "../../utils/Utils";
+import { Event } from "../calendar/Calendar.types";
 import dayjs from "dayjs";
-import CalendarMonthCell from "../calendarMonth/CalendarMonthCell";
 import Table from "../UI/table/Table";
-import { CalendarControls } from "../calendarControls/CalendarControls";
 import { CalendarWeekCell } from "./CalendarWeekCell";
-import { CalendarWeekTimeline } from "./CalendarWeekTimeline";
+import { CalendarTimeline } from "../calendarTimeline/CalendarTimeline";
 import { CalendarContext } from "../calendar/Calendar";
+import useScrollIntoView from "../../hooks/useScrollIntoView";
 
-export interface CalendarEvents {
+export interface CalendarWeekProps {
   events: Event.EventProps[];
-  onEventClick: (e: Event.EventProps) => void;
+  onEventClick: (event: Event.CalendarEventProps) => void;
 }
 
-export const CalendarWeek = ({ events }: any) => {
+export const CalendarWeek = ({ events }: CalendarWeekProps) => {
   const { selectedDay, selectedMonth, selectedYear } =
     useContext(CalendarContext);
 
@@ -36,39 +25,35 @@ export const CalendarWeek = ({ events }: any) => {
     return week.map((day) => {
       return {
         field: Object.values(day)[0].date,
-        name: Object.values(day)[0].date,
+        name: dayjs(Object.values(day)[0].date),
         align: "center",
-        render: (events: any) => <CalendarWeekCell events={events} />,
+        render: (events: Event.EventProps[]) => (
+          <CalendarWeekCell events={events} />
+        ),
       };
     });
   }, [selectedMonth, selectedYear, selectedDay]);
 
   const generateItems = useCallback(() => {
-    // This function takes in the selected month, year and events and returns an array of items for the calendar.
     const dates = splitIntoWeeks(
       getWeekDays(selectedDay, selectedMonth, selectedYear)
     );
-    // Using a map function to iterate over the dates and creating an array of items
+
     const items = dates.map((week) => {
-      // Iterating over the days of the week
       for (const day of Object.values(week)) {
-        // Iterating over the events
-        events.forEach((event: any) => {
-          //Iterating over the dates of the event
-          event.eventDates.forEach((date: any, index: any) => {
-            //Checking if the day is same as the date
+        events.forEach((event: Event.EventProps) => {
+          event.eventDates.forEach((date, index) => {
             if (
               dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(
                 dayjs(day.date).format("MM/DD/YYYY")
               )
             ) {
-              // Pushing the events to the day
               day.events.push({
                 name: event.name,
                 indexDay: index + 1,
                 start: dayjs(date.start),
                 end: dayjs(date.end),
-                ...event,
+                // ...event,
               });
             }
           });
@@ -76,7 +61,6 @@ export const CalendarWeek = ({ events }: any) => {
       }
       return week;
     });
-    console.log(items);
     return items;
   }, [selectedMonth, selectedYear, selectedDay]);
 
@@ -84,9 +68,10 @@ export const CalendarWeek = ({ events }: any) => {
     .month(selectedMonth - 1)
     .format("MMM")
     .toString()} - ${selectedYear} - ${selectedDay}`;
-
+  
   return (
     <motion.div
+      
       style={{ display: "flex" }}
       initial={{ x: 10, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
@@ -94,11 +79,10 @@ export const CalendarWeek = ({ events }: any) => {
       transition={{ duration: 0.25 }}
       key={monthYearTitle}
     >
-      <CalendarWeekTimeline />
+      {/* <CalendarTimeline /> */}
       <Table
         ref={tableRef}
-        id="Table"
-        columns={generateColumns() as any}
+        columns={generateColumns()}
         items={generateItems() as any}
       />
     </motion.div>

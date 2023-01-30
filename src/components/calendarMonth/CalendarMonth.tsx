@@ -1,26 +1,19 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { motion } from "framer-motion";
 import { getDates, splitIntoWeeks } from "../../utils/Utils";
 import {
   CalendarEnums,
   Calendar as CalendarProps,
   Event,
-} from "./CalendarMonth.types";
+} from "../calendar/Calendar.types";
 import dayjs from "dayjs";
 import CalendarMonthCell from "../calendarMonth/CalendarMonthCell";
 import Table from "../UI/table/Table";
-import { CalendarControls } from "../calendarControls/CalendarControls";
 import { CalendarContext } from "../calendar/Calendar";
 
 export interface CalendarEvents {
   events: Event.EventProps[];
-  onEventClick: (e: Event.EventProps) => void;
+  onEventClick: (event: Event.CalendarEventProps) => void;
 }
 
 export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
@@ -29,16 +22,14 @@ export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
   const tableRef = useRef<HTMLTableElement>(null);
 
   const generateColumns = useCallback(() => {
-    // This function generates an array of columns for the calendar
     const columns = Object.entries(CalendarEnums.WeekDays).map(
       ([key, value]) => ({
         field: value,
         name: key,
       })
     );
-    // Using map to iterate over the columns and returning a new array
+
     return columns.map(({ field, name }) => {
-      // Destructuring the field and name properties
       return {
         field: field,
         name: name,
@@ -60,27 +51,23 @@ export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
   }, [selectedMonth, selectedYear]);
 
   const generateItems = useCallback(() => {
-    // This function takes in the selected month, year and events and returns an array of items for the calendar.
     const dates = splitIntoWeeks(getDates(selectedMonth, selectedYear));
-    // Using a map function to iterate over the dates and creating an array of items
+
     const items = dates.map((week) => {
-      // Iterating over the days of the week
       for (const day of Object.values(week)) {
-        // Iterating over the events
-        events.forEach((event: any) => {
-          //Iterating over the dates of the event
-          event.eventDates.forEach((date: any, index: any) => {
-            //Checking if the day is same as the date
+        events.forEach((event: Event.EventProps) => {
+          event.eventDates.forEach((date, index) => {
             if (
               dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(
                 dayjs(day.date)
               )
             ) {
-              // Pushing the events to the day
               day.events.push({
                 name: event.name,
                 indexDay: index + 1,
-                ...event,
+                start: dayjs(date.start),
+                end: dayjs(date.end),
+                // ...event,
               });
             }
           });
@@ -106,7 +93,6 @@ export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
     >
       <Table
         ref={tableRef}
-        id="Table"
         columns={generateColumns()}
         items={generateItems() as any}
       />

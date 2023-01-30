@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface FlexGroupProps {
+export interface FlexGroupProps {
   direction?: "row" | "column";
   justifyContent?:
     | "flex-start"
@@ -12,7 +12,7 @@ interface FlexGroupProps {
   wrap?: "nowrap" | "wrap" | "wrap-reverse";
 }
 
-const FlexGroup = styled.div<FlexGroupProps>`
+export const FlexGroup = styled.div<FlexGroupProps>`
   display: flex;
   flex-direction: ${(props) => props.direction};
   justify-content: ${(props) => props.justifyContent};
@@ -20,7 +20,7 @@ const FlexGroup = styled.div<FlexGroupProps>`
   flex-wrap: ${(props) => props.wrap};
 `;
 
-interface FlexItemProps {
+export interface FlexItemProps {
   order?: number;
   flexGrow?: number;
   flexShrink?: number;
@@ -34,13 +34,11 @@ interface FlexItemProps {
     | "stretch";
 }
 
-const FlexItem = styled.div<FlexItemProps>`
-margin-left: 3px;
+export const FlexItem = styled.div<FlexItemProps>`
+  margin-left: 3px;
   order: ${(props) => props.order};
   flex-grow: ${(props) => props.flexGrow};
   flex-shrink: ${(props) => props.flexShrink};
   flex-basis: ${(props) => props.flexBasis};
   align-self: ${(props) => props.alignSelf};
 `;
-
-export { FlexGroup, FlexItem };
