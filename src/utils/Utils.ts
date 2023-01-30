@@ -106,12 +106,28 @@ export const getDates = (month: number, year: number) => {
   ];
 };
 
+export const getDay = (day: number, month: number, year: number) => {
+  const date = dayjs()
+    .date(day)
+    .month(month - 1)
+    .year(year);
+
+  const currentDate = date.clone();
+  return {
+    [currentDate.format("MM/DD/YYYY")]: {
+      indexDay: currentDate.format("D"),
+      date: currentDate.format("MM/DD/YYYY"),
+      events: [],
+    },
+  };
+};
+
 export const getWeekDays = (day: number, month: number, year: number) => {
   const date = dayjs()
     .date(day)
     .month(month - 1)
     .year(year);
-  const weekDays = [];
+  let weekDays = [];
   for (let i = 0; i < 7; i++) {
     const currentDate = date.clone().subtract(date.day() - i, "day");
     weekDays.push({

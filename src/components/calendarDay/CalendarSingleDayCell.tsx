@@ -4,8 +4,8 @@ import useScrollIntoView from "../../hooks/useScrollIntoView";
 import { Event } from "../calendar/Calendar.types";
 import {
   BadgeWeekStyled,
-  CalendarWeekCellStyled,
-} from "./CalendarWeekCell.styled";
+  CalendarSingleDayCellStyled,
+} from "./CalendarSingleDayCell.styled";
 
 export const timeToPixels = (time: Dayjs) => {
   let startOfDay = dayjs(time).format("MM/DD/YYYY");
@@ -49,11 +49,11 @@ export const getEventPosition = (
   let position = overlappingEvents.findIndex((ev) => ev === event) + 1;
   return { width, position: position * width - width, index: position };
 };
-export const CalendarWeekCell = ({ events }: any) => {
+export const CalendarSingleDayCell = ({ events }: any) => {
   const allEvents = events.events;
   
   return (
-    <CalendarWeekCellStyled >
+    <CalendarSingleDayCellStyled >
       {events.events.map((event: any) => {
         const { width, position, index } = getEventPosition(event, allEvents);
 
@@ -72,6 +72,6 @@ export const CalendarWeekCell = ({ events }: any) => {
           </BadgeWeekStyled>
         );
       })}
-    </CalendarWeekCellStyled>
+    </CalendarSingleDayCellStyled>
   );
 };

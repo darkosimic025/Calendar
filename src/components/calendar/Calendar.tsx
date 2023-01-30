@@ -4,6 +4,7 @@ import { CalendarControls } from "../calendarControls/CalendarControls";
 import { CalendarMonth } from "../calendarMonth/CalendarMonth";
 import { CalendarEnums, Event } from "./Calendar.types";
 import { CalendarWeek } from "../calendarWeek/CalendarWeek";
+import { CalendarDay } from "../calendarDay/CalendarDay";
 
 const events = [
   {
@@ -111,7 +112,9 @@ const Calendar = () => {
       {selectedView === CalendarEnums.CalendarView.WeekView && (
         <CalendarWeek onEventClick={onEventClick} events={events} />
       )}
-      {/* {selectedView === CalendarView.DayView && <CalendarDay events={events} />} */}
+      {selectedView === CalendarEnums.CalendarView.DayView && (
+        <CalendarDay onEventClick={onEventClick} events={events} />
+      )}
     </CalendarContext.Provider>
   );
 };

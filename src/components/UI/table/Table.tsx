@@ -14,6 +14,7 @@ import { Dayjs } from "dayjs";
 import { CalendarEnums } from "../../calendar/Calendar.types";
 import { CalendarMonthHeaderCell } from "../../calendarMonth/CalendarMonthHeaderCell";
 import useScrollIntoView from "../../../hooks/useScrollIntoView";
+import { CalendarDayHeaderCell } from "../../calendarDay/CalendarDayHeaderCell";
 
 interface TableProps<T> {
   items: T[];
@@ -122,8 +123,12 @@ const TableComponent = <T extends { [key: string]: any }>(
                       />
                     </StyledTh>
                   );
-                default:
-                  return null;
+                case CalendarEnums.CalendarView.DayView:
+                  return (
+                    <StyledTh key={column.field}>
+                      <CalendarDayHeaderCell date={column.name} />
+                    </StyledTh>
+                  );
               }
             })}
           </>

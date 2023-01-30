@@ -15,7 +15,7 @@ export const StyledBadge = styled.span<BadgeProps>`
   
   background-color: ${({ color }) =>
     color === "primary"
-      ? "#14c4dfd8"
+      ? "#17a2b8"
       : color === "secondary"
       ? "#6c757d"
       : "#17a2b8"};

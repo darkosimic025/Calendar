@@ -1,10 +1,61 @@
-![Alt text](Calendar.PNG)
+# Calendar scheduler 
 
 - Month view: ✔️
 - Week view: ✔️
-- Day view: ❌
+- Day view: ✔️
+- Drag and drop ❌
+- Localization ❌
 
-### `npm start`
+## Run Locally
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Clone the project
+
+```bash
+  git clone https://github.com/darkosimic025/Calendar.git
+```
+
+Go to the project directory
+
+```bash
+  cd calendar
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+
+## MonthView
+
+![App Screenshot](screenshots/WeekView.png)
+
+## MonthViewModal
+
+![App Screenshot](screenshots/MonthViewModal.png)
+
+## WeekView
+
+![App Screenshot](screenshots/WeekView.png)
+
+## WeekViewExpand
+
+![App Screenshot](screenshots/WeekViewExpand.png)
+
+## DayView
+
+![App Screenshot](screenshots/DayView.png)
+
+## Tech Stack
+
+ React, TypeScript, Day.js, styled-components, framer-motion
+
+
+

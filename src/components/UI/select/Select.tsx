@@ -11,8 +11,8 @@ type Option = {
 
 type SelectProps = {
   options: Option[];
-  onChange: (e: Option['value']) => void;
-  value: Option['value'];
+  onChange: (e: Option["value"]) => void;
+  value: Option["value"];
   className?: string;
 };
 
@@ -31,7 +31,8 @@ const SelectControl = styled.div<{ isOpen: boolean }>`
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    border-color: #78c2ffd1;
+    
+    border-color: #0061a6;
   }
   ${(props) =>
     props.isOpen &&
@@ -99,10 +100,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <SelectContainer ref={selectRef} className={className}>
-      <SelectControl
-        isOpen={isOpen}
-        onClick={handleClick}
-      >
+      <SelectControl isOpen={isOpen} onClick={handleClick}>
         <div>{selectedtext}</div>
         {ArrowDown()}
       </SelectControl>
