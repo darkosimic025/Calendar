@@ -4,6 +4,7 @@
 - Week view: ✔️
 - Day view: ✔️
 - Drag and drop ❌
+- Theming (Light and dark theme) ❌
 - Localization ❌
 
 ## Run Locally
