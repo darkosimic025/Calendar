@@ -7,12 +7,13 @@ import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
 import { CalendarSingleDayCell } from "./CalendarSingleDayCell";
 
-export interface CalendarDazProps {
+export interface CalendarDayProps {
   events: Event.EventProps[];
   onEventClick: (event: Event.CalendarEventProps) => void;
 }
 
-export const CalendarDay = ({ events }: CalendarDazProps) => {
+export const CalendarDay = ({ events }: CalendarDayProps) => {
+  console.log(events);
   const { selectedDay, selectedMonth, selectedYear } =
     useContext(CalendarContext);
 

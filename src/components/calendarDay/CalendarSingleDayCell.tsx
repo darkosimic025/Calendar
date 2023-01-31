@@ -87,8 +87,10 @@ export const Badge = ({ event, allEvents, id }: any) => {
   );
 };
 
-export const CalendarSingleDayCell = (events : any) => {
+export const CalendarSingleDayCell = ({events} : any) => {
+ 
   const [allEvents, setAllEvents] = useState(events.events);
+  console.log(allEvents)
   const { setNodeRef } = useDroppable({
     id: "calendar_single_day_cell",
   });

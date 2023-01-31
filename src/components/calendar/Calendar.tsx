@@ -6,85 +6,37 @@ import { CalendarEnums, Event } from "./Calendar.types";
 import { CalendarWeek } from "../calendarWeek/CalendarWeek";
 import { CalendarDay } from "../calendarDay/CalendarDay";
 
-const events = [
-  {
-    name: "AEAR Figma",
-    eventDates: [
-      {
-        start: new Date("01/29/2023 11:00:00 AM"),
-        end: new Date("01/29/2023 03:40:00 PM"),
-      },
-    ],
-    location: "Belgrade",
-  },
-  {
-    name: "Matrix TEO",
-    eventDates: [
-      {
-        start: new Date("01/29/2023 09:00:00 AM"),
-        end: new Date("01/29/2023 03:40:00 PM"),
-      },
-      {
-        start: new Date("01/30/2023 09:00:00 AM"),
-        end: new Date("01/29/2023 05:40:00 PM"),
-      },
-      {
-        start: new Date("01/31/2023 09:00:00 AM"),
-        end: new Date("01/31/2023 03:40:00 PM"),
-      },
-      {
-        start: new Date("02/01/2023 09:00:00 AM"),
-        end: new Date("02/01/2023 03:40:00 PM"),
-      },
-    ],
-    location: "Belgrade",
-  },
-  {
-    name: "JavaScript Conference",
-    eventDates: [
-      {
-        start: new Date("02/03/2023 11:00:00 AM"),
-        end: new Date("02/03/2023 03:40:00 PM"),
-      },
-    ],
-    location: "Belgrade",
-  },
-  {
-    name: "Future of Frontend",
-    eventDates: [
-      {
-        start: new Date("02/03/2023 11:00:00 AM"),
-        end: new Date("02/03/2023 03:40:00 PM"),
-      },
-    ],
-    location: "Belgrade",
-  },
-  {
-    name: "QA",
-    eventDates: [
-      {
-        start: new Date("02/03/2023 11:30:00 AM"),
-        end: new Date("02/03/2023 06:40:00 PM"),
-      },
-    ],
-    location: "Belgrade",
-  },
-];
+interface CalendarContextProps {
+  selectedView: CalendarEnums.CalendarView;
+  selectedDay: number;
+  selectedYear: number;
+  selectedMonth: number;
+  setSelectedView: (value: CalendarEnums.CalendarView) => void;
+  setSelectedDay: (value: number) => void;
+  setSelectedYear: (value: number) => void;
+  setSelectedMonth: (value: number) => void;
+}
 
-export const CalendarContext = React.createContext({
+const initialCalendarContext: CalendarContextProps = {
   selectedView: CalendarEnums.CalendarView.MonthView,
   selectedDay: dayjs().date(),
   selectedYear: dayjs().year(),
   selectedMonth: dayjs().month() + 1,
-  setSelectedView: (value: CalendarEnums.CalendarView) => {},
-  setSelectedDay: (value: number) => {},
-  setSelectedYear: (value: number) => {},
-  setSelectedMonth: (value: number) => {},
-});
+  setSelectedView: () => {},
+  setSelectedDay: () => {},
+  setSelectedYear: () => {},
+  setSelectedMonth: () => {},
+};
 
-const Calendar = () => {
-  const onEventClick = (event: Event.CalendarEventProps) => console.log(event);
-  const [selectedView, setSelectedView] = useState(
+export const CalendarContext = React.createContext(initialCalendarContext);
+
+interface CalendarProps {
+  events: Event.EventProps[];
+  onEventClick: (event: Event.CalendarEventProps) => void;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ events, onEventClick }) => {
+  const [selectedView, setSelectedView] = useState<CalendarEnums.CalendarView>(
     CalendarEnums.CalendarView.MonthView
   );
   const [selectedDay, setSelectedDay] = useState<number>(dayjs().date());
@@ -92,19 +44,19 @@ const Calendar = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(
     dayjs().month() + 1
   );
+  const contextValue: CalendarContextProps = {
+    selectedView,
+    selectedDay,
+    selectedYear,
+    selectedMonth,
+    setSelectedView,
+    setSelectedDay,
+    setSelectedYear,
+    setSelectedMonth,
+  };
+
   return (
-    <CalendarContext.Provider
-      value={{
-        selectedView,
-        selectedDay,
-        selectedYear,
-        selectedMonth,
-        setSelectedView,
-        setSelectedDay,
-        setSelectedYear,
-        setSelectedMonth,
-      }}
-    >
+    <CalendarContext.Provider value={contextValue}>
       <CalendarControls />
       {selectedView === CalendarEnums.CalendarView.MonthView && (
         <CalendarMonth onEventClick={onEventClick} events={events} />
