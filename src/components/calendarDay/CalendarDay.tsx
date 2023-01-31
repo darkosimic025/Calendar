@@ -13,7 +13,6 @@ export interface CalendarDayProps {
 }
 
 export const CalendarDay = ({ events }: CalendarDayProps) => {
-  console.log(events);
   const { selectedDay, selectedMonth, selectedYear } =
     useContext(CalendarContext);
 

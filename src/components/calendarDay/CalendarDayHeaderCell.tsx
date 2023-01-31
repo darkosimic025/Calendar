@@ -1,6 +1,4 @@
 import dayjs from "dayjs";
-
-import { ButtonIcon } from "../UI/button/IconButton";
 import {
   CalendarDayHeaderCellDate,
   CalendarDayHeaderCellDay,

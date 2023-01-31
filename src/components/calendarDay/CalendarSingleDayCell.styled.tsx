@@ -25,5 +25,4 @@ export const BadgeWeekStyled = styled(StyledBadge)<any>`
   top: ${({ start }) => `${start}px`};
   height: ${({ duration }) => `${duration}px`};
   border-radius: 4px;
-
 `;

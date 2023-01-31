@@ -46,7 +46,6 @@ const StyledTbody = styled.tbody<any>`
   width: 100%;
   max-height: 99vh;
   border: none;
-  overflow: auto;
   overflow-y: scroll;
   display: block;
   table-layout: fixed;

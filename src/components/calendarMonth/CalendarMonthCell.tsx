@@ -1,11 +1,8 @@
-import { FC, forwardRef, useRef, useState } from "react";
-
+import { forwardRef, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { Calendar, Event } from "../calendar/Calendar.types";
 import Badge from "../UI/badge/Badge";
-
 import Modal from "../UI/modal/Modal";
-
 import {
   StyledCellWrapper,
   StyledCloseIcon,

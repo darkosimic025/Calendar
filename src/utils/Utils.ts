@@ -131,3 +131,4 @@ export const generateAMPMHours = () => {
   }
   return hours;
 };
+

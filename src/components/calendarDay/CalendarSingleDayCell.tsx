@@ -54,11 +54,12 @@ export const getEventPosition = (
   let index = overlappingEvents.length;
   let width = 100 / index;
   let position = overlappingEvents.findIndex((ev) => ev === event) + 1;
-  return { width, position: position * width - width, index: position };
+  position = position * width - width
+  return { width, position };
 };
 
 export const Badge = ({ event, allEvents, id }: any) => {
-  const { width, position, index } = getEventPosition(event, allEvents);
+  const { width, position } = getEventPosition(event, allEvents);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: id,
@@ -80,7 +81,7 @@ export const Badge = ({ event, allEvents, id }: any) => {
       })}
       width={width}
       position={position}
-      index={index}
+      
     >
       {event.name + ` Day ${event.indexDay}`}
     </BadgeWeekStyled>

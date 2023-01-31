@@ -24,7 +24,6 @@ export const CalendarWeek = ({ events }: CalendarWeekProps) => {
       return {
         field: Object.values(day)[0].date,
         name: dayjs(Object.values(day)[0].date),
-        align: "center",
         render: (events: Event.EventProps[]) => (
           <CalendarSingleDayCell events={events} />
         ),
