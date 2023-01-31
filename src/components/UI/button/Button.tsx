@@ -14,7 +14,6 @@ export const StyledButton = styled.button<Props>`
     props.color === "secondary" ? "#ccc" : "#cce4f5"};
   color: ${(props) => (props.color === "secondary" ? "#333" : "#0061a6")};
   border: none;
-  
   border-radius: 4px;
   font-size: ${(props) => {
     switch (props.size) {

@@ -9,7 +9,6 @@ function useScrollIntoView(distance: number ) {
     }
     elementRef.current.scrollBy({ top: distance, left: 0, behavior: "smooth" });
   }, [distance]);
-  console.log(elementRef);
   return elementRef;
 }
 

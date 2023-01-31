@@ -8,8 +8,6 @@ export interface BadgeProps {
   children: ReactNode;
 }
 
-
-
 const Badge: React.FC<BadgeProps> = ({
   onClick,
   color = "primary",

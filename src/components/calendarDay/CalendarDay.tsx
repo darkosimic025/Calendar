@@ -1,10 +1,9 @@
 import React, { useCallback, useContext, useRef } from "react";
 import { motion } from "framer-motion";
-import { getDay, getWeekDays, splitIntoWeeks } from "../../utils/Utils";
+import { getDay } from "../../utils/Utils";
 import { Event } from "../calendar/Calendar.types";
 import dayjs from "dayjs";
 import Table from "../UI/table/Table";
-
 import { CalendarContext } from "../calendar/Calendar";
 import { CalendarSingleDayCell } from "./CalendarSingleDayCell";
 
@@ -21,7 +20,6 @@ export const CalendarDay = ({ events }: CalendarDazProps) => {
 
   const generateColumn = useCallback(() => {
     const day = getDay(selectedDay, selectedMonth, selectedYear);
-    console.log(day);
     return [
       {
         field: Object.values(day)[0].date,
@@ -36,9 +34,6 @@ export const CalendarDay = ({ events }: CalendarDazProps) => {
 
   const generateItems = useCallback(() => {
     const day = getDay(selectedDay, selectedMonth, selectedYear);
-    console.log(Object.values(day)[0].date);
-    const dayObject = {};
-
     events.forEach((event: Event.EventProps) => {
       event.eventDates.forEach((date, index) => {
         if (
@@ -78,7 +73,7 @@ export const CalendarDay = ({ events }: CalendarDazProps) => {
       <Table
         ref={tableRef}
         columns={generateColumn() as any}
-        items={generateItems() as any}
+        items={generateItems()}
       />
     </motion.div>
   );

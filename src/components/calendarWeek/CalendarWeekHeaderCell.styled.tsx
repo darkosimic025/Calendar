@@ -6,7 +6,6 @@ export const CalendarWeekHeaderCellDay = styled.span`
 `;
 export const CalendarWeekHeaderCellDate = styled.span<{ isToday: boolean }>`
   display: inline-block;
-  
   margin-bottom: 2px;
   font-size: 17px;
   border-radius: 50%;

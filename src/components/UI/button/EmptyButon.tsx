@@ -44,15 +44,17 @@ const StyledEmptyButton = styled.button<Props>`
   }
 `;
 
-export const EmptyButton: React.FC<Props> = forwardRef(({
-  children,
-  onClick,
-  className,
-  size= 'medium'
-}, ref: any) => {
-  return (
-    <StyledEmptyButton ref={ref} size={size} onClick={onClick} className={className}>
-      {children}
-    </StyledEmptyButton>
-  );
-});
+export const EmptyButton: React.FC<Props> = forwardRef(
+  ({ children, onClick, className, size = "medium" }, ref: any) => {
+    return (
+      <StyledEmptyButton
+        ref={ref}
+        size={size}
+        onClick={onClick}
+        className={className}
+      >
+        {children}
+      </StyledEmptyButton>
+    );
+  }
+);

@@ -29,7 +29,7 @@ Install dependencies
 Start the server
 
 ```bash
-  npm run start
+  npm start
 ```
 
 
@@ -55,7 +55,7 @@ Start the server
 
 ## Tech Stack
 
- React, TypeScript, Day.js, styled-components, framer-motion
+ React, TypeScript, day.js, styled-components, framer-motion
 
 
 

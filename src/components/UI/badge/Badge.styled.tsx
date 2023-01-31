@@ -12,7 +12,7 @@ export const StyledBadge = styled.span<BadgeProps>`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  
+  position: relative;
   background-color: ${({ color }) =>
     color === "primary"
       ? "#17a2b8"

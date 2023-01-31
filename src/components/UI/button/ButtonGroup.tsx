@@ -93,7 +93,6 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
 
   const handleClick = (index: number) => {
     setIndex(index);
-    // onClick(index);
   };
 
   return (

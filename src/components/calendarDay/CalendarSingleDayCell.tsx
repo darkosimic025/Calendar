@@ -1,11 +1,18 @@
+import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import styled, { css } from "styled-components";
-import useScrollIntoView from "../../hooks/useScrollIntoView";
 import { Event } from "../calendar/Calendar.types";
 import {
   BadgeWeekStyled,
   CalendarSingleDayCellStyled,
 } from "./CalendarSingleDayCell.styled";
+import {
+  DndContext,
+  useSensors,
+  useDraggable,
+  useDroppable,
+} from "@dnd-kit/core";
+
+import { CSS } from "@dnd-kit/utilities";
 
 export const timeToPixels = (time: Dayjs) => {
   let startOfDay = dayjs(time).format("MM/DD/YYYY");
@@ -49,29 +56,52 @@ export const getEventPosition = (
   let position = overlappingEvents.findIndex((ev) => ev === event) + 1;
   return { width, position: position * width - width, index: position };
 };
-export const CalendarSingleDayCell = ({ events }: any) => {
-  const allEvents = events.events;
-  
-  return (
-    <CalendarSingleDayCellStyled >
-      {events.events.map((event: any) => {
-        const { width, position, index } = getEventPosition(event, allEvents);
 
-        return (
-          <BadgeWeekStyled
-            start={timeToPixels(event.start)}
-            duration={eventDurationInPixels({
-              start: event.start,
-              end: event.end,
-            })}
-            width={width}
-            position={position}
-            index={index}
-          >
-            {event.name + ` Day ${event.indexDay}`}
-          </BadgeWeekStyled>
-        );
+export const Badge = ({ event, allEvents, id }: any) => {
+  const { width, position, index } = getEventPosition(event, allEvents);
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: id,
+    });
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    zIndex: isDragging ? 19999 : 0,
+  };
+  return (
+    <BadgeWeekStyled
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      start={timeToPixels(event.start)}
+      duration={eventDurationInPixels({
+        start: event.start,
+        end: event.end,
       })}
-    </CalendarSingleDayCellStyled>
+      width={width}
+      position={position}
+      index={index}
+    >
+      {event.name + ` Day ${event.indexDay}`}
+    </BadgeWeekStyled>
+  );
+};
+
+export const CalendarSingleDayCell = (events : any) => {
+  const [allEvents, setAllEvents] = useState(events.events);
+  const { setNodeRef } = useDroppable({
+    id: "calendar_single_day_cell",
+  });
+  return (
+    <DndContext>
+      <CalendarSingleDayCellStyled
+        id="calendar_single_day_cell"
+        ref={setNodeRef}
+      >
+        {events.events.map((event: any) => {
+          return <Badge id={event.name} event={event} allEvents={allEvents} />;
+        })}
+      </CalendarSingleDayCellStyled>
+    </DndContext>
   );
 };

@@ -1,6 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
-
-import { ButtonIcon } from "../UI/button/IconButton";
+import React from "react";
 import {
   CalendarMonthHeaderCellDay,
   CalendarMonthHeaderCellWrapper,
@@ -9,9 +7,7 @@ import {
 export const CalendarMonthHeaderCell = ({ date }: { date: string }) => {
   return (
     <CalendarMonthHeaderCellWrapper>
-      <CalendarMonthHeaderCellDay>
-        {date}
-      </CalendarMonthHeaderCellDay>
+      <CalendarMonthHeaderCellDay>{date}</CalendarMonthHeaderCellDay>
     </CalendarMonthHeaderCellWrapper>
   );
 };

@@ -20,6 +20,7 @@ const SelectContainer = styled.div`
   position: relative;
   width: 100%;
   cursor: pointer;
+  z-index: 10000;
 `;
 
 const SelectControl = styled.div<{ isOpen: boolean }>`
@@ -31,7 +32,6 @@ const SelectControl = styled.div<{ isOpen: boolean }>`
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    
     border-color: #0061a6;
   }
   ${(props) =>
@@ -61,7 +61,6 @@ const SelectOptions = styled(motion.div)<{ isOpen: boolean }>`
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 10;
   background-color: #fff;
   border: 1px solid #d9d9d9;
   border-top: none;
