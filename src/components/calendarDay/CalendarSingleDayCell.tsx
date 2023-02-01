@@ -12,6 +12,7 @@ export interface BadgeEventProps<T> {
   event: T;
   allEvents: T[];
   id: keyof T;
+  color?: string;
 }
 
 export const timeToPixels = (time: Dayjs) => {
@@ -62,6 +63,7 @@ export const BadgeEvent = ({
   event,
   allEvents,
   id,
+  color = "primary",
 }: BadgeEventProps<Event.CalendarEventProps>): JSX.Element => {
   const { width, position } = getEventPosition(event, allEvents);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -74,6 +76,7 @@ export const BadgeEvent = ({
   };
   return (
     <BadgeWeekStyled
+      color={color}
       ref={setNodeRef}
       style={style}
       {...listeners}
@@ -91,7 +94,7 @@ export const BadgeEvent = ({
   );
 };
 
-export const CalendarSingleDayCell = ({ events } : any) => {
+export const CalendarSingleDayCell = ({ events }: any) => {
   const [allEvents, setAllEvents] = useState(events.events);
   console.log(allEvents);
   const { setNodeRef } = useDroppable({
@@ -103,7 +106,7 @@ export const CalendarSingleDayCell = ({ events } : any) => {
         id="calendar_single_day_cell"
         ref={setNodeRef}
       >
-        {events.events.map((event : any) => {
+        {events.events.map((event: any) => {
           return (
             <BadgeEvent id={event.name} event={event} allEvents={allEvents} />
           );
