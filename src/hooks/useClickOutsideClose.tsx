@@ -3,11 +3,11 @@ import { useEffect } from "react";
 export const useClickOutside = (
   ref: React.RefObject<HTMLElement>,
   onClose: () => void,
-  isOpen: boolean
+  isOpen: boolean,
 ) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      if (ref.current != null && !ref.current.contains(event.target as Node)) {
         onClose();
       }
     };

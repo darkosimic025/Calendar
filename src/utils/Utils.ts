@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Calendar } from "../components/calendar/Calendar.types";
+import type { Calendar } from "../components/calendar/Calendar.types";
 
 export const splitIntoWeeks = (month: Calendar.MonthProps) => {
   const weeks: Calendar.MonthProps[] = [];
@@ -106,7 +106,7 @@ export const getWeekDays = (day: number, month: number, year: number) => {
     .date(day)
     .month(month - 1)
     .year(year);
-  let weekDays = [];
+  const weekDays = [];
   for (let i = 0; i < 7; i++) {
     const currentDate = date.clone().subtract(date.day() - i, "day");
     weekDays.push({
@@ -122,13 +122,12 @@ export const getWeekDays = (day: number, month: number, year: number) => {
 };
 
 export const generateAMPMHours = () => {
-  let hours = [];
+  const hours = [];
   for (let i = 1; i <= 12; i++) {
-    hours.push(i + " AM");
+    hours.push(`${i} AM`);
   }
   for (let i = 1; i <= 12; i++) {
-    hours.push(i + " PM");
+    hours.push(`${i} PM`);
   }
   return hours;
 };
-

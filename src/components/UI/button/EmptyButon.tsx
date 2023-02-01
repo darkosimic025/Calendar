@@ -1,4 +1,3 @@
-import { AnyTxtRecord } from "dns";
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 
@@ -8,7 +7,6 @@ interface Props {
   className?: string;
   size?: "small" | "medium" | "large";
   color?: "primary" | "secondary";
-  ref?: any;
 }
 
 const StyledEmptyButton = styled.button<Props>`
@@ -51,20 +49,14 @@ const StyledEmptyButton = styled.button<Props>`
   }
 `;
 
-export const EmptyButton: React.FC<Props> = forwardRef(
-  (
-    { children, onClick,  size = "medium", color = "primary" },
-    ref: any
-  ) => {
-    return (
-      <StyledEmptyButton
-        color={color}
-        ref={ref}
-        size={size}
-        onClick={onClick}
-      >
-        {children}
-      </StyledEmptyButton>
-    );
-  }
+export const EmptyButton: React.ForwardRefExoticComponent<
+  Props & React.RefAttributes<HTMLButtonElement>
+> = forwardRef(
+  ({ children, onClick, size = "medium", color = "primary" }, ref) => (
+    <StyledEmptyButton color={color} ref={ref} size={size} onClick={onClick}>
+      {children}
+    </StyledEmptyButton>
+  ),
 );
+
+EmptyButton.displayName = "EmptyButton";

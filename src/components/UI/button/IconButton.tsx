@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { DefaultTheme, ThemedCssFunction } from "styled-components";
+import styled from "styled-components";
 
 export const ArrowLeft = () => (
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +39,7 @@ export const ExpandIcon = () => (
     viewBox="0 0 16 16"
   >
     <path
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M4.35355339,12.3535534 L12.3535534,4.35355339 C12.5488155,4.15829124 12.5488155,3.84170876 12.3535534,3.64644661 C12.1582912,3.45118446 11.8417088,3.45118446 11.6464466,3.64644661 L3.64644661,11.6464466 C3.45118446,11.8417088 3.45118446,12.1582912 3.64644661,12.3535534 C3.84170876,12.5488155 4.15829124,12.5488155 4.35355339,12.3535534 Z M1,10.5 C1,10.2238576 1.22385763,10 1.5,10 C1.77614237,10 2,10.2238576 2,10.5 L2,13.5 C2,13.7761424 2.22385763,14 2.5,14 L5.5,14 C5.77614237,14 6,14.2238576 6,14.5 C6,14.7761424 5.77614237,15 5.5,15 L2.5,15 C1.67157288,15 1,14.3284271 1,13.5 L1,10.5 Z M15,5.5 C15,5.77614237 14.7761424,6 14.5,6 C14.2238576,6 14,5.77614237 14,5.5 L14,2.5 C14,2.22385763 13.7761424,2 13.5,2 L10.5,2 C10.2238576,2 10,1.77614237 10,1.5 C10,1.22385763 10.2238576,1 10.5,1 L13.5,1 C14.3284271,1 15,1.67157288 15,2.5 L15,5.5 Z"
     />
   </svg>
@@ -138,15 +138,13 @@ export const ButtonIcon: React.FC<Props> = ({
   className,
   color = "primary",
   size = "medium",
-}) => {
-  return (
-    <StyledButtonIcon
-      onClick={onClick}
-      className={className}
-      color={color}
-      size={size}
-    >
-      {icons[icon]()}
-    </StyledButtonIcon>
-  );
-};
+}) => (
+  <StyledButtonIcon
+    onClick={onClick}
+    className={className}
+    color={color}
+    size={size}
+  >
+    {icons[icon]()}
+  </StyledButtonIcon>
+);

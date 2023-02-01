@@ -14,10 +14,10 @@ export interface FlexGroupProps {
 
 export const FlexGroup = styled.div<FlexGroupProps>`
   display: flex;
-  flex-direction: ${(props) => props.direction};
-  justify-content: ${(props) => props.justifyContent};
-  align-items: ${(props) => props.alignItems};
-  flex-wrap: ${(props) => props.wrap};
+  flex-direction: ${({ direction }) => direction};
+  justify-content: ${({ justifyContent }) => justifyContent};
+  align-items: ${({ alignItems }) => alignItems};
+  flex-wrap: ${({ wrap }) => wrap};
 `;
 
 export interface FlexItemProps {
@@ -36,9 +36,9 @@ export interface FlexItemProps {
 
 export const FlexItem = styled.div<FlexItemProps>`
   margin-left: 3px;
-  order: ${(props) => props.order};
-  flex-grow: ${(props) => props.flexGrow};
-  flex-shrink: ${(props) => props.flexShrink};
-  flex-basis: ${(props) => props.flexBasis};
-  align-self: ${(props) => props.alignSelf};
+  order: ${({ order }) => order};
+  flex-grow: ${({ flexGrow }) => flexGrow};
+  flex-shrink: ${({ flexShrink }) => flexShrink};
+  flex-basis: ${({ flexBasis }) => flexBasis};
+  align-self: ${({ alignSelf }) => alignSelf};
 `;

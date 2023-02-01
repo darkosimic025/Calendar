@@ -6,16 +6,12 @@ import {
   CalendarTimelineWrapper,
 } from "./CalendarTimline.styled";
 
-export const CalendarTimeline = () => {
-  return (
-    <CalendarTimelineWrapper>
-      {generateAMPMHours().map((hour, index) => {
-        return (
-          <CalendarTimelineHour key={index}>
-            <CalendarTimelineHourLabel>{hour}</CalendarTimelineHourLabel>
-          </CalendarTimelineHour>
-        );
-      })}
-    </CalendarTimelineWrapper>
-  );
-};
+export const CalendarTimeline = () => (
+  <CalendarTimelineWrapper>
+    {generateAMPMHours().map((hour, index) => (
+      <CalendarTimelineHour key={index}>
+        <CalendarTimelineHourLabel>{hour}</CalendarTimelineHourLabel>
+      </CalendarTimelineHour>
+    ))}
+  </CalendarTimelineWrapper>
+);

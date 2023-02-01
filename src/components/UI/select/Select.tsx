@@ -1,20 +1,20 @@
-import React, { SetStateAction, useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { useClickOutside } from "../../../hooks/useClickOutsideClose";
 import { ArrowDown } from "../button/IconButton";
-import { motion } from "framer-motion";
 
-type Option = {
+interface Option {
   value: string | number;
   text: string | number;
-};
+}
 
-type SelectProps = {
+interface SelectProps {
   options: Option[];
   onChange: (e: Option["value"]) => void;
   value: Option["value"];
   className?: string;
-};
+}
 
 const SelectContainer = styled.div`
   position: relative;
@@ -94,14 +94,20 @@ const Select: React.FC<SelectProps> = ({
   };
 
   const selectRef = useRef<HTMLDivElement>(null);
-  useClickOutside(selectRef, () => setIsOpen(false), isOpen);
+  useClickOutside(
+    selectRef,
+    () => {
+      setIsOpen(false);
+    },
+    isOpen,
+  );
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
   const selectedtext =
-    options.find((option) => option.value == value)?.text || "";
+    options.find((option) => option.value === value)?.text ?? "";
 
   return (
     <SelectContainer ref={selectRef} className={className}>
@@ -114,7 +120,9 @@ const Select: React.FC<SelectProps> = ({
           <SelectOption
             key={option.value}
             isSelected={option.value === selected}
-            onClick={() => handleChange(option.value)}
+            onClick={() => {
+              handleChange(option.value);
+            }}
           >
             {option.text}
           </SelectOption>

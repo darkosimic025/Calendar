@@ -1,15 +1,15 @@
-import React, { useCallback, useContext, useRef } from "react";
+import dayjs from "dayjs";
 import { motion } from "framer-motion";
+import React, { useCallback, useContext, useRef } from "react";
 import { getDates, splitIntoWeeks } from "../../utils/Utils";
-import {
-  CalendarEnums,
+import Table from "../UI/table/Table";
+import { CalendarContext } from "../calendar/Calendar";
+import { CalendarEnums } from "../calendar/Calendar.types";
+import CalendarMonthCell from "../calendarMonth/CalendarMonthCell";
+import type {
   Calendar as CalendarProps,
   Event,
 } from "../calendar/Calendar.types";
-import dayjs from "dayjs";
-import CalendarMonthCell from "../calendarMonth/CalendarMonthCell";
-import Table from "../UI/table/Table";
-import { CalendarContext } from "../calendar/Calendar";
 
 export interface CalendarEvents {
   events: Event.EventProps[];
@@ -26,28 +26,24 @@ export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
       ([key, value]) => ({
         field: value,
         name: key,
-      })
+      }),
     );
 
-    return columns.map(({ field, name }) => {
-      return {
-        field: field,
-        name: name,
-        align: "center",
-        render: ({ ...args }: CalendarProps.DayProps) => {
-          return (
-            <CalendarMonthCell
-              onEventClick={onEventClick}
-              ref={tableRef}
-              date={args.date}
-              indexDay={args.indexDay}
-              events={args.events}
-              isCurrentMonth={args.isCurrentMonth}
-            />
-          );
-        },
-      };
-    });
+    return columns.map(({ field, name }) => ({
+      field,
+      name,
+      align: "center",
+      render: ({ ...args }: CalendarProps.DayProps) => (
+        <CalendarMonthCell
+          onEventClick={onEventClick}
+          ref={tableRef}
+          date={args.date}
+          indexDay={args.indexDay}
+          events={args.events}
+          isCurrentMonth={args.isCurrentMonth}
+        />
+      ),
+    }));
   }, [selectedMonth, selectedYear]);
 
   const generateItems = useCallback(() => {
@@ -59,7 +55,7 @@ export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
           event.eventDates.forEach((date, index) => {
             if (
               dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(
-                dayjs(day.date)
+                dayjs(day.date),
               )
             ) {
               day.events.push({

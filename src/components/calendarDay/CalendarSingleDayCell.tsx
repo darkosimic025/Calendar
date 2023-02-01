@@ -1,12 +1,13 @@
+import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+import dayjs from "dayjs";
 import React, { useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { Calendar, Event } from "../calendar/Calendar.types";
 import {
   BadgeWeekStyled,
   CalendarSingleDayCellStyled,
 } from "./CalendarSingleDayCell.styled";
-import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
+import type { Event } from "../calendar/Calendar.types";
+import type { Dayjs } from "dayjs";
 
 export interface BadgeEventProps<T> {
   event: T;
@@ -16,9 +17,9 @@ export interface BadgeEventProps<T> {
 }
 
 export const timeToPixels = (time: Dayjs) => {
-  let startOfDay = dayjs(time).format("MM/DD/YYYY");
-  let currentTime = dayjs(time);
-  let diff = currentTime.diff(dayjs(startOfDay), "minute");
+  const startOfDay = dayjs(time).format("MM/DD/YYYY");
+  const currentTime = dayjs(time);
+  const diff = currentTime.diff(dayjs(startOfDay), "minute");
   return diff - 60;
 };
 
@@ -34,16 +35,15 @@ export const eventDurationInPixels = ({
 
 export const getEventPosition = (
   event: Event.CalendarEventProps,
-  events: Event.CalendarEventProps[]
+  events: Event.CalendarEventProps[],
 ) => {
   const startMinutes = timeToPixels(event.start);
-  const endMinutes = timeToPixels(event.end);
 
-  let overlappingEvents = events
+  const overlappingEvents = events
     .filter(
       (ev) =>
         startMinutes >= timeToPixels(ev.start) ||
-        startMinutes <= timeToPixels(ev.end)
+        startMinutes <= timeToPixels(ev.end),
     )
     .sort((a, b) => {
       if (timeToPixels(a.start) === timeToPixels(b.start)) {
@@ -52,8 +52,8 @@ export const getEventPosition = (
       return timeToPixels(a.start) - timeToPixels(b.start);
     });
 
-  let index = overlappingEvents.length;
-  let width = 100 / index;
+  const index = overlappingEvents.length;
+  const width = 100 / index;
   let position = overlappingEvents.findIndex((ev) => ev === event) + 1;
   position = position * width - width;
   return { width, position };
@@ -68,7 +68,7 @@ export const BadgeEvent = ({
   const { width, position } = getEventPosition(event, allEvents);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
-      id: id,
+      id,
     });
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -95,7 +95,7 @@ export const BadgeEvent = ({
 };
 
 export const CalendarSingleDayCell = ({ events }: any) => {
-  const [allEvents, setAllEvents] = useState(events.events);
+  const [allEvents] = useState(events.events);
   console.log(allEvents);
   const { setNodeRef } = useDroppable({
     id: "calendar_single_day_cell",
@@ -106,11 +106,14 @@ export const CalendarSingleDayCell = ({ events }: any) => {
         id="calendar_single_day_cell"
         ref={setNodeRef}
       >
-        {events.events.map((event: any) => {
-          return (
-            <BadgeEvent id={event.name} event={event} allEvents={allEvents} />
-          );
-        })}
+        {events.events.map((event: any, index: any) => (
+          <BadgeEvent
+            key={index}
+            id={event.name}
+            event={event}
+            allEvents={allEvents}
+          />
+        ))}
       </CalendarSingleDayCellStyled>
     </DndContext>
   );

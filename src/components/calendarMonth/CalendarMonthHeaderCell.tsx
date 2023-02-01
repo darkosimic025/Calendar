@@ -4,10 +4,8 @@ import {
   CalendarMonthHeaderCellWrapper,
 } from "./CalendarMonthHeaderCell.styled";
 
-export const CalendarMonthHeaderCell = ({ date }: { date: string }) => {
-  return (
-    <CalendarMonthHeaderCellWrapper>
-      <CalendarMonthHeaderCellDay>{date}</CalendarMonthHeaderCellDay>
-    </CalendarMonthHeaderCellWrapper>
-  );
-};
+export const CalendarMonthHeaderCell = ({ date }: { date: string }) => (
+  <CalendarMonthHeaderCellWrapper>
+    <CalendarMonthHeaderCellDay>{date}</CalendarMonthHeaderCellDay>
+  </CalendarMonthHeaderCellWrapper>
+);

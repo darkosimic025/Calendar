@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React, {
   useCallback,
   useContext,
@@ -5,14 +6,13 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import dayjs from "dayjs";
-import { CalendarEnums } from "../calendar/Calendar.types";
-import { CalendarContext } from "../calendar/Calendar";
-import { FlexGroup, FlexItem } from "../UI/flex/Flex";
+import { ButtonGroup } from "../UI/button/ButtonGroup";
 import { EmptyButton } from "../UI/button/EmptyButon";
 import { ButtonIcon } from "../UI/button/IconButton";
+import { FlexGroup, FlexItem } from "../UI/flex/Flex";
 import Select from "../UI/select/Select";
-import { ButtonGroup } from "../UI/button/ButtonGroup";
+import { CalendarContext } from "../calendar/Calendar";
+import { CalendarEnums } from "../calendar/Calendar.types";
 import { CalendarControlsWrapper } from "./CalendarControls.styled";
 
 export const CalendarControls = () => {
@@ -30,19 +30,21 @@ export const CalendarControls = () => {
 
   const generateYears = useMemo(() => {
     const currentYear = dayjs().year();
-    let yearOptions = [];
+    const yearOptions = [];
     for (let i = 1970; i <= currentYear + 1; i++) {
       yearOptions.push({ value: i, text: i });
     }
     return yearOptions.reverse();
   }, []);
 
-  const generateMonths = useMemo(() => {
-    return Object.entries(CalendarEnums.Months).map(([key, value]) => ({
-      value,
-      text: key,
-    }));
-  }, []);
+  const generateMonths = useMemo(
+    () =>
+      Object.entries(CalendarEnums.Months).map(([key, value]) => ({
+        value,
+        text: key,
+      })),
+    [],
+  );
 
   const handlePrevious = useCallback(() => {
     switch (selectedView) {
@@ -54,34 +56,34 @@ export const CalendarControls = () => {
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(7, "day")
-            .date()
+            .date(),
         );
         setSelectedMonth(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(7, "day")
-            .month() + 1
+            .month() + 1,
         );
         setSelectedYear(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(7, "day")
-            .year()
+            .year(),
         );
         break;
       case CalendarEnums.CalendarView.DayView:
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(1, "day")
-            .date()
+            .date(),
         );
         setSelectedMonth(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(1, "day")
-            .month() + 1
+            .month() + 1,
         );
         setSelectedYear(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .subtract(1, "day")
-            .year()
+            .year(),
         );
         break;
       default:
@@ -99,34 +101,34 @@ export const CalendarControls = () => {
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(7, "day")
-            .date()
+            .date(),
         );
         setSelectedMonth(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(7, "day")
-            .month() + 1
+            .month() + 1,
         );
         setSelectedYear(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(7, "day")
-            .year()
+            .year(),
         );
         break;
       case CalendarEnums.CalendarView.DayView:
         setSelectedDay(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(1, "day")
-            .date()
+            .date(),
         );
         setSelectedMonth(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(1, "day")
-            .month() + 1
+            .month() + 1,
         );
         setSelectedYear(
           dayjs(new Date(selectedYear, selectedMonth - 1, selectedDay))
             .add(1, "day")
-            .year()
+            .year(),
         );
         break;
       default:
@@ -151,20 +153,26 @@ export const CalendarControls = () => {
   const calendarViewButtons = [
     {
       label: "Day",
-      onClick: () => setSelectedView(CalendarEnums.CalendarView.DayView),
+      onClick: () => {
+        setSelectedView(CalendarEnums.CalendarView.DayView);
+      },
     },
     {
       label: "Week",
-      onClick: () => setSelectedView(CalendarEnums.CalendarView.WeekView),
+      onClick: () => {
+        setSelectedView(CalendarEnums.CalendarView.WeekView);
+      },
     },
     {
       label: "Month",
-      onClick: () => setSelectedView(CalendarEnums.CalendarView.MonthView),
+      onClick: () => {
+        setSelectedView(CalendarEnums.CalendarView.MonthView);
+      },
     },
   ];
 
   const selectedIndex = calendarViewButtons.findIndex(
-    ({ label }) => label === selectedView
+    ({ label }) => label === selectedView,
   );
 
   return (

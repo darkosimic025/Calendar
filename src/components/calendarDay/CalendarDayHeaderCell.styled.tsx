@@ -11,7 +11,9 @@ export const CalendarDayHeaderCellDate = styled.span<{ isToday: boolean }>`
   font-size: 17px;
   border-radius: 50%;
   background-color: ${({ isToday, theme }) =>
-    isToday ? theme.calendar.common.colors.isToday : theme.calendar.common.colors.notToday};
+    isToday
+      ? theme.calendar.common.colors.isToday
+      : theme.calendar.common.colors.notToday};
   padding: 6px;
 `;
 

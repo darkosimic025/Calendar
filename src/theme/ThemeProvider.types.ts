@@ -1,8 +1,7 @@
-import "styled-components";
 import { DefaultTheme } from "styled-components";
 
 declare module "styled-components" {
-  export interface  DefaultTheme   {
+  export interface DefaultTheme {
     background: string;
     button: {
       colors: {

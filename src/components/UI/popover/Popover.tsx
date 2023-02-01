@@ -1,9 +1,10 @@
-import React, { useState, useRef, forwardRef, useEffect, Ref } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import styled from "styled-components";
-import { usePopoverPosition } from "../../../hooks/useModalPosition";
+import React, { forwardRef } from "react";
 import ReactDOM from "react-dom";
+import styled from "styled-components";
 import { useClickOutside } from "../../../hooks/useClickOutsideClose";
+import { usePopoverPosition } from "../../../hooks/useModalPosition";
+import type { Ref } from "react";
 
 const PopoverContainer = styled(motion.div)`
   display: flex;
@@ -22,7 +23,7 @@ const PopoverContent = styled(motion.div)`
   align-items: center;
 `;
 
-export type TableDimensions = {
+export interface TableDimensions {
   bottom: number;
   height: number;
   left: number;
@@ -31,7 +32,7 @@ export type TableDimensions = {
   width: number;
   x: number;
   y: number;
-};
+}
 
 interface Props {
   isOpen: boolean;
@@ -59,7 +60,9 @@ const Popover: React.FC<Props> = forwardRef(
             width: "100%",
             height: "100%",
           }}
-          onClick={() => onClose()}
+          onClick={() => {
+            onClose();
+          }}
         >
           <PopoverContent
             ref={popoverRef}
@@ -88,10 +91,12 @@ const Popover: React.FC<Props> = forwardRef(
     return isOpen
       ? ReactDOM.createPortal(
           popover,
-          document.getElementById("popover-root") as HTMLDivElement
+          document.getElementById("popover-root") as HTMLDivElement,
         )
       : null;
-  }
+  },
 );
+
+Popover.displayName = "Popover";
 
 export default Popover;

@@ -1,8 +1,8 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import Calendar from "./components/calendar/Calendar";
-import { Event } from "./components/calendar/Calendar.types";
-import { darkTheme, lightTheme } from "./theme/ThemeProvider";
+import { lightTheme } from "./theme/ThemeProvider";
+import type { Event } from "./components/calendar/Calendar.types";
 
 function App() {
   const events = [
@@ -70,7 +70,9 @@ function App() {
     },
   ];
 
-  const onEventClick = (event: Event.CalendarEventProps) => console.log(event);
+  const onEventClick = (event: Event.CalendarEventProps): void => {
+    console.log(event);
+  };
 
   return (
     <ThemeProvider theme={lightTheme}>

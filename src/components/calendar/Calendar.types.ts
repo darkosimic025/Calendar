@@ -1,30 +1,30 @@
-import { Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
 
 export namespace Event {
-  export type EventDatesProps = {
+  export interface EventDatesProps {
     start: Date;
     end: Date;
-  };
-  export type EventProps = {
+  }
+  export interface EventProps {
     name: string;
     eventDates: EventDatesProps[];
-  };
-  export type CalendarEventProps = {
+  }
+  export interface CalendarEventProps {
     name: string;
     indexDay: number;
     start: Dayjs;
     end: Dayjs;
-  };
+  }
 }
 
 export namespace Calendar {
   export type DaysShort = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
-  export type DayProps = {
+  export interface DayProps {
     indexDay: string;
     events: Event.CalendarEventProps[];
     isCurrentMonth: boolean;
     date: string;
-  };
+  }
   export type WeekDayProps = {
     [key in DaysShort]?: DayProps;
   };
@@ -34,12 +34,12 @@ export namespace Calendar {
 }
 
 export namespace CalendarUI {
-  export type CalendarCell = {
+  export interface CalendarCell {
     indexDay: string;
     events: Event.EventProps[];
     isCurrentMonth: boolean;
     date: string;
-  };
+  }
 }
 
 export namespace CalendarEnums {

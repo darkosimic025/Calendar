@@ -51,10 +51,8 @@ export const Button: React.FC<Props> = ({
   type = "button",
   size = "medium",
   color = "primary",
-}) => {
-  return (
-    <StyledButton type={type} onClick={onClick} size={size} color={color}>
-      {children}
-    </StyledButton>
-  );
-};
+}) => (
+  <StyledButton type={type} onClick={onClick} size={size} color={color}>
+    {children}
+  </StyledButton>
+);

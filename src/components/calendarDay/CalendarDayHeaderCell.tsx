@@ -1,9 +1,11 @@
-import dayjs, { Dayjs } from "dayjs";
+import React from "react";
+import dayjs from "dayjs";
 import {
   CalendarDayHeaderCellDate,
   CalendarDayHeaderCellDay,
   CalendarDayHeaderCellWrapper,
 } from "./CalendarDayHeaderCell.styled";
+import type { Dayjs } from "dayjs";
 
 export const CalendarDayHeaderCell = ({ date }: { date: string | Dayjs }) => {
   const isToday = dayjs().isSame(dayjs(date), "day");

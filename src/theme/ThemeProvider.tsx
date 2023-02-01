@@ -1,4 +1,4 @@
-import {  DefaultTheme, ThemeProps } from "styled-components";
+import type { DefaultTheme } from "styled-components";
 
 const lightTheme: DefaultTheme = {
   background: "#fff",

@@ -1,28 +1,23 @@
 import { motion } from "framer-motion";
-import React, {
-  ReactElement,
-  ReactNode,
-  Ref,
-  RefObject,
-  useContext,
-} from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { CalendarContext } from "../../calendar/Calendar";
-import { CalendarWeekHeaderCell } from "../../calendarWeek/CalendarWeekHeaderCell";
-import { CalendarTimeline } from "../../calendarTimeline/CalendarTimeline";
-import { Dayjs } from "dayjs";
-import { CalendarEnums } from "../../calendar/Calendar.types";
-import { CalendarMonthHeaderCell } from "../../calendarMonth/CalendarMonthHeaderCell";
 import useScrollIntoView from "../../../hooks/useScrollIntoView";
+import { CalendarContext } from "../../calendar/Calendar";
+import { CalendarEnums } from "../../calendar/Calendar.types";
 import { CalendarDayHeaderCell } from "../../calendarDay/CalendarDayHeaderCell";
+import { CalendarMonthHeaderCell } from "../../calendarMonth/CalendarMonthHeaderCell";
+import { CalendarTimeline } from "../../calendarTimeline/CalendarTimeline";
+import { CalendarWeekHeaderCell } from "../../calendarWeek/CalendarWeekHeaderCell";
+import type { Dayjs } from "dayjs";
+import type { ReactElement, ReactNode, Ref, RefObject } from "react";
 
 interface TableProps<T> {
   items: T[];
-  columns: {
+  columns: Array<{
     field: string;
     name: string | Dayjs;
     render: (item: T) => ReactNode | ReactElement;
-  }[];
+  }>;
   ref: RefObject<HTMLTableElement>;
 }
 
@@ -72,9 +67,9 @@ const StyledTr = styled.tr`
   width: 100%;
 `;
 
-const TableComponent = <T extends { [key: string]: any }>(
+const TableComponent = <T extends Record<string, any>>(
   { items, columns }: TableProps<T>,
-  ref: Ref<HTMLTableElement>
+  ref: Ref<HTMLTableElement>,
 ) => {
   const { selectedDay, selectedMonth, selectedYear, selectedView } =
     useContext(CalendarContext);
@@ -129,6 +124,8 @@ const TableComponent = <T extends { [key: string]: any }>(
                       <CalendarDayHeaderCell date={column.name} />
                     </StyledTh>
                   );
+                default:
+                  return {};
               }
             })}
           </>
@@ -170,10 +167,10 @@ const TableComponent = <T extends { [key: string]: any }>(
 };
 
 const Table = React.forwardRef(TableComponent) as <
-  T extends { [key: string]: any }
+  T extends Record<string, any>,
 >(
   { items, columns }: TableProps<T>,
-  ref: Ref<HTMLTableElement>
+  ref: Ref<HTMLTableElement>,
 ) => ReactElement;
 
 export default Table;

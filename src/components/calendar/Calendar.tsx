@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { CalendarControls } from "../calendarControls/CalendarControls";
-import { CalendarMonth } from "../calendarMonth/CalendarMonth";
-import { CalendarEnums, Event } from "./Calendar.types";
-import { CalendarWeek } from "../calendarWeek/CalendarWeek";
 import { CalendarDay } from "../calendarDay/CalendarDay";
+import { CalendarMonth } from "../calendarMonth/CalendarMonth";
+import { CalendarWeek } from "../calendarWeek/CalendarWeek";
+import { CalendarEnums } from "./Calendar.types";
+import type { Event } from "./Calendar.types";
 
 interface CalendarContextProps {
   selectedYear: number;
@@ -39,12 +40,12 @@ interface CalendarProps {
 
 const Calendar: React.FC<CalendarProps> = ({ events, onEventClick }) => {
   const [selectedView, setSelectedView] = useState<CalendarEnums.CalendarView>(
-    CalendarEnums.CalendarView.MonthView
+    CalendarEnums.CalendarView.MonthView,
   );
   const [selectedDay, setSelectedDay] = useState<number>(dayjs().date());
   const [selectedYear, setSelectedYear] = useState<number>(dayjs().year());
   const [selectedMonth, setSelectedMonth] = useState<number>(
-    dayjs().month() + 1
+    dayjs().month() + 1,
   );
   const contextValue: CalendarContextProps = {
     selectedView,

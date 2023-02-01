@@ -127,6 +127,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     <ButtonGroupContainer>
       {buttons.map((button, i) => (
         <StyledButton
+          key={i}
           size={size}
           color={color}
           selected={index === i}

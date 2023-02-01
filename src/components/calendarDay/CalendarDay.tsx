@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useMemo, useRef } from "react";
-import { motion } from "framer-motion";
-import { getDay } from "../../utils/Utils";
-import { Event } from "../calendar/Calendar.types";
 import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import React, { useContext, useMemo, useRef } from "react";
+import { getDay } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
 import { CalendarSingleDayCell } from "./CalendarSingleDayCell";
+import type { Event } from "../calendar/Calendar.types";
 
 export interface CalendarDayProps {
   events: Event.EventProps[];
@@ -37,7 +37,7 @@ export const CalendarDay = ({ events }: CalendarDayProps) => {
       event.eventDates.forEach((date, index) => {
         if (
           dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(
-            dayjs(Object.values(day)[0].date).format("MM/DD/YYYY")
+            dayjs(Object.values(day)[0].date).format("MM/DD/YYYY"),
           )
         ) {
           const eventsArray = Object.values(day)[0]

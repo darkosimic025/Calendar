@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Calendar } from "../calendar/Calendar.types";
 import { EmptyButton } from "../UI/button/EmptyButon";
 import { ButtonIcon } from "../UI/button/IconButton";
+import type { Calendar } from "../calendar/Calendar.types";
 
 export const StyledCellWrapper = styled.div<
   Pick<Calendar.DayProps, "isCurrentMonth">
@@ -27,7 +27,9 @@ export const StyledDayIndex = styled.span<{ isToday: boolean }>`
   font-size: 12px;
   cursor: default;
   background-color: ${({ isToday, theme }) =>
-    isToday ? theme.calendar.common.colors.isToday : theme.calendar.common.colors.notToday};
+    isToday
+      ? theme.calendar.common.colors.isToday
+      : theme.calendar.common.colors.notToday};
   border-radius: 50%;
   padding: 3px;
   margin: 3px;
@@ -39,7 +41,9 @@ export const StyledDayIndexPopover = styled.span<{ isToday: boolean }>`
   font-size: 16px;
   cursor: default;
   background-color: ${({ isToday, theme }) =>
-    isToday ? theme.calendar.common.colors.isToday : theme.calendar.common.colors.notToday};
+    isToday
+      ? theme.calendar.common.colors.isToday
+      : theme.calendar.common.colors.notToday};
   border-radius: 50%;
   padding: 10px;
   margin-bottom: 14px;
