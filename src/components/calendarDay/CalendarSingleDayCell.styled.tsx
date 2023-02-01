@@ -5,13 +5,8 @@ export const CalendarSingleDayCellStyled = styled.div`
   height: 1440px;
   width: 100%;
   position: relative;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 59px,
-    rgb(218, 220, 224) 60px,
-    rgb(218, 220, 224) 60px
-  );
+  background-image: ${({ theme }) =>
+    theme.calendar.day.cell.backgroundWithLines};
   background-position: 0 0;
 `;
 

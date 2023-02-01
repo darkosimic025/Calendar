@@ -38,9 +38,9 @@ Start the server
 
 ![App Screenshot](screenshots/MonthView.png)
 
-## MonthViewModal
+## MonthViewPopover
 
-![App Screenshot](screenshots/MonthViewModal.png)
+![App Screenshot](screenshots/MonthViewPopover.png)
 
 ## WeekView
 

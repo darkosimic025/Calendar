@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { StyledBadge } from "./Badge.styled";
 
 export interface BadgeProps {
-  color?: "primary" | "secondary";
+  color?: "primary" | "secondary" | "teritary";
   onClick?: () => void;
   children: ReactNode;
 }

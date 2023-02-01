@@ -24,42 +24,70 @@ const StyledButton = styled.button<{
   size: string;
   color: string;
 }>`
-  background-color: ${(props) =>
-    props.color === "secondary" ? "#ccc" : "#cce4f5"};
-  color: ${(props) => (props.color === "secondary" ? "#333" : "#0061a6")};
-  border: none;
-  padding: ${(props) => {
-    switch (props.size) {
+  background-color: ${({ color, theme }) => {
+    switch (color) {
+      case "primary":
+        return theme.button.colors.primary.background;
+      case "secondary":
+        return theme.button.colors.primary.secondary;
+    }
+  }};
+  color: ${({ color, theme }) => {
+    switch (color) {
+      case "primary":
+        return theme.button.colors.primary.textColor;
+      case "secondary":
+        return theme.button.colors.primary.textColor;
+    }
+  }};
+  font-size: ${({ size, theme }) => {
+    switch (size) {
       case "small":
-        return "6px 16px";
+        return theme.button.fontSize.small;
       case "large":
-        return "16px 32px";
-      default:
-        return "12px 24px";
+        return theme.button.fontSize.large;
+      case "medium":
+        return theme.button.fontSize.medium;
+    }
+  }};
+  border: none;
+  padding: ${({ size, theme }) => {
+    switch (size) {
+      case "small":
+        return theme.button.padding.small;
+      case "large":
+        return theme.button.padding.large;
+      case "medium":
+        return theme.button.padding.medium;
     }
   }};
   border-radius: 4px;
-  font-size: ${(props) => {
-    switch (props.size) {
-      case "small":
-        return "14px";
-      case "large":
-        return "18px";
-      default:
-        return "16px";
-    }
-  }};
   cursor: pointer;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
-  ${(props) =>
-    props.selected &&
-    css`
-      background-color: #0061a6;
-      color: white;
-    `}
+  ${({ selected, color, theme }) => {
+    switch (color) {
+      case "primary":
+        return (
+          selected &&
+          css`
+            background-color: ${theme.button.colors.primary.selectedBackground};
+            color: ${theme.button.colors.primary.selectedTextColor};
+          `
+        );
+      case "secondary":
+        return (
+          selected &&
+          css`
+            background-color: ${theme.button.colors.secondary
+              .selectedBackground};
+            color: ${theme.button.colors.secondary.selectedTextColor};
+          `
+        );
+    }
+  }}
 
   ${(props) =>
     props.first &&

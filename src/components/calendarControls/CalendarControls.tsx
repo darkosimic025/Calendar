@@ -1,26 +1,19 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { CalendarEnums } from "../calendar/Calendar.types";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import dayjs from "dayjs";
+import { CalendarEnums } from "../calendar/Calendar.types";
+import { CalendarContext } from "../calendar/Calendar";
 import { FlexGroup, FlexItem } from "../UI/flex/Flex";
 import { EmptyButton } from "../UI/button/EmptyButon";
 import { ButtonIcon } from "../UI/button/IconButton";
 import Select from "../UI/select/Select";
 import { ButtonGroup } from "../UI/button/ButtonGroup";
-import { CalendarContext } from "../calendar/Calendar";
 import { CalendarControlsWrapper } from "./CalendarControls.styled";
-
-export interface CalendarControlsProps {
-  selectedYear: number;
-  selectedMonth: number;
-  setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedMonth: React.Dispatch<React.SetStateAction<number>>;
-  selectedDay: number;
-  setSelectedDay: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedView: React.Dispatch<
-    React.SetStateAction<CalendarEnums.CalendarView>
-  >;
-  selectedView: CalendarEnums.CalendarView;
-}
 
 export const CalendarControls = () => {
   const {
@@ -35,7 +28,7 @@ export const CalendarControls = () => {
   } = useContext(CalendarContext);
   const [disableNextMonth, setDisableNextMonth] = useState<boolean>(false);
 
-  const generateYears = useCallback(() => {
+  const generateYears = useMemo(() => {
     const currentYear = dayjs().year();
     let yearOptions = [];
     for (let i = 1970; i <= currentYear + 1; i++) {
@@ -44,12 +37,13 @@ export const CalendarControls = () => {
     return yearOptions.reverse();
   }, []);
 
-  const generateMonths = useCallback(() => {
+  const generateMonths = useMemo(() => {
     return Object.entries(CalendarEnums.Months).map(([key, value]) => ({
       value,
       text: key,
     }));
   }, []);
+
   const handlePrevious = useCallback(() => {
     switch (selectedView) {
       case CalendarEnums.CalendarView.MonthView:
@@ -94,6 +88,7 @@ export const CalendarControls = () => {
         break;
     }
   }, [selectedDay, selectedMonth, selectedView, selectedYear]);
+
   const handleNext = useCallback(() => {
     switch (selectedView) {
       case CalendarEnums.CalendarView.MonthView:
@@ -153,7 +148,7 @@ export const CalendarControls = () => {
     }
   }, [selectedMonth, selectedYear]);
 
-  const buttons = [
+  const calendarViewButtons = [
     {
       label: "Day",
       onClick: () => setSelectedView(CalendarEnums.CalendarView.DayView),
@@ -168,7 +163,7 @@ export const CalendarControls = () => {
     },
   ];
 
-  const selectedIndex = buttons.findIndex(
+  const selectedIndex = calendarViewButtons.findIndex(
     ({ label }) => label === selectedView
   );
 
@@ -193,7 +188,7 @@ export const CalendarControls = () => {
             onChange={(year) => {
               setSelectedYear(parseFloat(year.toString()));
             }}
-            options={generateYears()}
+            options={generateYears}
           />
         </FlexItem>
         <FlexItem>
@@ -202,7 +197,7 @@ export const CalendarControls = () => {
             onChange={(month) => {
               setSelectedMonth(parseFloat(month.toString()));
             }}
-            options={generateMonths()}
+            options={generateMonths}
           />
         </FlexItem>
       </FlexGroup>
@@ -211,7 +206,7 @@ export const CalendarControls = () => {
           <ButtonGroup
             size="small"
             selectedIndex={selectedIndex}
-            buttons={buttons}
+            buttons={calendarViewButtons}
           />
         </FlexItem>
       </FlexGroup>

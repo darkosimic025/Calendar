@@ -9,8 +9,8 @@ export const CalendarWeekHeaderCellDate = styled.span<{ isToday: boolean }>`
   margin-bottom: 2px;
   font-size: 17px;
   border-radius: 50%;
-  background-color: ${({ isToday }) =>
-    isToday ? "rgba(152, 212, 255, 0.733)" : "#fff"};
+  background-color: ${({ isToday, theme }) =>
+    isToday ? theme.calendar.common.isToday : theme.calendar.common.notToday};
   padding: 6px;
 `;
 

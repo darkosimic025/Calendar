@@ -27,12 +27,14 @@ const SelectControl = styled.div<{ isOpen: boolean }>`
   display: flex;
   align-items: center;
   padding: 2px 12px;
-  background-color: #fff;
-  border: 1px solid #d9d9d9;
+  background-color: ${({ theme }) =>
+    theme.select.selectControl.colors.background};
+  border: 1px solid ${({ theme }) => theme.select.selectControl.colors.border};
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    border-color: #0061a6;
+    border-color: ${({ theme }) =>
+      theme.select.selectControl.colors.borderHover};
   }
   ${(props) =>
     props.isOpen &&
@@ -45,14 +47,17 @@ const SelectControl = styled.div<{ isOpen: boolean }>`
 const SelectOption = styled.div<{ isSelected: boolean }>`
   padding: 8px 12px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: ${({ theme }) =>
+    theme.select.selectOption.colors.background};
   &:hover {
-    background-color: #e6f7ff;
+    background-color: ${({ theme }) =>
+      theme.select.selectOption.colors.backgroundHover};
   }
   ${(props) =>
     props.isSelected &&
     css`
-      background-color: #f0f9ff;
+      background-color: ${({ theme }) =>
+        theme.select.selectOption.colors.backgroundSelected};
     `}
 `;
 
@@ -61,8 +66,9 @@ const SelectOptions = styled(motion.div)<{ isOpen: boolean }>`
   top: 100%;
   left: 0;
   right: 0;
-  background-color: #fff;
-  border: 1px solid #d9d9d9;
+  background-color: ${({ theme }) =>
+    theme.select.selectOptions.colors.background};
+  border: 1px solid ${({ theme }) => theme.select.selectOptions.colors.border};
   border-top: none;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;

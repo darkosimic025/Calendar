@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { Event } from "../calendar/Calendar.types";
+import { Calendar, Event } from "../calendar/Calendar.types";
 import {
   BadgeWeekStyled,
   CalendarSingleDayCellStyled,
 } from "./CalendarSingleDayCell.styled";
-import {
-  DndContext,
-  useSensors,
-  useDraggable,
-  useDroppable,
-} from "@dnd-kit/core";
-
+import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+
+export interface BadgeEventProps<T> {
+  event: T;
+  allEvents: T[];
+  id: keyof T;
+}
 
 export const timeToPixels = (time: Dayjs) => {
   let startOfDay = dayjs(time).format("MM/DD/YYYY");
@@ -54,11 +54,15 @@ export const getEventPosition = (
   let index = overlappingEvents.length;
   let width = 100 / index;
   let position = overlappingEvents.findIndex((ev) => ev === event) + 1;
-  position = position * width - width
+  position = position * width - width;
   return { width, position };
 };
 
-export const Badge = ({ event, allEvents, id }: any) => {
+export const BadgeEvent = ({
+  event,
+  allEvents,
+  id,
+}: BadgeEventProps<Event.CalendarEventProps>): JSX.Element => {
   const { width, position } = getEventPosition(event, allEvents);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
@@ -81,17 +85,15 @@ export const Badge = ({ event, allEvents, id }: any) => {
       })}
       width={width}
       position={position}
-      
     >
       {event.name + ` Day ${event.indexDay}`}
     </BadgeWeekStyled>
   );
 };
 
-export const CalendarSingleDayCell = ({events} : any) => {
- 
+export const CalendarSingleDayCell = ({ events } : any) => {
   const [allEvents, setAllEvents] = useState(events.events);
-  console.log(allEvents)
+  console.log(allEvents);
   const { setNodeRef } = useDroppable({
     id: "calendar_single_day_cell",
   });
@@ -101,8 +103,10 @@ export const CalendarSingleDayCell = ({events} : any) => {
         id="calendar_single_day_cell"
         ref={setNodeRef}
       >
-        {events.events.map((event: any) => {
-          return <Badge id={event.name} event={event} allEvents={allEvents} />;
+        {events.events.map((event : any) => {
+          return (
+            <BadgeEvent id={event.name} event={event} allEvents={allEvents} />
+          );
         })}
       </CalendarSingleDayCellStyled>
     </DndContext>

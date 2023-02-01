@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 interface Props {
   children: React.ReactNode;
@@ -10,21 +10,34 @@ interface Props {
 }
 
 export const StyledButton = styled.button<Props>`
-  background-color: ${(props) =>
-    props.color === "secondary" ? "#ccc" : "#cce4f5"};
-  color: ${(props) => (props.color === "secondary" ? "#333" : "#0061a6")};
-  border: none;
-  border-radius: 4px;
-  font-size: ${(props) => {
-    switch (props.size) {
-      case "small":
-        return "14px";
-      case "large":
-        return "18px";
-      default:
-        return "16px";
+  background-color: ${({ color, theme }) => {
+    switch (color) {
+      case "primary":
+        return theme.button.colors.primary.background;
+      case "secondary":
+        return theme.button.colors.primary.secondary;
     }
   }};
+  color: ${({ color, theme }) => {
+    switch (color) {
+      case "primary":
+        return theme.button.colors.primary.textColor;
+      case "secondary":
+        return theme.button.colors.primary.textColor;
+    }
+  }};
+  font-size: ${({ size, theme }) => {
+    switch (size) {
+      case "small":
+        return theme.button.fontSize.small;
+      case "large":
+        return theme.button.fontSize.large;
+      case "medium":
+        return theme.button.fontSize.medium;
+    }
+  }};
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
   &:hover {

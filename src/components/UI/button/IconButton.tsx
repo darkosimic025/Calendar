@@ -72,18 +72,6 @@ const icons: IconType = {
   expand: ExpandIcon,
 };
 
-enum IconSize {
-  SMALL = "24px",
-  MEDIUM = "32px",
-  LARGE = "48px",
-}
-
-enum IconColor {
-  PRIMARY = "#0055FF",
-  SECONDARY = "#2E2E2E",
-  TERTIARY = "#B3B3B3",
-}
-
 interface Props {
   onClick: () => void;
   icon: keyof IconType;
@@ -102,30 +90,44 @@ const StyledButtonIcon = styled.button<any>`
   align-items: center;
   cursor: pointer;
   svg {
-    fill: ${(props) => (props.color === "secondary" ? "#333" : "#0061a6")};
-    width: ${(props) => {
-      switch (props.size) {
-        case "small":
-          return "16px";
-        case "large":
-          return "32px";
-        default:
-          return "24px";
+    fill: ${({ color, theme }) => {
+      switch (color) {
+        case "primary":
+          return theme.iconButton.colors.primary.textColor;
+        case "secondary":
+          return theme.iconButton.colors.primary.textColor;
       }
     }};
-    height: ${(props) => {
-      switch (props.size) {
+    width: ${({ size, theme }) => {
+      switch (size) {
         case "small":
-          return "16px";
+          return theme.iconButton.size.height.small;
         case "large":
-          return "32px";
-        default:
-          return "24px";
+          return theme.iconButton.size.height.large;
+        case "medium":
+          return theme.iconButton.size.height.medium;
+      }
+    }};
+    height: ${({ size, theme }) => {
+      switch (size) {
+        case "small":
+          return theme.iconButton.size.height.small;
+        case "large":
+          return theme.iconButton.size.height.large;
+        case "medium":
+          return theme.iconButton.size.height.medium;
       }
     }};
   }
   &:hover {
-    background-color: #cce4f5ae;
+    background-color: ${({ color, theme }) => {
+      switch (color) {
+        case "primary":
+          return theme.iconButton.colors.primary.hoverBackground;
+        case "secondary":
+          return theme.iconButton.colors.primary.hoverBackground;
+      }
+    }};
     border-radius: 6px;
   }
 `;

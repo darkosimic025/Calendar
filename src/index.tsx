@@ -10,6 +10,6 @@ root.render(
   <>
     <App />
     <GlobalStyles />
-    <div id="modal-root"></div>
+    <div id="popover-root"></div>
   </>
 );

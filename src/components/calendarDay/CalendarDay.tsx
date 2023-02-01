@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useContext, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { getDay } from "../../utils/Utils";
 import { Event } from "../calendar/Calendar.types";
@@ -18,13 +18,12 @@ export const CalendarDay = ({ events }: CalendarDayProps) => {
 
   const tableRef = useRef<HTMLTableElement>(null);
 
-  const generateColumn = useCallback(() => {
+  const generateColumn = useMemo(() => {
     const day = getDay(selectedDay, selectedMonth, selectedYear);
     return [
       {
         field: Object.values(day)[0].date,
         name: dayjs(Object.values(day)[0].date),
-        align: "center",
         render: (events: Event.EventProps[]) => (
           <CalendarSingleDayCell events={events} />
         ),
@@ -32,7 +31,7 @@ export const CalendarDay = ({ events }: CalendarDayProps) => {
     ];
   }, [selectedMonth, selectedYear, selectedDay]);
 
-  const generateItems = useCallback(() => {
+  const generateItems = useMemo(() => {
     const day = getDay(selectedDay, selectedMonth, selectedYear);
     events.forEach((event: Event.EventProps) => {
       event.eventDates.forEach((date, index) => {
@@ -48,7 +47,6 @@ export const CalendarDay = ({ events }: CalendarDayProps) => {
             indexDay: index + 1,
             start: dayjs(date.start),
             end: dayjs(date.end),
-            // ...event,
           });
         }
       });
@@ -72,8 +70,8 @@ export const CalendarDay = ({ events }: CalendarDayProps) => {
     >
       <Table
         ref={tableRef}
-        columns={generateColumn() as any}
-        items={generateItems()}
+        columns={generateColumn as any}
+        items={generateItems}
       />
     </motion.div>
   );

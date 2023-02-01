@@ -32,7 +32,7 @@ const StyledTable = styled.table<any>`
   height: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  border-left: rgb(218, 220, 224) 1px solid;
+  border-left: ${({ theme }) => theme.table.commonBorder};
 `;
 
 const StyledThead = styled.thead`
@@ -40,6 +40,7 @@ const StyledThead = styled.thead`
   display: table;
   table-layout: fixed;
   width: 100%;
+  background: ${({ theme }) => theme.table.tableHead.colors.background};
 `;
 
 const StyledTbody = styled.tbody<any>`
@@ -55,17 +56,17 @@ const StyledTh = styled.th`
   overflow: hidden;
   border: none;
   table-layout: fixed;
-  border-bottom: rgb(218, 220, 224) 1px solid;
+  border-bottom: ${({ theme }) => theme.table.commonBorder};
 `;
 
 const StyledTd = styled(motion.td)`
   border: none;
-  border-right: rgb(218, 220, 224) 1px solid;
+  border-right: ${({ theme }) => theme.table.commonBorder};
   table-layout: fixed;
 `;
 
 const StyledTr = styled.tr`
-  border-bottom: rgb(218, 220, 224) 1px solid;
+  border-bottom: ${({ theme }) => theme.table.commonBorder};
   display: table;
   table-layout: fixed;
   width: 100%;

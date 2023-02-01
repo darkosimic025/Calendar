@@ -13,13 +13,17 @@ export const StyledBadge = styled.span<BadgeProps>`
   white-space: nowrap;
   text-overflow: ellipsis;
   position: relative;
-  background-color: ${({ color }) =>
-    color === "primary"
-      ? "#17a2b8"
-      : color === "secondary"
-      ? "#6c757d"
-      : "#17a2b8"};
-  color: white;
+  background-color: ${({ color, theme }) => {
+    switch (color) {
+      case "primary":
+        return theme.badge.colors.primary;
+      case "secondary":
+        return theme.badge.colors.secondary;
+      case "teritary":
+        return theme.badge.colors.teritary;
+    }
+  }};
+  color: ${({ theme }) => theme.badge.textColor};
   cursor: pointer;
   &:hover {
     text-decoration: underline;

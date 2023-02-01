@@ -1,18 +1,18 @@
 import React, { useState, useRef, forwardRef, useEffect, Ref } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
-import { useModalPosition } from "../../../hooks/useModalPosition";
+import { usePopoverPosition } from "../../../hooks/useModalPosition";
 import ReactDOM from "react-dom";
 import { useClickOutside } from "../../../hooks/useClickOutsideClose";
 
-const ModalContainer = styled(motion.div)`
+const PopoverContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const ModalContent = styled(motion.div)`
-  background: white;
+const PopoverContent = styled(motion.div)`
+  background: ${({ theme }) => theme.popover.colors.background};
   padding: 20px;
   border-radius: 5px;
   overflow: hidden;
@@ -38,31 +38,31 @@ interface Props {
   onClose: () => void;
   children: any;
   buttonRef: React.RefObject<HTMLButtonElement>;
-  modalRef: React.RefObject<HTMLDivElement>;
+  popoverRef: React.RefObject<HTMLDivElement>;
   ref: Ref<HTMLTableElement>;
   tableDimensions?: TableDimensions;
 }
 
-const Modal: React.FC<Props> = forwardRef(
-  ({ isOpen, onClose, children, buttonRef, modalRef }: Props, ref: any) => {
-    const modalStyle = useModalPosition({
+const Popover: React.FC<Props> = forwardRef(
+  ({ isOpen, onClose, children, buttonRef, popoverRef }: Props, ref: any) => {
+    const popoverStyle = usePopoverPosition({
       containerRef: ref,
       anchorRef: buttonRef,
-      modalRef,
+      popoverRef,
     });
-    useClickOutside(modalRef, onClose, isOpen);
+    useClickOutside(popoverRef, onClose, isOpen);
 
-    const modal = (
+    const popover = (
       <AnimatePresence>
-        <ModalContainer
+        <PopoverContainer
           style={{
             width: "100%",
             height: "100%",
           }}
           onClick={() => onClose()}
         >
-          <ModalContent
-            ref={modalRef}
+          <PopoverContent
+            ref={popoverRef}
             style={{
               borderRadius: "5px",
               boxShadow:
@@ -70,7 +70,7 @@ const Modal: React.FC<Props> = forwardRef(
 
               width: "300px",
               position: "absolute",
-              ...modalStyle,
+              ...popoverStyle,
             }}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -81,17 +81,17 @@ const Modal: React.FC<Props> = forwardRef(
             }}
           >
             {children}
-          </ModalContent>
-        </ModalContainer>
+          </PopoverContent>
+        </PopoverContainer>
       </AnimatePresence>
     );
     return isOpen
       ? ReactDOM.createPortal(
-          modal,
-          document.getElementById("modal-root") as HTMLDivElement
+          popover,
+          document.getElementById("popover-root") as HTMLDivElement
         )
       : null;
   }
 );
 
-export default Modal;
+export default Popover;

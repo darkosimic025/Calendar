@@ -2,12 +2,12 @@ import { forwardRef, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { Calendar, Event } from "../calendar/Calendar.types";
 import Badge from "../UI/badge/Badge";
-import Modal from "../UI/modal/Modal";
+import Popover from "../UI/popover/Popover";
 import {
   StyledCellWrapper,
   StyledCloseIcon,
   StyledDayIndex,
-  StyledDayIndexModal,
+  StyledDayIndexPopover,
   StyledMoreButton,
 } from "./CalendarMonthCell.styled";
 
@@ -16,11 +16,11 @@ const CalendarMonthCell = forwardRef<
   Calendar.DayProps & { onEventClick: (event: Event.CalendarEventProps) => void }
 >(({ date, events, isCurrentMonth, indexDay, onEventClick }, ref) => {
   const isToday = dayjs(date).isSame(dayjs(), "day");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   const handleButtonClick = () => {
-    setIsModalOpen(true);
+    setIsPopoverOpen(true);
   };
 
   return (
@@ -34,22 +34,22 @@ const CalendarMonthCell = forwardRef<
               : `${event.name} - Day ${event.indexDay}`}
           </Badge>
 
-          {isModalOpen && (
-            <Modal
+          {isPopoverOpen && (
+            <Popover
               ref={ref}
-              modalRef={modalRef}
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
+              popoverRef={popoverRef}
+              isOpen={isPopoverOpen}
+              onClose={() => setIsPopoverOpen(false)}
               buttonRef={buttonRef}
             >
               <StyledCloseIcon
                 size="small"
                 icon="closeIcon"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => setIsPopoverOpen(false)}
               />
-              <StyledDayIndexModal isToday={isToday}>
+              <StyledDayIndexPopover isToday={isToday}>
                 {indexDay}
-              </StyledDayIndexModal>
+              </StyledDayIndexPopover>
               {events.map((event, index) => (
                 <Badge onClick={() => onEventClick(event)}>
                   {event.indexDay == 1
@@ -57,7 +57,7 @@ const CalendarMonthCell = forwardRef<
                     : `${event.name} - Day ${event.indexDay}`}
                 </Badge>
               ))}
-            </Modal>
+            </Popover>
           )}
         </>
       ))}

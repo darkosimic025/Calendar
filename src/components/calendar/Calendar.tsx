@@ -7,14 +7,16 @@ import { CalendarWeek } from "../calendarWeek/CalendarWeek";
 import { CalendarDay } from "../calendarDay/CalendarDay";
 
 interface CalendarContextProps {
-  selectedView: CalendarEnums.CalendarView;
-  selectedDay: number;
   selectedYear: number;
   selectedMonth: number;
-  setSelectedView: (value: CalendarEnums.CalendarView) => void;
-  setSelectedDay: (value: number) => void;
-  setSelectedYear: (value: number) => void;
-  setSelectedMonth: (value: number) => void;
+  setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedMonth: React.Dispatch<React.SetStateAction<number>>;
+  selectedDay: number;
+  setSelectedDay: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedView: React.Dispatch<
+    React.SetStateAction<CalendarEnums.CalendarView>
+  >;
+  selectedView: CalendarEnums.CalendarView;
 }
 
 const initialCalendarContext: CalendarContextProps = {

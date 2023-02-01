@@ -7,51 +7,61 @@ interface Props {
   onClick: () => void;
   className?: string;
   size?: "small" | "medium" | "large";
+  color?: "primary" | "secondary";
   ref?: any;
 }
 
 const StyledEmptyButton = styled.button<Props>`
   background-color: transparent;
   border: none;
-
   display: inline;
   cursor: pointer;
-  padding: ${(props) => {
-    switch (props.size) {
-      case "small":
-        return "2px 2px";
-      case "large":
-        return "8px 8px";
-      default:
-        return "4px 4px";
-    }
-  }};
   border-radius: 4px;
   font-weight: bold;
-  font-size: ${(props) => {
-    switch (props.size) {
-      case "small":
-        return "12px";
-      case "large":
-        return "14px";
-      default:
-        return "10px";
+  color: ${({ color, theme }) => {
+    switch (color) {
+      case "primary":
+        return theme.emptyButton.colors.primary.textColor;
+      case "secondary":
+        return theme.emptyButton.colors.primary.textColor;
     }
   }};
-  color: #0061a6;
+  font-size: ${({ size, theme }) => {
+    switch (size) {
+      case "small":
+        return theme.emptyButton.fontSize.small;
+      case "large":
+        return theme.emptyButton.fontSize.large;
+      case "medium":
+        return theme.emptyButton.fontSize.medium;
+    }
+  }};
+  padding: ${({ size, theme }) => {
+    switch (size) {
+      case "small":
+        return theme.emptyButton.padding.small;
+      case "large":
+        return theme.emptyButton.padding.large;
+      case "medium":
+        return theme.emptyButton.padding.medium;
+    }
+  }};
   &:hover {
     text-decoration: underline;
   }
 `;
 
 export const EmptyButton: React.FC<Props> = forwardRef(
-  ({ children, onClick, className, size = "medium" }, ref: any) => {
+  (
+    { children, onClick,  size = "medium", color = "primary" },
+    ref: any
+  ) => {
     return (
       <StyledEmptyButton
+        color={color}
         ref={ref}
         size={size}
         onClick={onClick}
-        className={className}
       >
         {children}
       </StyledEmptyButton>

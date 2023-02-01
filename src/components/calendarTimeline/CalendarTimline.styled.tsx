@@ -3,15 +3,15 @@ import styled from "styled-components";
 export const CalendarTimelineHour = styled.div`
   height: 60px;
   position: relative;
-  border-bottom: 1px solid rgb(218, 220, 224);
+  border-bottom: ${({ theme }) => theme.calendar.timeline.border};
 `;
 
 export const CalendarTimelineHourLabel = styled.span`
   position: relative;
   top: 0px;
   margin-left: 5px;
-  color: rgb(137, 137, 138);
-  background-color: white;
+  color: ${({ theme }) => theme.calendar.timeline.textColor};
+  background-color: ${({ theme }) => theme.calendar.timeline.labelBackground};
 `;
 
 export const CalendarTimelineWrapper = styled.div`
