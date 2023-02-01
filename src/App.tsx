@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import Calendar from "./components/calendar/Calendar";
 import { Event } from "./components/calendar/Calendar.types";
-import { lightTheme } from "./theme/ThemeProvider";
+import { darkTheme, lightTheme } from "./theme/ThemeProvider";
 
 function App() {
   const events = [

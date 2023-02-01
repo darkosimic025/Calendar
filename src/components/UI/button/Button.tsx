@@ -15,7 +15,7 @@ export const StyledButton = styled.button<Props>`
       case "primary":
         return theme.button.colors.primary.background;
       case "secondary":
-        return theme.button.colors.primary.secondary;
+        return theme.button.colors.secondary;
     }
   }};
   color: ${({ color, theme }) => {

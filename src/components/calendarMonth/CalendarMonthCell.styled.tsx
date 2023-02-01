@@ -27,7 +27,7 @@ export const StyledDayIndex = styled.span<{ isToday: boolean }>`
   font-size: 12px;
   cursor: default;
   background-color: ${({ isToday, theme }) =>
-    isToday ? theme.calendar.common.isToday : theme.calendar.common.notToday};
+    isToday ? theme.calendar.common.colors.isToday : theme.calendar.common.colors.notToday};
   border-radius: 50%;
   padding: 3px;
   margin: 3px;
@@ -39,7 +39,7 @@ export const StyledDayIndexPopover = styled.span<{ isToday: boolean }>`
   font-size: 16px;
   cursor: default;
   background-color: ${({ isToday, theme }) =>
-    isToday ? theme.calendar.common.isToday : theme.calendar.common.notToday};
+    isToday ? theme.calendar.common.colors.isToday : theme.calendar.common.colors.notToday};
   border-radius: 50%;
   padding: 10px;
   margin-bottom: 14px;
