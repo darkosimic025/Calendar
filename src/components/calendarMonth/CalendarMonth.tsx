@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useContext, useId, useRef } from "react";
 import { getDates, splitIntoWeeks } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
@@ -63,7 +63,7 @@ export const CalendarMonth = ({ events, onEventClick }: CalendarEvents) => {
                 indexDay: index + 1,
                 start: dayjs(date.start),
                 end: dayjs(date.end),
-                // ...event,
+                id: `${event.id}_day${index}`,
               });
             }
           });

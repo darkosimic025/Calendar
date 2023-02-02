@@ -6,10 +6,12 @@ export namespace Event {
     end: Date;
   }
   export interface EventProps {
+    id: string;
     name: string;
     eventDates: EventDatesProps[];
   }
   export interface CalendarEventProps {
+    id: string;
     name: string;
     indexDay: number;
     start: Dayjs;

@@ -11,4 +11,5 @@ export const CalendarMonthHeaderCellWrapper = styled.div`
   padding: 2px;
   align-items: center;
   height: 40px;
+
 `;

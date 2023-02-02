@@ -1,67 +1,67 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "plugin:react/recommended",
-        "standard-with-typescript",
-        "plugin:import/typescript",
-        "plugin:prettier/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:@typescript-eslint/eslint-recommended"
-    ],
-    "overrides": [],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "project": "./tsconfig.json"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "prettier"
-    ],
-    "rules": {
-        "arrow-body-style": ["warn", "as-needed"],
-        "@typescript-eslint/consistent-type-imports": [
-            "warn",
-            {
-                "prefer": "type-imports"
-            }
-        ],
-        "@typescript-eslint/explicit-function-return-type": 0,
-        "import/order": [
-            "warn",
-            {
-                "groups": [
-                    "builtin",
-                    "external",
-                    "parent",
-                    "sibling",
-                    "index",
-                    "object",
-                    "type"
-                ],
-                "pathGroups": [
-                    {
-                        "pattern": "@/**/**",
-                        "group": "parent",
-                        "position": "before"
-                    }
-                ],
-                "alphabetize": {
-                    "order": "asc"
-                }
-            }
-        ],
-        "react-hooks/rules-of-hooks": "warn",
-        "react-hooks/exhaustive-deps": "warn",
-        "prefer-arrow-callback": "warn",
-        "prefer-const": "warn"
-    }
+    // "env": {
+    //     "browser": true,
+    //     "es2021": true
+    // },
+    // "extends": [
+    //     "plugin:react/recommended",
+    //     "standard-with-typescript",
+    //     "plugin:import/typescript",
+    //     "plugin:prettier/recommended",
+    //     "plugin:react-hooks/recommended",
+    //     "plugin:@typescript-eslint/eslint-recommended"
+    // ],
+    // "overrides": [],
+    // "parser": "@typescript-eslint/parser",
+    // "parserOptions": {
+    //     "ecmaFeatures": {
+    //         "jsx": true
+    //     },
+    //     "ecmaVersion": "latest",
+    //     "sourceType": "module",
+    //     "project": "./tsconfig.json"
+    // },
+    // "plugins": [
+    //     "react",
+    //     "@typescript-eslint",
+    //     "prettier"
+    // ],
+    // "rules": {
+    //     "arrow-body-style": ["warn", "as-needed"],
+    //     "@typescript-eslint/consistent-type-imports": [
+    //         "warn",
+    //         {
+    //             "prefer": "type-imports"
+    //         }
+    //     ],
+    //     "@typescript-eslint/explicit-function-return-type": 0,
+    //     "import/order": [
+    //         "warn",
+    //         {
+    //             "groups": [
+    //                 "builtin",
+    //                 "external",
+    //                 "parent",
+    //                 "sibling",
+    //                 "index",
+    //                 "object",
+    //                 "type"
+    //             ],
+    //             "pathGroups": [
+    //                 {
+    //                     "pattern": "@/**/**",
+    //                     "group": "parent",
+    //                     "position": "before"
+    //                 }
+    //             ],
+    //             "alphabetize": {
+    //                 "order": "asc"
+    //             }
+    //         }
+    //     ],
+    //     "react-hooks/rules-of-hooks": "warn",
+    //     "react-hooks/exhaustive-deps": "warn",
+    //     "prefer-arrow-callback": "warn",
+    //     "prefer-const": "warn"
+    // }
 }

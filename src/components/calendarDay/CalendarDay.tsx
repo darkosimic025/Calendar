@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
-import React, { useContext, useMemo, useRef } from "react";
+import React, { useContext, useId, useMemo, useRef } from "react";
 import { getDay } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
@@ -47,6 +47,7 @@ export const CalendarDay = ({ events }: CalendarDayProps) => {
             indexDay: index + 1,
             start: dayjs(date.start),
             end: dayjs(date.end),
+            id: `${event.id}_day${index}`,
           });
         }
       });

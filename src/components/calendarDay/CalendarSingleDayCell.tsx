@@ -1,7 +1,7 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import {
   BadgeWeekStyled,
   CalendarSingleDayCellStyled,
@@ -12,7 +12,7 @@ import type { Dayjs } from "dayjs";
 export interface BadgeEventProps<T> {
   event: T;
   allEvents: T[];
-  id: keyof T;
+  id: string;
   color?: string;
 }
 
@@ -76,6 +76,7 @@ export const BadgeEvent = ({
   };
   return (
     <BadgeWeekStyled
+      id={id}
       color={color}
       ref={setNodeRef}
       style={style}
@@ -102,14 +103,11 @@ export const CalendarSingleDayCell = ({ events }: any) => {
   });
   return (
     <DndContext>
-      <CalendarSingleDayCellStyled
-        id="calendar_single_day_cell"
-        ref={setNodeRef}
-      >
+      <CalendarSingleDayCellStyled id={useId()} ref={setNodeRef}>
         {events.events.map((event: any, index: any) => (
           <BadgeEvent
             key={index}
-            id={event.name}
+            id={useId()}
             event={event}
             allEvents={allEvents}
           />

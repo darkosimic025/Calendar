@@ -38,9 +38,9 @@ const lightTheme: DefaultTheme = {
       },
     },
     fontSize: {
-      small: "14px",
+      small: "10px",
       large: "18px",
-      medium: "16px",
+      medium: "12px",
     },
     padding: {
       small: "2px 2px",

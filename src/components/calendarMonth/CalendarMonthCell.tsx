@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import React, { forwardRef, useRef, useState } from "react";
+import React, { forwardRef, useId, useRef, useState } from "react";
 import Badge from "../UI/badge/Badge";
 import Popover from "../UI/popover/Popover";
 import {
@@ -26,7 +26,7 @@ const CalendarMonthCell = forwardRef<
   };
 
   return (
-    <StyledCellWrapper isCurrentMonth={isCurrentMonth}>
+    <StyledCellWrapper id={useId()} isCurrentMonth={isCurrentMonth}>
       <StyledDayIndex isToday={isToday}>{indexDay}</StyledDayIndex>
       {events.slice(0, 2).map((event, index) => (
         <>

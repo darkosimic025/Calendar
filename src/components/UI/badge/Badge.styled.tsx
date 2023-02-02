@@ -8,6 +8,7 @@ export const StyledBadge = styled.span<BadgeProps>`
   padding: 0.25em 0.4em;
   font-size: 75%;
   font-weight: 700;
+  min-height: 15px;
   text-align: left;
   overflow: hidden;
   white-space: nowrap;

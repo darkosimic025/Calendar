@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useId } from "react";
 import { ThemeProvider } from "styled-components";
 import Calendar from "./components/calendar/Calendar";
 import { lightTheme } from "./theme/ThemeProvider";
 import type { Event } from "./components/calendar/Calendar.types";
 
 function App() {
+  
+
   const events = [
     {
+      id: useId(),
       name: "AEAR Figma",
       eventDates: [
         {
@@ -17,6 +20,7 @@ function App() {
       location: "Belgrade",
     },
     {
+      id: useId(),
       name: "Matrix TEO",
       eventDates: [
         {
@@ -39,6 +43,7 @@ function App() {
       location: "Belgrade",
     },
     {
+      id: useId(),
       name: "JavaScript Conference",
       eventDates: [
         {
@@ -49,6 +54,7 @@ function App() {
       location: "Belgrade",
     },
     {
+      id: useId(),
       name: "Future of Frontend",
       eventDates: [
         {
@@ -59,6 +65,7 @@ function App() {
       location: "Belgrade",
     },
     {
+      id: useId(),
       name: "QA",
       eventDates: [
         {

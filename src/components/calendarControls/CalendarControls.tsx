@@ -149,7 +149,7 @@ export const CalendarControls = () => {
       setDisableNextMonth(false);
     }
   }, [selectedMonth, selectedYear]);
-
+  console.log(selectedMonth);
   const calendarViewButtons = [
     {
       label: "Day",
@@ -179,7 +179,7 @@ export const CalendarControls = () => {
     <CalendarControlsWrapper direction="row" justifyContent="space-between">
       <FlexGroup justifyContent="center" alignItems="center">
         <FlexItem>
-          <EmptyButton size="small" onClick={handleToday}>
+          <EmptyButton size="medium" onClick={handleToday}>
             Today
           </EmptyButton>
         </FlexItem>
@@ -201,8 +201,9 @@ export const CalendarControls = () => {
         </FlexItem>
         <FlexItem>
           <Select
-            value={selectedMonth}
+            value={selectedMonth.toString()}
             onChange={(month) => {
+           
               setSelectedMonth(parseFloat(month.toString()));
             }}
             options={generateMonths}

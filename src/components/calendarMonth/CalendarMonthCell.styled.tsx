@@ -22,6 +22,7 @@ export const StyledCellWrapper = styled.div<
   }
 `;
 export const StyledDayIndex = styled.span<{ isToday: boolean }>`
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 12px;
@@ -31,8 +32,10 @@ export const StyledDayIndex = styled.span<{ isToday: boolean }>`
       ? theme.calendar.common.colors.isToday
       : theme.calendar.common.colors.notToday};
   border-radius: 50%;
-  padding: 3px;
+  padding: 4px;
   margin: 3px;
+  width: 16px;
+  height: 16px;
 `;
 
 export const StyledDayIndexPopover = styled.span<{ isToday: boolean }>`
