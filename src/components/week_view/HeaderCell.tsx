@@ -5,7 +5,7 @@ import {
   CalendarWeekHeaderCellDate,
   CalendarWeekHeaderCellDay,
   CalendarWeekHeaderCellWrapper,
-} from "./CalendarWeekHeaderCell.styled";
+} from "./HeaderCell.styled";
 
 export const CalendarWeekHeaderCell = ({
   handleExpand,

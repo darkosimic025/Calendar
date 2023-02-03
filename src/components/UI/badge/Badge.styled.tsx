@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import type { BadgeProps } from "./Badge";
 
-export const StyledBadge = styled.span<BadgeProps>`
+export const StyledBadge = styled.div<BadgeProps>`
   inline-size: 100%;
   display: block;
   margin-bottom: 3px;

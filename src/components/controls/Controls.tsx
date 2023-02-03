@@ -13,7 +13,7 @@ import { FlexGroup, FlexItem } from "../UI/flex/Flex";
 import Select from "../UI/select/Select";
 import { CalendarContext } from "../calendar/Calendar";
 import { CalendarEnums } from "../calendar/Calendar.types";
-import { CalendarControlsWrapper } from "./CalendarControls.styled";
+import { CalendarControlsWrapper } from "./Controls.styled";
 
 export const CalendarControls = () => {
   const {
@@ -149,7 +149,7 @@ export const CalendarControls = () => {
       setDisableNextMonth(false);
     }
   }, [selectedMonth, selectedYear]);
-  console.log(selectedMonth);
+
   const calendarViewButtons = [
     {
       label: "Day",

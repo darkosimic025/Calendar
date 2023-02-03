@@ -12,6 +12,7 @@ export const CalendarSingleDayCellStyled = styled.div`
 
 export const BadgeWeekStyled = styled(StyledBadge)<any>`
   border: 1px solid #ffffff;
+  resize: vertical;
   transform: scaleX(0.95);
   width: ${({ width }) => `${width}%`};
   position: absolute;

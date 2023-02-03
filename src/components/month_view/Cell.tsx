@@ -8,7 +8,7 @@ import {
   StyledDayIndex,
   StyledDayIndexPopover,
   StyledMoreButton,
-} from "./CalendarMonthCell.styled";
+} from "./Cell.styled";
 import type { Calendar, Event } from "../calendar/Calendar.types";
 
 const CalendarMonthCell = forwardRef<

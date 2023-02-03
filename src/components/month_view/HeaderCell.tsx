@@ -2,7 +2,7 @@ import React from "react";
 import {
   CalendarMonthHeaderCellDay,
   CalendarMonthHeaderCellWrapper,
-} from "./CalendarMonthHeaderCell.styled";
+} from "./HeaderCell.styled";
 
 export const CalendarMonthHeaderCell = ({ date }: { date: string }) => (
   <CalendarMonthHeaderCellWrapper>

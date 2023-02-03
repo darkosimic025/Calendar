@@ -4,7 +4,7 @@ import {
   CalendarTimelineHour,
   CalendarTimelineHourLabel,
   CalendarTimelineWrapper,
-} from "./CalendarTimline.styled";
+} from "./Timline.styled";
 
 export const CalendarTimeline = () => (
   <CalendarTimelineWrapper>

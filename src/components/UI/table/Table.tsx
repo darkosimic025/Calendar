@@ -4,10 +4,10 @@ import styled from "styled-components";
 import useScrollIntoView from "../../../hooks/useScrollIntoView";
 import { CalendarContext } from "../../calendar/Calendar";
 import { CalendarEnums } from "../../calendar/Calendar.types";
-import { CalendarDayHeaderCell } from "../../calendarDay/CalendarDayHeaderCell";
-import { CalendarMonthHeaderCell } from "../../calendarMonth/CalendarMonthHeaderCell";
-import { CalendarTimeline } from "../../calendarTimeline/CalendarTimeline";
-import { CalendarWeekHeaderCell } from "../../calendarWeek/CalendarWeekHeaderCell";
+import { CalendarDayHeaderCell } from "../../day_view/HeaderCell";
+import { CalendarMonthHeaderCell } from "../../month_view/HeaderCell";
+import { CalendarTimeline } from "../../timeline/Timeline";
+import { CalendarWeekHeaderCell } from "../../week_view/HeaderCell";
 import type { Dayjs } from "dayjs";
 import type { ReactElement, ReactNode, Ref, RefObject } from "react";
 

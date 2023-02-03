@@ -1,38 +1,56 @@
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import React, { useCallback, useContext, useId, useRef } from "react";
-import { getWeekDays, splitIntoWeeks } from "../../utils/Utils";
+import { getDates, splitIntoWeeks } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
-import { CalendarSingleDayCell } from "../calendarDay/CalendarSingleDayCell";
-import type { Event } from "../calendar/Calendar.types";
+import { CalendarEnums } from "../calendar/Calendar.types";
+import CalendarMonthCell from "./Cell";
+import type {
+  Calendar as CalendarProps,
+  Event,
+} from "../calendar/Calendar.types";
+import {useRecoilState} from 'recoil'
+import { eventsAtom } from "../../App";
 
-export interface CalendarWeekProps {
+export interface CalendarEvents {
   events: Event.EventProps[];
   onEventClick: (event: Event.CalendarEventProps) => void;
 }
 
-export const CalendarWeek = ({ events }: CalendarWeekProps) => {
-  const { selectedDay, selectedMonth, selectedYear } =
-    useContext(CalendarContext);
+export const CalendarMonth = ({ onEventClick }: CalendarEvents) => {
+  const [events, setEvents] = useRecoilState(eventsAtom);
+  const { selectedMonth, selectedYear } = useContext(CalendarContext);
 
   const tableRef = useRef<HTMLTableElement>(null);
 
   const generateColumns = useCallback(() => {
-    const week = getWeekDays(selectedDay, selectedMonth, selectedYear);
-    return week.map((day) => ({
-      field: Object.values(day)[0].date,
-      name: dayjs(Object.values(day)[0].date),
-      render: (events: Event.EventProps[]) => (
-        <CalendarSingleDayCell events={events} />
+    const columns = Object.entries(CalendarEnums.WeekDays).map(
+      ([key, value]) => ({
+        field: value,
+        name: key,
+      }),
+    );
+
+    return columns.map(({ field, name }) => ({
+      field,
+      name,
+      align: "center",
+      render: ({ ...args }: CalendarProps.DayProps) => (
+        <CalendarMonthCell
+          onEventClick={onEventClick}
+          ref={tableRef}
+          date={args.date}
+          indexDay={args.indexDay}
+          events={args.events}
+          isCurrentMonth={args.isCurrentMonth}
+        />
       ),
     }));
-  }, [selectedMonth, selectedYear, selectedDay]);
+  }, [selectedMonth, selectedYear]);
 
   const generateItems = useCallback(() => {
-    const dates = splitIntoWeeks(
-      getWeekDays(selectedDay, selectedMonth, selectedYear),
-    );
+    const dates = splitIntoWeeks(getDates(selectedMonth, selectedYear));
 
     const items = dates.map((week) => {
       for (const day of Object.values(week)) {
@@ -40,7 +58,7 @@ export const CalendarWeek = ({ events }: CalendarWeekProps) => {
           event.eventDates.forEach((date, index) => {
             if (
               dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(
-                dayjs(day.date).format("MM/DD/YYYY"),
+                dayjs(day.date),
               )
             ) {
               day.events.push({
@@ -49,7 +67,6 @@ export const CalendarWeek = ({ events }: CalendarWeekProps) => {
                 start: dayjs(date.start),
                 end: dayjs(date.end),
                 id: `${event.id}_day${index}`,
-                // ...event,
               });
             }
           });
@@ -58,16 +75,15 @@ export const CalendarWeek = ({ events }: CalendarWeekProps) => {
       return week;
     });
     return items;
-  }, [selectedMonth, selectedYear, selectedDay]);
+  }, [selectedMonth, selectedYear]);
 
   const monthYearTitle = `${dayjs()
     .month(selectedMonth - 1)
     .format("MMM")
-    .toString()} - ${selectedYear} - ${selectedDay}`;
+    .toString()} - ${selectedYear}`;
 
   return (
     <motion.div
-      style={{ display: "flex" }}
       initial={{ x: 10, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: -15, opacity: 0 }}

@@ -4,15 +4,18 @@ import React, { useContext, useId, useMemo, useRef } from "react";
 import { getDay } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
-import { CalendarSingleDayCell } from "./CalendarSingleDayCell";
+import { CalendarSingleDayCell } from "./Cell";
 import type { Event } from "../calendar/Calendar.types";
+import {useRecoilState} from 'recoil'
+import { eventsAtom } from "../../App";
 
 export interface CalendarDayProps {
   events: Event.EventProps[];
   onEventClick: (event: Event.CalendarEventProps) => void;
 }
 
-export const CalendarDay = ({ events }: CalendarDayProps) => {
+export const CalendarDay = ({  onEventClick }: CalendarDayProps) => {
+  const [events, setEvents] = useRecoilState(eventsAtom)
   const { selectedDay, selectedMonth, selectedYear } =
     useContext(CalendarContext);
 
@@ -25,7 +28,12 @@ export const CalendarDay = ({ events }: CalendarDayProps) => {
         field: Object.values(day)[0].date,
         name: dayjs(Object.values(day)[0].date),
         render: (events: Event.EventProps[]) => (
-          <CalendarSingleDayCell events={events} />
+          <CalendarSingleDayCell
+            date={dayjs(Object.values(day)[0].date)}
+            id={useId()}
+            onEventClick={onEventClick}
+            events={events}
+          />
         ),
       },
     ];

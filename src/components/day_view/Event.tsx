@@ -1,11 +1,13 @@
-import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+import {
+  PointerSensor,
+  useDraggable,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import dayjs from "dayjs";
-import React, { useId, useState } from "react";
-import {
-  BadgeWeekStyled,
-  CalendarSingleDayCellStyled,
-} from "./CalendarSingleDayCell.styled";
+import React, { useCallback, useEffect,useLayoutEffect, useState } from "react";
+import { BadgeWeekStyled } from "./Cell.styled";
 import type { Event } from "../calendar/Calendar.types";
 import type { Dayjs } from "dayjs";
 
@@ -14,6 +16,7 @@ export interface BadgeEventProps<T> {
   allEvents: T[];
   id: string;
   color?: string;
+  onEventClick: (event: T) => void;
 }
 
 export const timeToPixels = (time: Dayjs) => {
@@ -38,7 +41,7 @@ export const getEventPosition = (
   events: Event.CalendarEventProps[],
 ) => {
   const startMinutes = timeToPixels(event.start);
-
+  console.log(events)
   const overlappingEvents = events
     .filter(
       (ev) =>
@@ -56,6 +59,7 @@ export const getEventPosition = (
   const width = 100 / index;
   let position = overlappingEvents.findIndex((ev) => ev === event) + 1;
   position = position * width - width;
+
   return { width, position };
 };
 
@@ -64,16 +68,28 @@ export const BadgeEvent = ({
   allEvents,
   id,
   color = "primary",
-}: BadgeEventProps<Event.CalendarEventProps>): JSX.Element => {
-  const { width, position } = getEventPosition(event, allEvents);
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id,
-    });
+  onEventClick,
+}: BadgeEventProps<Event.CalendarEventProps>): JSX.Element | null => {
+  const [position, setPosition] = useState<any>(null);
+  const [width, setWidth] = useState<any>(null);
+  const { attributes, listeners, setNodeRef, transform, isDragging  } =
+  useDraggable({
+    id: id,
+    data: event,
+  });
+  useEffect(() => {
+    const { width, position } = getEventPosition(event, allEvents);
+    setPosition(position);
+    setWidth(width);
+  }, [allEvents]);
+
+
   const style = {
     transform: CSS.Translate.toString(transform),
     zIndex: isDragging ? 19999 : 0,
+
   };
+  if (width === null || position === null) return null;
   return (
     <BadgeWeekStyled
       id={id}
@@ -92,27 +108,5 @@ export const BadgeEvent = ({
     >
       {event.name + ` Day ${event.indexDay}`}
     </BadgeWeekStyled>
-  );
-};
-
-export const CalendarSingleDayCell = ({ events }: any) => {
-  const [allEvents] = useState(events.events);
-  console.log(allEvents);
-  const { setNodeRef } = useDroppable({
-    id: "calendar_single_day_cell",
-  });
-  return (
-    <DndContext>
-      <CalendarSingleDayCellStyled id={useId()} ref={setNodeRef}>
-        {events.events.map((event: any, index: any) => (
-          <BadgeEvent
-            key={index}
-            id={useId()}
-            event={event}
-            allEvents={allEvents}
-          />
-        ))}
-      </CalendarSingleDayCellStyled>
-    </DndContext>
   );
 };

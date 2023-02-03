@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import type { Calendar } from "../components/calendar/Calendar.types";
 
 export const splitIntoWeeks = (month: Calendar.MonthProps) => {
@@ -130,4 +130,57 @@ export const generateAMPMHours = () => {
     hours.push(`${i} PM`);
   }
   return hours;
+};
+
+export const timeToPixels = (time: Dayjs) => {
+  const startOfDay = dayjs(time).format("MM/DD/YYYY");
+  const currentTime = dayjs(time);
+  const diff = currentTime.diff(dayjs(startOfDay), "minute");
+  return diff - 60;
+};
+
+export const eventDurationInPixels = ({
+  start,
+  end,
+}: {
+  start: Dayjs;
+  end: Dayjs;
+}) => {
+  const startMinutes = timeToPixels(start);
+  const endMinutes = timeToPixels(end);
+  const duration = endMinutes - startMinutes;
+  return duration;
+};
+
+export const getEventPositionAndWidth = <
+  T extends { start: Dayjs; end: Dayjs },
+>(
+  event: T,
+  events: T[],
+) => {
+  const startMinutes = timeToPixels(event.start);
+  console.log(events);
+  const overlappingEvents = events
+    .filter(
+      (ev) =>
+        startMinutes >= timeToPixels(ev.start) ||
+        startMinutes <= timeToPixels(ev.end),
+    )
+    .sort((a, b) => {
+      if (timeToPixels(a.start) === timeToPixels(b.start)) {
+        return timeToPixels(a.end) - timeToPixels(b.end);
+      }
+      return timeToPixels(a.start) - timeToPixels(b.start);
+    });
+
+  const index = overlappingEvents.length;
+  const width = 100 / index;
+  let position = overlappingEvents.findIndex((ev) => ev === event) + 1;
+  position = position * width - width;
+
+  return { width, position };
+};
+
+export const replaceItemAtIndex = <T>(arr: T[], index: number, newValue: T) => {
+  return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
 };
