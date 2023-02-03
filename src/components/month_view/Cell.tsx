@@ -10,8 +10,9 @@ import {
   StyledMoreButton,
 } from "./Cell.styled";
 import type { Calendar, Event } from "../calendar/Calendar.types";
+import { WeekBadgeEvent } from "./Event";
 
-const CalendarMonthCell = forwardRef<
+const MonthViewCell = forwardRef<
   HTMLTableElement,
   Calendar.DayProps & {
     onEventClick: (event: Event.CalendarEventProps) => void;
@@ -30,16 +31,14 @@ const CalendarMonthCell = forwardRef<
       <StyledDayIndex isToday={isToday}>{indexDay}</StyledDayIndex>
       {events.slice(0, 2).map((event, index) => (
         <>
-          <Badge
+          <WeekBadgeEvent
             color="primary"
-            onClick={() => {
+            onEventClick={() => {
               onEventClick(event);
             }}
           >
-            {event.indexDay === 1
-              ? event.name
-              : `${event.name} - Day ${event.indexDay}`}
-          </Badge>
+            {event.name}
+          </WeekBadgeEvent>
 
           {isPopoverOpen && (
             <Popover
@@ -62,16 +61,14 @@ const CalendarMonthCell = forwardRef<
                 {indexDay}
               </StyledDayIndexPopover>
               {events.map((event, index) => (
-                <Badge
-                  key={index}
-                  onClick={() => {
+                <WeekBadgeEvent
+                  color="primary"
+                  onEventClick={() => {
                     onEventClick(event);
                   }}
                 >
-                  {event.indexDay === 1
-                    ? event.name
-                    : `${event.name} - Day ${event.indexDay}`}
-                </Badge>
+                  {event.name}
+                </WeekBadgeEvent>
               ))}
             </Popover>
           )}
@@ -88,4 +85,4 @@ const CalendarMonthCell = forwardRef<
   );
 });
 
-export default CalendarMonthCell;
+export default MonthViewCell;

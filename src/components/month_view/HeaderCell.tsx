@@ -1,11 +1,11 @@
 import React from "react";
 import {
-  CalendarMonthHeaderCellDay,
-  CalendarMonthHeaderCellWrapper,
+  MonthViewHeaderCellDay,
+  MonthViewHeaderCellWrapper,
 } from "./HeaderCell.styled";
 
-export const CalendarMonthHeaderCell = ({ date }: { date: string }) => (
-  <CalendarMonthHeaderCellWrapper>
-    <CalendarMonthHeaderCellDay>{date}</CalendarMonthHeaderCellDay>
-  </CalendarMonthHeaderCellWrapper>
+export const MonthViewHeaderCell = ({ date }: { date: string }) => (
+  <MonthViewHeaderCellWrapper>
+    <MonthViewHeaderCellDay>{date}</MonthViewHeaderCellDay>
+  </MonthViewHeaderCellWrapper>
 );

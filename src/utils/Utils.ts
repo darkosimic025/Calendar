@@ -159,7 +159,6 @@ export const getEventPositionAndWidth = <
   events: T[],
 ) => {
   const startMinutes = timeToPixels(event.start);
-  console.log(events);
   const overlappingEvents = events
     .filter(
       (ev) =>

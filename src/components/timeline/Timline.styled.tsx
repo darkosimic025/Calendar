@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const CalendarTimelineHour = styled.div`
+export const TimelineHour = styled.div`
   height: 60px;
   position: relative;
   border-bottom: ${({ theme }) => theme.calendar.timeline.border};
 `;
 
-export const CalendarTimelineHourLabel = styled.span`
+export const TimelineHourLabel = styled.span`
   position: relative;
   top: 0px;
   margin-left: 5px;
@@ -14,13 +14,13 @@ export const CalendarTimelineHourLabel = styled.span`
   background-color: ${({ theme }) => theme.calendar.timeline.labelBackground};
 `;
 
-export const CalendarTimelineWrapper = styled.div`
+export const TimelineWrapper = styled.div`
   height: 1440px;
   position: relative;
   width: 50px;
 `;
 
-export const CalendarTimelineHead = styled.div`
+export const TimelineHead = styled.div`
   height: 40px;
   position: relative;
 `;

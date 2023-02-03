@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { CalendarControls } from "../controls/Controls";
-import { CalendarDay } from "../day_view/CalendarDay";
-import { CalendarMonth } from "../month_view/CalendarMonth";
-import { CalendarWeek } from "../week_view/CalendarWeek";
+import { DayView } from "../day_view/DayView";
+import { MonthView } from "../month_view/MonthView";
+import { WeekView } from "../week_view/WeekView";
 import { CalendarEnums } from "./Calendar.types";
 import type { Event } from "./Calendar.types";
-import { atom } from "recoil";
+import { TableAnimation } from "../animation/TableAnimation";
 
 interface CalendarContextProps {
   selectedYear: number;
@@ -40,7 +40,6 @@ interface CalendarProps {
 }
 
 const Calendar: React.FC<CalendarProps> = ({ events, onEventClick }) => {
-
   const [selectedView, setSelectedView] = useState<CalendarEnums.CalendarView>(
     CalendarEnums.CalendarView.MonthView,
   );
@@ -63,15 +62,17 @@ const Calendar: React.FC<CalendarProps> = ({ events, onEventClick }) => {
   return (
     <CalendarContext.Provider value={contextValue}>
       <CalendarControls />
-      {selectedView === CalendarEnums.CalendarView.MonthView && (
-        <CalendarMonth onEventClick={onEventClick} events={events} />
-      )}
-      {selectedView === CalendarEnums.CalendarView.WeekView && (
-        <CalendarWeek onEventClick={onEventClick} events={events} />
-      )}
-      {selectedView === CalendarEnums.CalendarView.DayView && (
-        <CalendarDay onEventClick={onEventClick} events={events} />
-      )}
+      <TableAnimation>
+        {selectedView === CalendarEnums.CalendarView.MonthView && (
+          <MonthView onEventClick={onEventClick} events={events} />
+        )}
+        {selectedView === CalendarEnums.CalendarView.WeekView && (
+          <WeekView onEventClick={onEventClick} events={events} />
+        )}
+        {selectedView === CalendarEnums.CalendarView.DayView && (
+          <DayView onEventClick={onEventClick} events={events} />
+        )}
+      </TableAnimation>
     </CalendarContext.Provider>
   );
 };

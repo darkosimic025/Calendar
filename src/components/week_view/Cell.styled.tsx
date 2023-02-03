@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { StyledBadge } from "../UI/badge/Badge.styled";
 
-export const CalendarWeekDayCellStyled = styled.div`
+export const WeekViewDayCellStyled = styled.div`
   height: 1440px;
   width: 100%;
   position: relative;

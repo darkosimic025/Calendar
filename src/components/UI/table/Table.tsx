@@ -4,10 +4,10 @@ import styled from "styled-components";
 import useScrollIntoView from "../../../hooks/useScrollIntoView";
 import { CalendarContext } from "../../calendar/Calendar";
 import { CalendarEnums } from "../../calendar/Calendar.types";
-import { CalendarDayHeaderCell } from "../../day_view/HeaderCell";
-import { CalendarMonthHeaderCell } from "../../month_view/HeaderCell";
-import { CalendarTimeline } from "../../timeline/Timeline";
-import { CalendarWeekHeaderCell } from "../../week_view/HeaderCell";
+import { DayViewHeaderCell } from "../../day_view/HeaderCell";
+import { MonthViewHeaderCell } from "../../month_view/HeaderCell";
+import { Timeline } from "../../timeline/Timeline";
+import { WeekViewHeaderCell } from "../../week_view/HeaderCell";
 import type { Dayjs } from "dayjs";
 import type { ReactElement, ReactNode, Ref, RefObject } from "react";
 
@@ -94,7 +94,7 @@ const TableComponent = <T extends Record<string, any>>(
                 case CalendarEnums.CalendarView.MonthView:
                   return (
                     <StyledTh>
-                      <CalendarMonthHeaderCell date={column.name as string} />
+                      <MonthViewHeaderCell date={column.name as string} />
                     </StyledTh>
                   );
                 case CalendarEnums.CalendarView.WeekView:
@@ -107,7 +107,7 @@ const TableComponent = <T extends Record<string, any>>(
                           : {}
                       }
                     >
-                      <CalendarWeekHeaderCell
+                      <WeekViewHeaderCell
                         selectedDay={selectedDay}
                         selectedYear={selectedYear}
                         selectedMonth={selectedMonth}
@@ -121,7 +121,7 @@ const TableComponent = <T extends Record<string, any>>(
                 case CalendarEnums.CalendarView.DayView:
                   return (
                     <StyledTh key={column.field}>
-                      <CalendarDayHeaderCell date={column.name} />
+                      <DayViewHeaderCell date={column.name} />
                     </StyledTh>
                   );
                 default:
@@ -141,7 +141,7 @@ const TableComponent = <T extends Record<string, any>>(
                 animate={{ pathLength: 1 }}
                 transition={{ duration: 2, type: "tween" }}
               >
-                <CalendarTimeline />
+                <Timeline />
               </StyledTd>
             )}
 

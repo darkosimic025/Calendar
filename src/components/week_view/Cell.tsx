@@ -1,21 +1,9 @@
-import {
-  DndContext,
-  useDraggable,
-  useDroppable,
-  useSensor,
-  useSensors,
-  PointerSensor,
-  DragOverlay,
-} from "@dnd-kit/core";
-import React, { useEffect, useId, useState } from "react";
-import {
-  CalendarWeekDayCellStyled,
-} from "./Cell.styled";
+import { useDroppable } from "@dnd-kit/core";
+import React, { useEffect, useState } from "react";
+import { WeekViewDayCellStyled } from "./Cell.styled";
 import { WeekBadgeEvent } from "./Event";
-import { selector } from "recoil";
-import { eventsAtom } from "../../App";
 
-export const CalendarWeekDayCell = ({
+export const WeekViewDayCell = ({
   date,
   events,
   onEventClick,
@@ -34,7 +22,7 @@ export const CalendarWeekDayCell = ({
   if (allEvents === null) return null;
 
   return (
-    <CalendarWeekDayCellStyled id={id} ref={setNodeRef}>
+    <WeekViewDayCellStyled id={id} ref={setNodeRef}>
       {events.map((event: any, index: any) => (
         <WeekBadgeEvent
           onEventClick={onEventClick}
@@ -44,7 +32,6 @@ export const CalendarWeekDayCell = ({
           allEvents={allEvents}
         />
       ))}
-     
-    </CalendarWeekDayCellStyled>
+    </WeekViewDayCellStyled>
   );
 };

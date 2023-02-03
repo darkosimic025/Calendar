@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const CalendarMonthHeaderCellDay = styled.span`
+export const MonthViewHeaderCellDay = styled.span`
   display: inline-block;
   font-size: 15px;
 `;
 
-export const CalendarMonthHeaderCellWrapper = styled.div`
+export const MonthViewHeaderCellWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 2px;

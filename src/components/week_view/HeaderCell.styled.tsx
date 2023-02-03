@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const CalendarWeekHeaderCellDay = styled.span`
+export const WeekViewHeaderCellDay = styled.span`
   display: inline-block;
   font-size: 15px;
 `;
-export const CalendarWeekHeaderCellDate = styled.span<{ isToday: boolean }>`
+export const WeekViewHeaderCellDate = styled.span<{ isToday: boolean }>`
   display: inline-block;
   margin-bottom: 2px;
   font-size: 17px;
@@ -16,7 +16,7 @@ export const CalendarWeekHeaderCellDate = styled.span<{ isToday: boolean }>`
   padding: 6px;
 `;
 
-export const CalendarWeekHeaderCellWrapper = styled.div`
+export const WeekViewHeaderCellWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -24,7 +24,6 @@ export const CalendarWeekHeaderCellWrapper = styled.div`
   align-items: center;
   height: 40px;
   transition: 2s linear;
-
   &:hover {
     cursor: pointer;
     .expand {

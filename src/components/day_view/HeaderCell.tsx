@@ -1,22 +1,22 @@
 import React from "react";
 import dayjs from "dayjs";
 import {
-  CalendarDayHeaderCellDate,
-  CalendarDayHeaderCellDay,
-  CalendarDayHeaderCellWrapper,
+  DayViewHeaderCellDate,
+  DayViewHeaderCellDay,
+  DayViewHeaderCellWrapper,
 } from "./HeaderCell.styled";
 import type { Dayjs } from "dayjs";
 
-export const CalendarDayHeaderCell = ({ date }: { date: string | Dayjs }) => {
+export const DayViewHeaderCell = ({ date }: { date: string | Dayjs }) => {
   const isToday = dayjs().isSame(dayjs(date), "day");
   return (
-    <CalendarDayHeaderCellWrapper>
-      <CalendarDayHeaderCellDate isToday={isToday}>
+    <DayViewHeaderCellWrapper>
+      <DayViewHeaderCellDate isToday={isToday}>
         {dayjs(date).format("DD")}
-      </CalendarDayHeaderCellDate>
-      <CalendarDayHeaderCellDay>
+      </DayViewHeaderCellDate>
+      <DayViewHeaderCellDay>
         {dayjs(date).format("dddd")}
-      </CalendarDayHeaderCellDay>
-    </CalendarDayHeaderCellWrapper>
+      </DayViewHeaderCellDay>
+    </DayViewHeaderCellWrapper>
   );
 };

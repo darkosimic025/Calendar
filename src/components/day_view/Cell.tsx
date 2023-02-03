@@ -1,16 +1,7 @@
-import {
-  DndContext,
-  useDraggable,
-  useDroppable,
-  useSensor,
-  useSensors,
-  PointerSensor,
-} from "@dnd-kit/core";
-import React, { useEffect, useId, useState } from "react";
+import { useDroppable } from "@dnd-kit/core";
+import React, { useEffect, useState } from "react";
 import { CalendarSingleDayCellStyled } from "./Cell.styled";
-import { BadgeEvent } from "./Event";
-import { selector } from "recoil";
-import { eventsAtom } from "../../App";
+import { DayBadgeEvent } from "./Event";
 
 export const CalendarSingleDayCell = ({
   date,
@@ -33,7 +24,7 @@ export const CalendarSingleDayCell = ({
   return (
     <CalendarSingleDayCellStyled id={id} ref={setNodeRef}>
       {events.events.map((event: any, index: any) => (
-        <BadgeEvent
+        <DayBadgeEvent
           onEventClick={onEventClick}
           key={index}
           id={`${event.id}_day${event.indexDay}`}

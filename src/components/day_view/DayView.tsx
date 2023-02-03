@@ -1,21 +1,20 @@
 import dayjs from "dayjs";
-import { motion } from "framer-motion";
 import React, { useContext, useId, useMemo, useRef } from "react";
 import { getDay } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
 import { CalendarSingleDayCell } from "./Cell";
 import type { Event } from "../calendar/Calendar.types";
-import {useRecoilState} from 'recoil'
+import { useRecoilState } from "recoil";
 import { eventsAtom } from "../../App";
 
-export interface CalendarDayProps {
+export interface DayViewProps {
   events: Event.EventProps[];
   onEventClick: (event: Event.CalendarEventProps) => void;
 }
 
-export const CalendarDay = ({  onEventClick }: CalendarDayProps) => {
-  const [events, setEvents] = useRecoilState(eventsAtom)
+export const DayView = ({ onEventClick }: DayViewProps) => {
+  const [events, setEvents] = useRecoilState(eventsAtom);
   const { selectedDay, selectedMonth, selectedYear } =
     useContext(CalendarContext);
 
@@ -63,25 +62,11 @@ export const CalendarDay = ({  onEventClick }: CalendarDayProps) => {
     return [day];
   }, [selectedMonth, selectedYear, selectedDay]);
 
-  const monthYearTitle = `${dayjs()
-    .month(selectedMonth - 1)
-    .format("MMM")
-    .toString()} - ${selectedYear} - ${selectedDay}`;
-
   return (
-    <motion.div
-      style={{ display: "flex" }}
-      initial={{ x: 10, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -15, opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      key={monthYearTitle}
-    >
-      <Table
-        ref={tableRef}
-        columns={generateColumn as any}
-        items={generateItems}
-      />
-    </motion.div>
+    <Table
+      ref={tableRef}
+      columns={generateColumn as any}
+      items={generateItems}
+    />
   );
 };

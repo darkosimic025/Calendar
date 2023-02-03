@@ -35,7 +35,7 @@ export const WeekBadgeEvent = React.memo(
         id: id,
         data: event,
       });
-    console.log(transform);
+
     useEffect(() => {
       const { width, position } = getEventPositionAndWidth(event, allEvents);
       setStart(timeToPixels(event.start));

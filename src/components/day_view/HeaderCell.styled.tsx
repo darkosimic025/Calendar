@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const CalendarDayHeaderCellDay = styled.span`
+export const DayViewHeaderCellDay = styled.span`
   display: inline-block;
   font-size: 15px;
   margin: 5px;
 `;
-export const CalendarDayHeaderCellDate = styled.span<{ isToday: boolean }>`
+export const DayViewHeaderCellDate = styled.span<{ isToday: boolean }>`
   display: inline-block;
   margin-bottom: 2px;
   font-size: 17px;
@@ -17,7 +17,7 @@ export const CalendarDayHeaderCellDate = styled.span<{ isToday: boolean }>`
   padding: 6px;
 `;
 
-export const CalendarDayHeaderCellWrapper = styled.div`
+export const DayViewHeaderCellWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

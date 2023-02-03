@@ -1,17 +1,17 @@
 import React from "react";
 import { generateAMPMHours } from "../../utils/Utils";
 import {
-  CalendarTimelineHour,
-  CalendarTimelineHourLabel,
-  CalendarTimelineWrapper,
+  TimelineHour,
+  TimelineHourLabel,
+  TimelineWrapper,
 } from "./Timline.styled";
 
-export const CalendarTimeline = () => (
-  <CalendarTimelineWrapper>
+export const Timeline = () => (
+  <TimelineWrapper>
     {generateAMPMHours().map((hour, index) => (
-      <CalendarTimelineHour key={index}>
-        <CalendarTimelineHourLabel>{hour}</CalendarTimelineHourLabel>
-      </CalendarTimelineHour>
+      <TimelineHour key={index}>
+        <TimelineHourLabel>{hour}</TimelineHourLabel>
+      </TimelineHour>
     ))}
-  </CalendarTimelineWrapper>
+  </TimelineWrapper>
 );

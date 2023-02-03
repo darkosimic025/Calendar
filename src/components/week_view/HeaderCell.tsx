@@ -2,12 +2,12 @@ import React from "react";
 import dayjs from "dayjs";
 import { ButtonIcon } from "../UI/button/IconButton";
 import {
-  CalendarWeekHeaderCellDate,
-  CalendarWeekHeaderCellDay,
-  CalendarWeekHeaderCellWrapper,
+  WeekViewHeaderCellDate,
+  WeekViewHeaderCellDay,
+  WeekViewHeaderCellWrapper,
 } from "./HeaderCell.styled";
 
-export const CalendarWeekHeaderCell = ({
+export const WeekViewHeaderCell = ({
   handleExpand,
   index,
   date,
@@ -15,13 +15,13 @@ export const CalendarWeekHeaderCell = ({
 }: any) => {
   const isToday = dayjs().isSame(dayjs(date), "day");
   return (
-    <CalendarWeekHeaderCellWrapper>
-      <CalendarWeekHeaderCellDate isToday={isToday}>
+    <WeekViewHeaderCellWrapper>
+      <WeekViewHeaderCellDate isToday={isToday}>
         {dayjs(date).format("DD")}
-      </CalendarWeekHeaderCellDate>
-      <CalendarWeekHeaderCellDay>
+      </WeekViewHeaderCellDate>
+      <WeekViewHeaderCellDay>
         {dayjs(date).format("ddd")}
-      </CalendarWeekHeaderCellDay>
+      </WeekViewHeaderCellDay>
       {index === expandedIndex ? (
         <ButtonIcon
           className="minimaze"
@@ -37,6 +37,6 @@ export const CalendarWeekHeaderCell = ({
           icon="expand"
         />
       )}
-    </CalendarWeekHeaderCellWrapper>
+    </WeekViewHeaderCellWrapper>
   );
 };

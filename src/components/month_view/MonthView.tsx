@@ -1,16 +1,15 @@
 import dayjs from "dayjs";
-import { motion } from "framer-motion";
-import React, { useCallback, useContext, useId, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { getDates, splitIntoWeeks } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
 import { CalendarEnums } from "../calendar/Calendar.types";
-import CalendarMonthCell from "./Cell";
+import MonthViewCell from "./Cell";
 import type {
   Calendar as CalendarProps,
   Event,
 } from "../calendar/Calendar.types";
-import {useRecoilState} from 'recoil'
+import { useRecoilState } from "recoil";
 import { eventsAtom } from "../../App";
 
 export interface CalendarEvents {
@@ -18,7 +17,7 @@ export interface CalendarEvents {
   onEventClick: (event: Event.CalendarEventProps) => void;
 }
 
-export const CalendarMonth = ({ onEventClick }: CalendarEvents) => {
+export const MonthView = ({ onEventClick }: CalendarEvents) => {
   const [events, setEvents] = useRecoilState(eventsAtom);
   const { selectedMonth, selectedYear } = useContext(CalendarContext);
 
@@ -37,7 +36,7 @@ export const CalendarMonth = ({ onEventClick }: CalendarEvents) => {
       name,
       align: "center",
       render: ({ ...args }: CalendarProps.DayProps) => (
-        <CalendarMonthCell
+        <MonthViewCell
           onEventClick={onEventClick}
           ref={tableRef}
           date={args.date}
@@ -77,24 +76,11 @@ export const CalendarMonth = ({ onEventClick }: CalendarEvents) => {
     return items;
   }, [selectedMonth, selectedYear]);
 
-  const monthYearTitle = `${dayjs()
-    .month(selectedMonth - 1)
-    .format("MMM")
-    .toString()} - ${selectedYear}`;
-
   return (
-    <motion.div
-      initial={{ x: 10, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -15, opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      key={monthYearTitle}
-    >
-      <Table
-        ref={tableRef}
-        columns={generateColumns()}
-        items={generateItems() as any}
-      />
-    </motion.div>
+    <Table
+      ref={tableRef}
+      columns={generateColumns()}
+      items={generateItems() as any}
+    />
   );
 };

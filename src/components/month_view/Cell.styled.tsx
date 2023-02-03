@@ -39,6 +39,7 @@ export const StyledDayIndex = styled.span<{ isToday: boolean }>`
 `;
 
 export const StyledDayIndexPopover = styled.span<{ isToday: boolean }>`
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
@@ -50,6 +51,8 @@ export const StyledDayIndexPopover = styled.span<{ isToday: boolean }>`
   border-radius: 50%;
   padding: 10px;
   margin-bottom: 14px;
+  height: 30px;
+  width: 30px;
 `;
 
 export const StyledCloseIcon = styled(ButtonIcon)`
