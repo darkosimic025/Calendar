@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
-import React, { useCallback, useContext, useId, useRef } from "react";
+import React, { useCallback, useContext, useId, useRef, useMemo } from "react";
+import { useRecoilState } from "recoil";
+import { eventsAtom } from "../../App";
 import { getWeekDays, splitIntoWeeks } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
-import type { Event } from "../calendar/Calendar.types";
-import { useRecoilState } from "recoil";
-import { eventsAtom } from "../../App";
 import { WeekViewDayCell } from "./Cell";
 import { DNDProvider } from "./DndProvider";
+import type { Event } from "../calendar/Calendar.types";
 
 export interface WeekViewProps {
   events: Event.EventProps[];
@@ -22,20 +22,25 @@ export const WeekView = ({ onEventClick }: WeekViewProps) => {
   const tableRef = useRef<HTMLTableElement>(null);
 
   const generateColumns = useCallback(() => {
-    const week = getWeekDays(selectedDay, selectedMonth, selectedYear);
-    return week.map((day) => ({
-      field: Object.values(day)[0].date,
-      name: dayjs(Object.values(day)[0].date),
-      render: (events: { events: Event.EventProps[] }) => (
-        <WeekViewDayCell
-          id={useId()}
-          date={dayjs(Object.values(day)[0].date)}
-          onEventClick={onEventClick}
-          events={events.events}
-        />
-      ),
-    }));
-  }, [selectedMonth, selectedYear, selectedDay]);
+    const week = useMemo(() => getWeekDays(selectedDay, selectedMonth, selectedYear), [selectedMonth, selectedYear, selectedDay]);
+    return week.map((day) => {
+      const date = Object.values(day)[0].date;
+      const memoizedDate = useMemo(() => dayjs(date), [date]);
+      return {
+        field: date,
+        name: memoizedDate,
+        render: (events: { events: Event.EventProps[] }) => (
+          <WeekViewDayCell
+            id={useId()}
+            date={memoizedDate}
+            onEventClick={onEventClick}
+            events={events.events}
+          />
+        ),
+      };
+    });
+  }, [selectedMonth, selectedYear, selectedDay, onEventClick, useId]);
+
 
   const generateItems = useCallback(() => {
     const dates = splitIntoWeeks(
@@ -45,11 +50,10 @@ export const WeekView = ({ onEventClick }: WeekViewProps) => {
       for (const day of Object.values(week)) {
         events.forEach((event: Event.EventProps) => {
           event.eventDates.forEach((date, index) => {
-            if (
-              dayjs(dayjs(date.start).format("MM/DD/YYYY")).isSame(
-                dayjs(day.date).format("MM/DD/YYYY"),
-              )
-            ) {
+            const start = dayjs(date.start).format("MM/DD/YYYY");
+            const check = dayjs(day.date).format("MM/DD/YYYY");
+            const isSame = dayjs(start).isSame(check);
+            if (isSame) {
               day.events.push({
                 name: event.name,
                 indexDay: index + 1,
@@ -58,6 +62,7 @@ export const WeekView = ({ onEventClick }: WeekViewProps) => {
                 id: event.id,
               });
             }
+
           });
         });
       }
@@ -65,7 +70,6 @@ export const WeekView = ({ onEventClick }: WeekViewProps) => {
     });
     return items;
   }, [selectedMonth, selectedYear, selectedDay, events]);
-
 
   return (
     <DNDProvider>

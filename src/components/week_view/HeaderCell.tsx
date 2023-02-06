@@ -1,5 +1,5 @@
-import React from "react";
 import dayjs from "dayjs";
+import React from "react";
 import { ButtonIcon } from "../UI/button/IconButton";
 import {
   WeekViewHeaderCellDate,
@@ -19,9 +19,7 @@ export const WeekViewHeaderCell = ({
       <WeekViewHeaderCellDate isToday={isToday}>
         {dayjs(date).format("DD")}
       </WeekViewHeaderCellDate>
-      <WeekViewHeaderCellDay>
-        {dayjs(date).format("ddd")}
-      </WeekViewHeaderCellDay>
+      <WeekViewHeaderCellDay>{dayjs(date).format("ddd")}</WeekViewHeaderCellDay>
       {index === expandedIndex ? (
         <ButtonIcon
           className="minimaze"

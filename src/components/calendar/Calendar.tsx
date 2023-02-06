@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
+import { TableAnimation } from "../animation/TableAnimation";
 import { CalendarControls } from "../controls/Controls";
 import { DayView } from "../day_view/DayView";
 import { MonthView } from "../month_view/MonthView";
 import { WeekView } from "../week_view/WeekView";
 import { CalendarEnums } from "./Calendar.types";
 import type { Event } from "./Calendar.types";
-import { TableAnimation } from "../animation/TableAnimation";
 
 interface CalendarContextProps {
   selectedYear: number;

@@ -1,5 +1,5 @@
-import React from "react";
 import dayjs from "dayjs";
+import React from "react";
 import {
   DayViewHeaderCellDate,
   DayViewHeaderCellDay,
@@ -14,9 +14,7 @@ export const DayViewHeaderCell = ({ date }: { date: string | Dayjs }) => {
       <DayViewHeaderCellDate isToday={isToday}>
         {dayjs(date).format("DD")}
       </DayViewHeaderCellDate>
-      <DayViewHeaderCellDay>
-        {dayjs(date).format("dddd")}
-      </DayViewHeaderCellDay>
+      <DayViewHeaderCellDay>{dayjs(date).format("dddd")}</DayViewHeaderCellDay>
     </DayViewHeaderCellWrapper>
   );
 };

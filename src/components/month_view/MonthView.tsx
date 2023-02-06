@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import React, { useCallback, useContext, useRef } from "react";
+import { useRecoilState } from "recoil";
+import { eventsAtom } from "../../App";
 import { getDates, splitIntoWeeks } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
@@ -9,8 +11,6 @@ import type {
   Calendar as CalendarProps,
   Event,
 } from "../calendar/Calendar.types";
-import { useRecoilState } from "recoil";
-import { eventsAtom } from "../../App";
 
 export interface CalendarEvents {
   events: Event.EventProps[];

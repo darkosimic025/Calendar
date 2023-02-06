@@ -15,7 +15,7 @@ export const CalendarSingleDayCell = ({
   }, [events.events]);
 
   const { setNodeRef, active, over } = useDroppable({
-    id: id,
+    id,
     data: date,
   });
 

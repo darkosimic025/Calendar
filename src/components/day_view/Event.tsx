@@ -1,13 +1,13 @@
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import React, { useEffect, useState } from "react";
-import { BadgeDayStyled } from "./Event.styled";
-import type { Event } from "../calendar/Calendar.types";
 import {
   eventDurationInPixels,
   getEventPositionAndWidth,
   timeToPixels,
 } from "../../utils/Utils";
+import { BadgeDayStyled } from "./Event.styled";
+import type { Event } from "../calendar/Calendar.types";
 
 export interface BadgeEventProps<T> {
   event: T;
@@ -31,10 +31,10 @@ export const DayBadgeEvent = React.memo(
     const [start, setStart] = useState<any>(null);
     const { attributes, listeners, setNodeRef, transform, isDragging } =
       useDraggable({
-        id: id,
+        id,
         data: event,
       });
-  
+
     useEffect(() => {
       const { width, position } = getEventPositionAndWidth(event, allEvents);
       setStart(timeToPixels(event.start));

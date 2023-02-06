@@ -13,11 +13,9 @@ export const WeekBadgeEvent = React.memo(
     children,
     color = "primary",
     onEventClick,
-  }: BadgeEventProps<Event.CalendarEventProps>): JSX.Element | null => {
-    return (
-      <BadgeMonthStyled color={color}>
-        <div> {children}</div>
-      </BadgeMonthStyled>
-    );
-  },
+  }: BadgeEventProps<Event.CalendarEventProps>): JSX.Element | null => (
+    <BadgeMonthStyled color={color}>
+      <div> {children}</div>
+    </BadgeMonthStyled>
+  ),
 );

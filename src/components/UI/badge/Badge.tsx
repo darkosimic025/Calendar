@@ -13,7 +13,7 @@ const Badge: React.FC<BadgeProps> = ({
   color = "primary",
   children,
 }) => (
-  <StyledBadge onClick={onClick} color={color}>
+  <StyledBadge onMouseDown={() => console.log('mouse')} onClick={onClick} color={color}>
     {children}
   </StyledBadge>
 );

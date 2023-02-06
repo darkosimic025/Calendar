@@ -3,18 +3,13 @@ import React, { useEffect, useState } from "react";
 import { WeekViewDayCellStyled } from "./Cell.styled";
 import { WeekBadgeEvent } from "./Event";
 
-export const WeekViewDayCell = ({
-  date,
-  events,
-  onEventClick,
-  id,
-}: any) => {
+export const WeekViewDayCell = ({ date, events, onEventClick, id }: any) => {
   const [allEvents, setAllEvents] = useState(null);
   useEffect(() => {
     setAllEvents(events);
   }, [events]);
 
-  const { setNodeRef, active, over } = useDroppable({
+  const { setNodeRef, active, over, isOver } = useDroppable({
     id: id,
     data: date,
   });
@@ -22,9 +17,14 @@ export const WeekViewDayCell = ({
   if (allEvents === null) return null;
 
   return (
-    <WeekViewDayCellStyled id={id} ref={setNodeRef}>
+    <WeekViewDayCellStyled
+      style={{ opacity: isOver ? 0.6 : 1 }}
+      id={id}
+      ref={setNodeRef}
+    >
       {events.map((event: any, index: any) => (
         <WeekBadgeEvent
+          isOver={isOver}
           onEventClick={onEventClick}
           key={index}
           id={`${event.id}_day${event.indexDay}`}

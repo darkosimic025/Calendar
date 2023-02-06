@@ -11,5 +11,4 @@ export const MonthViewHeaderCellWrapper = styled.div`
   padding: 2px;
   align-items: center;
   height: 40px;
-
 `;

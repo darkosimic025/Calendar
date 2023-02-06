@@ -1,10 +1,10 @@
 import React, { useId } from "react";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, atom } from "recoil";
 import { ThemeProvider } from "styled-components";
 import Calendar from "./components/calendar/Calendar";
 import { lightTheme } from "./theme/ThemeProvider";
 import type { Event } from "./components/calendar/Calendar.types";
-import { atom } from "recoil";
+
 
 const events = [
   {
@@ -82,8 +82,6 @@ export const eventsAtom = atom({
 });
 
 function App() {
-  
-
   const onEventClick = (event: Event.CalendarEventProps): void => {
     console.log(event);
   };

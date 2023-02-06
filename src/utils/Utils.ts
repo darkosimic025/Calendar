@@ -1,5 +1,6 @@
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import type { Calendar } from "../components/calendar/Calendar.types";
+import type { Dayjs } from "dayjs";
 
 export const splitIntoWeeks = (month: Calendar.MonthProps) => {
   const weeks: Calendar.MonthProps[] = [];
@@ -180,6 +181,8 @@ export const getEventPositionAndWidth = <
   return { width, position };
 };
 
-export const replaceItemAtIndex = <T>(arr: T[], index: number, newValue: T) => {
-  return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
-};
+export const replaceItemAtIndex = <T>(arr: T[], index: number, newValue: T) => [
+  ...arr.slice(0, index),
+  newValue,
+  ...arr.slice(index + 1),
+];

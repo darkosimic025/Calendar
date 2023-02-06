@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import React, { useContext, useId, useMemo, useRef } from "react";
+import { useRecoilState } from "recoil";
+import { eventsAtom } from "../../App";
 import { getDay } from "../../utils/Utils";
 import Table from "../UI/table/Table";
 import { CalendarContext } from "../calendar/Calendar";
 import { CalendarSingleDayCell } from "./Cell";
 import type { Event } from "../calendar/Calendar.types";
-import { useRecoilState } from "recoil";
-import { eventsAtom } from "../../App";
 
 export interface DayViewProps {
   events: Event.EventProps[];

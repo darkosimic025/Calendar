@@ -203,7 +203,6 @@ export const CalendarControls = () => {
           <Select
             value={selectedMonth.toString()}
             onChange={(month) => {
-           
               setSelectedMonth(parseFloat(month.toString()));
             }}
             options={generateMonths}

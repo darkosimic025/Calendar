@@ -9,8 +9,8 @@ import {
   StyledDayIndexPopover,
   StyledMoreButton,
 } from "./Cell.styled";
-import type { Calendar, Event } from "../calendar/Calendar.types";
 import { WeekBadgeEvent } from "./Event";
+import type { Calendar, Event } from "../calendar/Calendar.types";
 
 const MonthViewCell = forwardRef<
   HTMLTableElement,

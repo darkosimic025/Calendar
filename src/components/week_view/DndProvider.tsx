@@ -1,18 +1,18 @@
-import dayjs from "dayjs";
-import React from "react";
-import { replaceItemAtIndex } from "../../utils/Utils";
 import {
   DndContext,
   useSensor,
   useSensors,
   PointerSensor,
 } from "@dnd-kit/core";
-import { useRecoilState } from "recoil";
-import { eventsAtom } from "../../App";
 import {
   createSnapModifier,
   restrictToFirstScrollableAncestor,
 } from "@dnd-kit/modifiers";
+import dayjs from "dayjs";
+import React from "react";
+import { useRecoilState } from "recoil";
+import { eventsAtom } from "../../App";
+import { replaceItemAtIndex } from "../../utils/Utils";
 
 export const DNDProvider = ({ children }: any) => {
   const [events, setEvents] = useRecoilState(eventsAtom);
@@ -53,9 +53,9 @@ export const DNDProvider = ({ children }: any) => {
   return (
     <DndContext
       autoScroll={true}
-      onDragEnd={({ active, over, delta }) =>
-        handleDrag({ active, over, delta })
-      }
+      onDragEnd={({ active, over, delta }) => {
+        handleDrag({ active, over, delta });
+      }}
       sensors={sensors}
       modifiers={[snapToGridModifier, restrictToFirstScrollableAncestor]}
     >
